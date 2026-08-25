@@ -74,13 +74,14 @@ const TrendingNow = () => {
         </div>
 
         {/* 8 Product Cards Grid (4 columns x 2 rows matching Image 4) */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 content-visibility-auto">
           {filteredProducts.slice(0, 8).map((product, idx) => (
             <ProductCard
               key={product.id}
               product={product}
               customDiscountBadge={image4Badges[idx]?.badge}
               isSoldOut={image4Badges[idx]?.isSoldOut}
+              index={idx}
             />
           ))}
         </div>

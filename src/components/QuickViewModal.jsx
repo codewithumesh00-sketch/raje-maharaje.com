@@ -49,14 +49,14 @@ const QuickViewModal = () => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 sm:p-6 lg:p-8 select-none">
-      {/* Backdrop */}
+      {/* Backdrop with Fade */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
         onClick={() => setQuickViewProduct(null)}
       />
 
-      {/* Modal Box (Clean Gravity Minimalist Styling) */}
-      <div className="relative bg-white max-w-3xl w-full overflow-hidden shadow-2xl z-10 grid grid-cols-1 md:grid-cols-2">
+      {/* Modal Box with Gravity Spring Pop-in Physics */}
+      <div className="relative bg-white max-w-3xl w-full overflow-hidden shadow-2xl z-10 grid grid-cols-1 md:grid-cols-2 animate-gravity-reveal gpu-accelerate border border-neutral-200/60">
         {/* Close Button */}
         <button
           onClick={() => setQuickViewProduct(null)}

@@ -112,12 +112,12 @@ const HeroBanner = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 my-auto">
           {/* Left: Uniformly Sized Larger & Crystal Clear Majestic Model Cutout (6 cols) */}
           <div className="lg:col-span-6 relative flex items-center justify-center">
-            <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-xl h-[480px] sm:h-[580px] lg:h-[640px] xl:h-[680px] flex items-end justify-center">
+            <div className="relative w-full max-w-lg lg:max-w-xl xl:max-w-2xl h-[520px] sm:h-[600px] lg:h-[680px] xl:h-[740px] flex items-end justify-center">
               <img
                 key={current.id}
                 src={current.image}
                 alt={current.alt}
-                className="w-full h-full object-contain filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)] brightness-105 contrast-105 transition-all duration-700 ease-out transform hover:scale-105"
+                className="w-full h-full object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)] brightness-105 contrast-105 transition-all duration-700 ease-out transform hover:scale-105"
                 style={{ imageRendering: '-webkit-optimize-contrast' }}
               />
 

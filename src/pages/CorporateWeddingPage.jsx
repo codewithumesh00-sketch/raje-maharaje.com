@@ -149,14 +149,43 @@ const CorporateWeddingPage = () => {
           </div>
 
           {submitted ? (
-            <div className="p-8 text-center bg-emerald-50 rounded-xl border border-emerald-200 space-y-3">
+            <div className="p-8 text-center bg-emerald-50 rounded-xl border border-emerald-200 space-y-4">
               <Sparkles className="w-10 h-10 text-emerald-600 mx-auto" />
-              <h4 className="font-display font-bold text-lg text-emerald-950 uppercase">
+              <h4 className="font-sans font-bold text-lg text-emerald-950 uppercase">
                 Royal Request Transmitted
               </h4>
-              <p className="text-xs text-emerald-800 font-serif max-w-md mx-auto">
-                Thank you, {formData.name}. Our master concierge will review your requirements and reach out via phone/email with our luxury catalogue and digital swatches.
+              <p className="text-xs text-emerald-800 font-sans max-w-md mx-auto leading-relaxed">
+                Thank you, <strong>{formData.name}</strong>. Our bespoke concierge has received your inquiry for <strong>{formData.quantity}</strong> ({formData.occasion}). We will review your vision and connect within 4 business hours.
               </p>
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href={`https://wa.me/919910807795?text=Hello%20Raje%20Maharaje%20Concierge,%20my%20name%20is%20${encodeURIComponent(formData.name)}.%20I%20am%20inquiring%20about%20${encodeURIComponent(formData.quantity)}%20for%20a%20${encodeURIComponent(formData.occasion)}.%20Notes:%20${encodeURIComponent(formData.customNotes || 'None')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-2.5 rounded-full bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider transition-colors inline-flex items-center space-x-2 shadow-sm"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Continue on WhatsApp</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({
+                      name: '',
+                      email: '',
+                      phone: '',
+                      occasion: 'Destination Wedding',
+                      quantity: '25-50 Pieces',
+                      eventDate: '',
+                      customNotes: ''
+                    });
+                  }}
+                  className="px-6 py-2.5 rounded-full bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors"
+                >
+                  Submit Another Request
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">

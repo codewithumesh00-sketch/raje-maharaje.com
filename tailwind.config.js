@@ -33,10 +33,15 @@ export default {
         wider: '0.08em',
         widest: '0.15em',
       },
+      transitionTimingFunction: {
+        'gravity': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'spring': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+      },
       animation: {
         'marquee': 'marquee 22s linear infinite',
         'marquee-reverse': 'marquee-reverse 22s linear infinite',
         'progress': 'progress 2s linear infinite',
+        'gravity-fade': 'gravity-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
       },
       keyframes: {
         marquee: {
@@ -50,6 +55,10 @@ export default {
         progress: {
           '0%': { transform: 'scaleX(0)', transformOrigin: 'left' },
           '100%': { transform: 'scaleX(1)', transformOrigin: 'left' },
+        },
+        'gravity-reveal': {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         }
       }
     },

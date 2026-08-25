@@ -26,7 +26,9 @@ const Header = () => {
     wishlist,
     setIsCartOpen,
     setIsWishlistOpen,
-    setIsSearchOpen
+    setIsSearchOpen,
+    currentCurrency,
+    setCurrentCurrency
   } = useShop();
 
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
@@ -308,8 +310,26 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Drawer Bottom Section: Account + Social Icons */}
+            {/* Drawer Bottom Section: Account + Currency + Social Icons */}
             <div className="p-6 sm:p-8 border-t border-neutral-200 bg-neutral-50 space-y-4">
+              {/* Currency selector inside drawer */}
+              <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                  Select Currency:
+                </span>
+                <select
+                  value={currentCurrency}
+                  onChange={(e) => setCurrentCurrency(e.target.value)}
+                  className="bg-white text-black border border-neutral-300 rounded-lg px-2.5 py-1 text-xs font-mono font-bold focus:outline-none focus:border-black cursor-pointer"
+                >
+                  <option value="INR">INR (₹)</option>
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="AED">AED (AED)</option>
+                </select>
+              </div>
+
               {/* Account Link */}
               <button
                 onClick={() => {

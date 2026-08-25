@@ -134,13 +134,25 @@ const ContactPage = () => {
             </p>
 
             {submitted ? (
-              <div className="p-8 text-center bg-emerald-50 rounded-xl border border-emerald-200 space-y-2">
-                <h4 className="font-display font-bold text-lg text-emerald-950 uppercase">
-                  Message Dispatched
+              <div className="p-8 text-center bg-emerald-50 rounded-xl border border-emerald-200 space-y-3">
+                <h4 className="font-sans font-bold text-lg text-emerald-950 uppercase">
+                  Message Dispatched to Concierge
                 </h4>
-                <p className="text-xs text-emerald-800 font-serif">
-                  Thank you for reaching out to Raje Maharaje. Our concierge will be in touch shortly.
+                <p className="text-xs text-emerald-800 font-sans">
+                  Thank you, <strong>{contactForm.firstName}</strong>. Your message has been received by our Gurgaon Atelier. We will reply to {contactForm.email} shortly.
                 </p>
+                <div className="pt-2 flex justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setContactForm({ firstName: '', lastName: '', email: '', phone: '', message: '' });
+                    }}
+                    className="px-5 py-2 rounded-full bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors"
+                  >
+                    Send Another Dispatch
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">

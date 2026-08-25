@@ -44,16 +44,27 @@ export const LocalGuideBadge = ({ level = 6 }) => (
 );
 
 const ReviewsSection = () => {
+  const [reviewsList, setReviewsList] = useState(reviewsData);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likedReviews, setLikedReviews] = useState({});
   const [copied, setCopied] = useState(false);
+  const [isWriteModalOpen, setIsWriteModalOpen] = useState(false);
+  const [newReviewForm, setNewReviewForm] = useState({
+    author: '',
+    city: '',
+    role: 'Connoisseur',
+    rating: 5,
+    craft: 'Tanchoi Zari Brocade',
+    text: '',
+    localGuide: true
+  });
 
   const nextReview = () => {
-    setCurrentIndex((prev) => (prev + 1) % reviewsData.length);
+    setCurrentIndex((prev) => (prev + 1) % reviewsList.length);
   };
 
   const prevReview = () => {
-    setCurrentIndex((prev) => (prev - 1 + reviewsData.length) % reviewsData.length);
+    setCurrentIndex((prev) => (prev - 1 + reviewsList.length) % reviewsList.length);
   };
 
   const toggleLike = (id) => {
@@ -71,7 +82,53 @@ const ReviewsSection = () => {
     }
   };
 
-  const current = reviewsData[currentIndex];
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (!newReviewForm.author.trim() || !newReviewForm.text.trim()) return;
+
+    const colors = ['bg-[#1a73e8]', 'bg-[#0F9D58]', 'bg-[#E37400]', 'bg-[#A142F4]', 'bg-[#EA4335]'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    const createdReview = {
+      id: `rev-${Date.now()}`,
+      author: newReviewForm.author.trim(),
+      role: newReviewForm.role || 'Patron',
+      city: newReviewForm.city.trim() || 'Mumbai',
+      rating: newReviewForm.rating,
+      date: 'Just now',
+      relativeTime: 'Just now',
+      text: newReviewForm.text.trim(),
+      avatarBg: randomColor,
+      avatarLetter: newReviewForm.author.trim().charAt(0).toUpperCase(),
+      verified: true,
+      localGuide: newReviewForm.localGuide,
+      guideLevel: 5,
+      reviewsCount: 18,
+      photosCount: 6,
+      tags: [newReviewForm.craft, 'Verified Purchase'],
+      helpfulCount: 0,
+      ownerReply: {
+        author: 'Raje Maharaje (Owner)',
+        date: 'Just now',
+        text: `Esteemed ${newReviewForm.author}, thank you deeply for your royal patronage. We are thrilled our handcrafted silk brought elegance to your ensemble.`
+      }
+    };
+
+    setReviewsList([createdReview, ...reviewsList]);
+    setCurrentIndex(0);
+    setIsWriteModalOpen(false);
+    setNewReviewForm({
+      author: '',
+      city: '',
+      role: 'Connoisseur',
+      rating: 5,
+      craft: 'Tanchoi Zari Brocade',
+      text: '',
+      localGuide: true
+    });
+  };
+
+  const current = reviewsList[currentIndex] || reviewsList[0];
   const isLiked = !!likedReviews[current.id];
   const currentHelpful = (current.helpfulCount || 12) + (isLiked ? 1 : 0);
 
@@ -113,7 +170,7 @@ const ReviewsSection = () => {
                 </div>
               </div>
               <p className="text-xs text-gray-500 font-medium mt-0.5 flex items-center gap-1.5">
-                <span>Based on <strong>148+ verified reviews</strong></span>
+                <span>Based on <strong>{148 + (reviewsList.length - reviewsData.length)}+ verified reviews</strong></span>
                 <span className="inline-block w-1 h-1 rounded-full bg-gray-400"></span>
                 <span className="text-emerald-700 font-semibold flex items-center gap-0.5">
                   <CheckCircle2 className="w-3.5 h-3.5" /> 100% Recommended
@@ -128,17 +185,149 @@ const ReviewsSection = () => {
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               <span>Google Verified Business</span>
             </div>
-            <a 
-              href="https://google.com" 
-              target="_blank" 
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1a73e8] hover:bg-[#1557b0] text-white text-xs font-semibold shadow-sm transition-colors"
+            <button 
+              onClick={() => setIsWriteModalOpen(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1a73e8] hover:bg-[#1557b0] text-white text-xs font-semibold shadow-sm transition-colors cursor-pointer"
             >
               <span>Write a Review</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+              <MessageSquare className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
+
+        {/* Write a Review Modal */}
+        {isWriteModalOpen && (
+          <div className="fixed inset-0 z-[120] overflow-y-auto flex items-center justify-center p-4">
+            <div 
+              className="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"
+              onClick={() => setIsWriteModalOpen(false)}
+            />
+            <div className="relative bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-200 z-[121] text-left">
+              <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+                <div className="flex items-center gap-2">
+                  <GoogleLogo className="w-5 h-5" />
+                  <h3 className="font-sans font-bold text-lg text-gray-900">
+                    Write a Google Review
+                  </h3>
+                </div>
+                <button 
+                  onClick={() => setIsWriteModalOpen(false)}
+                  className="text-gray-400 hover:text-gray-700 text-lg font-bold p-1"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <form onSubmit={handleReviewSubmit} className="mt-4 space-y-4">
+                {/* Star rating selector */}
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">
+                    Overall Rating *
+                  </label>
+                  <div className="flex items-center space-x-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        type="button"
+                        key={star}
+                        onClick={() => setNewReviewForm({ ...newReviewForm, rating: star })}
+                        className="p-1 hover:scale-110 transition-transform"
+                      >
+                        <GoogleStar 
+                          filled={star <= newReviewForm.rating} 
+                          className="w-7 h-7" 
+                        />
+                      </button>
+                    ))}
+                    <span className="text-xs font-bold text-gray-600 ml-2">
+                      {newReviewForm.rating}.0 / 5.0
+                    </span>
+                  </div>
+                </div>
+
+                {/* Name & City */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Vikramaditya Singhania"
+                      value={newReviewForm.author}
+                      onChange={(e) => setNewReviewForm({ ...newReviewForm, author: e.target.value })}
+                      className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#1a73e8]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">
+                      City / Occasion *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Udaipur / Wedding"
+                      value={newReviewForm.city}
+                      onChange={(e) => setNewReviewForm({ ...newReviewForm, city: e.target.value })}
+                      className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#1a73e8]"
+                    />
+                  </div>
+                </div>
+
+                {/* Craft */}
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">
+                    Craft / Creation Purchased
+                  </label>
+                  <select
+                    value={newReviewForm.craft}
+                    onChange={(e) => setNewReviewForm({ ...newReviewForm, craft: e.target.value })}
+                    className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-[#1a73e8]"
+                  >
+                    <option value="Tanchoi Zari Brocade">Tanchoi Zari Brocade</option>
+                    <option value="Awadhi Chikankari Silk">Awadhi Chikankari Silk</option>
+                    <option value="Ajrakh Hand-Block Print">Ajrakh Hand-Block Print</option>
+                    <option value="Pochampally Ikat Weave">Pochampally Ikat Weave</option>
+                    <option value="Bespoke Grand Royal Chest">Bespoke Grand Royal Chest</option>
+                  </select>
+                </div>
+
+                {/* Review Text */}
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">
+                    Your Review & Experience *
+                  </label>
+                  <textarea
+                    required
+                    rows={3}
+                    placeholder="Share your reflection on fabric quality, weave detail, and presentation..."
+                    value={newReviewForm.text}
+                    onChange={(e) => setNewReviewForm({ ...newReviewForm, text: e.target.value })}
+                    className="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 text-xs text-gray-900 focus:outline-none focus:border-[#1a73e8]"
+                  />
+                </div>
+
+                {/* Submit button */}
+                <div className="pt-2 flex items-center justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsWriteModalOpen(false)}
+                    className="px-4 py-2 rounded-lg border border-gray-300 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-lg bg-[#1a73e8] hover:bg-[#1557b0] text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-1.5"
+                  >
+                    <GoogleLogo className="w-3.5 h-3.5" />
+                    <span>Publish Review</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* Featured Google Review Card */}
         <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200/90 p-6 sm:p-10 shadow-lg hover:shadow-xl transition-all relative">
@@ -301,7 +490,7 @@ const ReviewsSection = () => {
             {/* Carousel Navigation */}
             <div className="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
               <div className="flex items-center space-x-1.5">
-                {reviewsData.map((_, idx) => (
+                {reviewsList.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentIndex(idx)}
@@ -324,7 +513,7 @@ const ReviewsSection = () => {
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <span className="text-xs font-mono font-medium text-gray-600 px-1">
-                  {currentIndex + 1} / {reviewsData.length}
+                  {currentIndex + 1} / {reviewsList.length}
                 </span>
                 <button
                   onClick={nextReview}

@@ -266,22 +266,23 @@ const FeaturedProductQuickBuy = () => {
         </div>
       </div>
 
-      {/* Lightbox / Zoom Modal */}
+      {/* Lightbox / Zoom Modal with Gravity spring animation */}
       {zoomImage && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-300"
           onClick={() => setZoomImage(null)}
         >
           <button
             onClick={() => setZoomImage(null)}
-            className="absolute top-6 right-6 p-2 bg-white/20 hover:bg-white/40 text-white rounded-full transition-colors"
+            className="absolute top-6 right-6 p-2.5 bg-white/20 hover:bg-white/40 text-white rounded-full transition-colors active:scale-95"
+            aria-label="Close modal"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
           <img
             src={zoomImage}
             alt="Zoomed Detail"
-            className="max-w-full max-h-[90vh] object-contain shadow-2xl"
+            className="max-w-full max-h-[90vh] object-contain shadow-2xl animate-gravity-reveal"
           />
         </div>
       )}

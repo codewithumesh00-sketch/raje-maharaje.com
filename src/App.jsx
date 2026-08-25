@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useShop } from './context/ShopContext';
 import AnnouncementBar from './components/AnnouncementBar';
 import Header from './components/Header';
@@ -10,16 +10,31 @@ import QuickViewModal from './components/QuickViewModal';
 import ToastNotification from './components/ToastNotification';
 import BackToTop from './components/BackToTop';
 
-// Pages
+// Critical Homepage (Eager loaded for instant first paint)
 import HomePage from './pages/HomePage';
-import CategoriesPage from './pages/CategoriesPage';
-import ShopPage from './pages/ShopPage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import BoxBuilderPage from './pages/BoxBuilderPage';
-import AboutPage from './pages/AboutPage';
-import CorporateWeddingPage from './pages/CorporateWeddingPage';
-import ContactPage from './pages/ContactPage';
-import CheckoutPage from './pages/CheckoutPage';
+
+// Subpages (Lazy loaded on demand for ultra-fast bundle size)
+const CategoriesPage = lazy(() => import('./pages/CategoriesPage'));
+const ShopPage = lazy(() => import('./pages/ShopPage'));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
+const BoxBuilderPage = lazy(() => import('./pages/BoxBuilderPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const CorporateWeddingPage = lazy(() => import('./pages/CorporateWeddingPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+
+// Fast Luxury Loading Skeleton
+const PageLoadingSkeleton = () => (
+  <div className="min-h-[60vh] max-w-7xl mx-auto px-4 py-12 space-y-8 animate-pulse">
+    <div className="h-8 bg-neutral-200 rounded-sm w-1/3 mx-auto" />
+    <div className="h-4 bg-neutral-100 rounded-sm w-1/2 mx-auto" />
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
+      {[1, 2, 3, 4].map((i) => (
+        <div key={i} className="aspect-[3/4] bg-neutral-200/70 rounded-xs" />
+      ))}
+    </div>
+  </div>
+);
 
 function App() {
   const { currentPage } = useShop();
@@ -59,7 +74,9 @@ function App() {
 
       {/* Main Content Area */}
       <main className="flex-1">
-        {renderPage()}
+        <Suspense fallback={<PageLoadingSkeleton />}>
+          {renderPage()}
+        </Suspense>
       </main>
 
       {/* Global Footer */}

@@ -89,7 +89,7 @@ const ExploreCategory = () => {
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 onError={(e) => {
-                  e.target.src = 'https://static.wixstatic.com/media/32554b_41c0dd2ec0dd41c5a3c90f316f76b745~mv2.png/v1/fill/w_800,h_800,al_c,q_90/32554b_41c0dd2ec0dd41c5a3c90f316f76b745~mv2.png';
+                  e.target.src = '/images/craft_fan_squares_4k.png';
                 }}
               />
 

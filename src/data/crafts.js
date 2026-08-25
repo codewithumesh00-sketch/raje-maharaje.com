@@ -4,7 +4,7 @@ export const craftsData = [
     name: 'Tanchoi Brocade',
     region: 'Varanasi, Uttar Pradesh',
     badge: 'Royal Weave',
-    image: 'https://static.wixstatic.com/media/32554b_41c0dd2ec0dd41c5a3c90f316f76b745~mv2.png/v1/fill/w_600,h_600,al_c,q_90/32554b_41c0dd2ec0dd41c5a3c90f316f76b745~mv2.png',
+    image: '/images/craft_fan_squares_4k.png',
     description: 'A celebrated Chinese-origin silk weaving technique perfected over 400 years by master weavers of Banaras. Woven with subtle micro-relief floral motifs and metallic zari with a satin-smooth tactile finish.',
     stats: { time: '8-12 days per meter', warp: 'Pure Mulberry Silk', zari: 'Tested Real Gold/Silver' }
   },
@@ -13,7 +13,7 @@ export const craftsData = [
     name: 'Chikankari Embroidery',
     region: 'Lucknow, Uttar Pradesh',
     badge: 'Awadhi Heritage',
-    image: 'https://static.wixstatic.com/media/32554b_fad55620764a498792a04f612d4f97ce~mv2.png/v1/fill/w_600,h_600,al_c,q_90/32554b_fad55620764a498792a04f612d4f97ce~mv2.png',
+    image: '/images/hero_chikankari_4k.png',
     description: 'Originating from the Mughal courts of Awadh, delicate shadow work and needlework hand-embroidered by generational women artisans onto sheer muslin and fine silk.',
     stats: { time: '14-20 days per piece', stitches: 'Bakhiya & Murri knots', artisanGuild: 'Lucknow Mahila Cluster' }
   },
@@ -22,7 +22,7 @@ export const craftsData = [
     name: 'Ajrakh Block Print',
     region: 'Dhamadka, Kutch, Gujarat',
     badge: 'Natural Dyes',
-    image: 'https://static.wixstatic.com/media/32554b_e66f3ec880b7431d8bd2fe287360f5bd~mv2.png/v1/fill/w_600,h_600,al_c,q_90/32554b_e66f3ec880b7431d8bd2fe287360f5bd~mv2.png',
+    image: '/images/craft_rolled_rosettes_4k.png',
     description: 'A 16-stage ancient resist-printing process using carved teakwood blocks, indigo, madder root, and pomegranate rind on fine modal silk, echoing celestial geometry.',
     stats: { stages: '16 river-wash cycles', dyes: '100% Herbal & Earth Dyes', heritage: 'Indus Valley Lineage' }
   },
@@ -31,7 +31,7 @@ export const craftsData = [
     name: 'Pochampally Ikat',
     region: 'Telangana & Odisha',
     badge: 'Geometric Precision',
-    image: 'https://static.wixstatic.com/media/32554b_3eed913c0a544828b9518da3a6ce64dc~mv2.png/v1/fill/w_600,h_600,al_c,q_90/32554b_3eed913c0a544828b9518da3a6ce64dc~mv2.png',
+    image: '/images/craft_ikat_layers_4k.png',
     description: 'Resist-dyeing yarn in complex mathematical calculations before mounting onto handlooms. When woven, the blurred feathered diamond motifs create a dynamic illusion of light.',
     stats: { precision: 'Micron-aligned yarn dye', loom: 'Traditional Pit Looms', certification: 'GI Tagged' }
   },
@@ -40,7 +40,7 @@ export const craftsData = [
     name: 'Tussar & Raw Silk',
     region: 'Bhagalpur, Bihar',
     badge: 'Textured Luster',
-    image: 'https://static.wixstatic.com/media/32554b_6b928463b9304eb38ae584fe57e9d4f6~mv2.png/v1/fill/w_600,h_600,al_c,q_90/32554b_6b928463b9304eb38ae584fe57e9d4f6~mv2.png',
+    image: '/images/craft_raw_silks_4k.png',
     description: 'Wild forest-harvested silk renowned for its organic golden sheen, tactile slub texture, and exceptional structure that holds pocket folds crisply all evening.',
     stats: { texture: 'Natural Slub Texture', breathability: 'Year-Round Temperate', handfeel: 'Crisp Architectural Fold' }
   }

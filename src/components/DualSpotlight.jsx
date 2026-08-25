@@ -25,7 +25,7 @@ const DualSpotlight = () => {
           <div className="bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow border border-neutral-200 flex flex-col justify-between">
             <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
               <img
-                src="https://static.wixstatic.com/media/32554b_fad55620764a498792a04f612d4f97ce~mv2.png/v1/fill/w_900,h_800,al_c,q_90/Raje%20Maharaje%20website%20(1)%20(2).png"
+                src="/images/royal_bandhgala_pink_4k.png"
                 alt="The Raje Line"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
@@ -43,12 +43,12 @@ const DualSpotlight = () => {
                   The Raje Line
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-600 font-sans mt-2 leading-relaxed">
-                  Chic, vibrant daily pocket squares and neckerchiefs designed for effortless individuality. Presented in our signature pink & sapphire slide gift boxes.
+                  Chic, vibrant daily pocket squares and neckerchiefs designed for effortless individuality. Presented in our signature pink &amp; sapphire slide gift boxes.
                 </p>
               </div>
 
               <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
-                <span className="text-xs font-semibold text-neutral-500">Pure Linens & Raw Silks</span>
+                <span className="text-xs font-semibold text-neutral-500">Pure Linens &amp; Raw Silks</span>
                 <button
                   onClick={() => navigateTo('shop')}
                   className="px-6 py-2.5 bg-black text-white hover:bg-neutral-800 text-xs font-bold uppercase tracking-wider rounded-full transition-colors"
@@ -63,7 +63,7 @@ const DualSpotlight = () => {
           <div className="bg-white rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow border border-neutral-200 flex flex-col justify-between">
             <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
               <img
-                src="https://static.wixstatic.com/media/32554b_e66f3ec880b7431d8bd2fe287360f5bd~mv2.png/v1/fill/w_900,h_800,al_c,q_90/Raje%20Maharaje%20website%20(10).png"
+                src="/images/craft_fan_squares_4k.png"
                 alt="The Maharaje Line"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />

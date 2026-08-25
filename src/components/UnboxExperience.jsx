@@ -16,7 +16,7 @@ const UnboxExperience = () => {
       description: 'Sleek slide-out presentation boxes that embody effortless charm, finished with foil typography and parchment wrapping.',
       features: ['Magnetic slide tray', 'Signature foil typography', 'Artisan provenance card'],
       priceNote: 'Included with all Raje items',
-      image: 'https://static.wixstatic.com/media/32554b_3eed913c0a544828b9518da3a6ce64dc~mv2.png/v1/fill/w_800,h_800,al_c,q_90/Pink%20Poppy%20Flowers.png'
+      image: '/images/regal_gift_boxes_1787645456584.jpg'
     },
     {
       id: 1,
@@ -27,7 +27,7 @@ const UnboxExperience = () => {
       description: 'A refined keepsake crafted with a rigid book-style opening, embossed royal crest, and velvet interior lining.',
       features: ['Rigid book-style structure', 'Gold crest embossing', 'Velvet cushion bed', 'Wax seal authentication'],
       priceNote: 'Included with Maharaje singles',
-      image: 'https://static.wixstatic.com/media/32554b_6b928463b9304eb38ae584fe57e9d4f6~mv2.png/v1/fill/w_800,h_800,al_c,q_90/Pink%20Poppy%20Flowers.png'
+      image: '/images/products/brocade-pocket-squares-assorted-pack_primary.png'
     },
     {
       id: 2,
@@ -38,7 +38,7 @@ const UnboxExperience = () => {
       description: 'Crafted for scarves, neckerchiefs, or matching heirloom combinations — bringing grandeur to weddings and milestone gifting.',
       features: ['Rigid presentation chest', 'Molten brass wax seal', 'Calligraphy greeting note', 'Satin ribbons'],
       priceNote: 'Included with all Box Sets',
-      image: '/images/gift_boxes.jpg'
+      image: '/images/hero_boxes_4k.png'
     }
   ];
 

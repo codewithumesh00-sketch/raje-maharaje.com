@@ -35,9 +35,12 @@ const AboutPage = () => {
           <div className="lg:col-span-5 relative">
             <div className="aspect-[4/5] rounded-2xl overflow-hidden border-2 border-gold-500/40 shadow-2xl bg-obsidian-900">
               <img
-                src="https://static.wixstatic.com/media/32554b_35f22ceead704ac4a733f2a315e8559a~mv2.jpg/v1/fill/w_800,h_1000,fp_0.46_0.38,q_90/WhatsApp%20Image%202025-10-15%20at%2013_00_21_2cffa0a6.jpg"
+                src="/images/founder_portrait.jpg"
                 alt="Prita Dheer - Founder of Studio Sankara & Raje Maharaje"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.src = '/images/home_hero_bandhgala_cutout.png';
+                }}
               />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-obsidian-950 text-cream-100 p-5 rounded-xl border border-gold-500/50 shadow-xl hidden sm:block">

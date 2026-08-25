@@ -265,7 +265,7 @@ const CraftHeritageGrid = () => {
             <div className="rounded-3xl border border-neutral-200 bg-neutral-50/70 overflow-hidden group hover:border-black transition-all flex flex-col justify-between shadow-xs">
               <div className="aspect-[16/10] overflow-hidden bg-neutral-200 relative">
                 <img
-                  src="https://static.wixstatic.com/media/32554b_41c0dd2ec0dd41c5a3c90f316f76b745~mv2.png/v1/fill/w_800,h_500,al_c,q_90/32554b_41c0dd2ec0dd41c5a3c90f316f76b745~mv2.png"
+                  src="/images/craft_fan_squares_4k.png"
                   alt="Tanchoi Brocade Varanasi"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -293,7 +293,7 @@ const CraftHeritageGrid = () => {
             <div className="rounded-3xl border border-neutral-200 bg-neutral-50/70 overflow-hidden group hover:border-black transition-all flex flex-col justify-between shadow-xs">
               <div className="aspect-[16/10] overflow-hidden bg-neutral-200 relative">
                 <img
-                  src="https://static.wixstatic.com/media/32554b_fad55620764a498792a04f612d4f97ce~mv2.png/v1/fill/w_800,h_500,al_c,q_90/32554b_fad55620764a498792a04f612d4f97ce~mv2.png"
+                  src="/images/hero_chikankari_4k.png"
                   alt="Chikankari Embroidery Lucknow"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -321,7 +321,7 @@ const CraftHeritageGrid = () => {
             <div className="rounded-3xl border border-neutral-200 bg-neutral-50/70 overflow-hidden group hover:border-black transition-all flex flex-col justify-between shadow-xs">
               <div className="aspect-[16/10] overflow-hidden bg-neutral-200 relative">
                 <img
-                  src="https://static.wixstatic.com/media/32554b_e66f3ec880b7431d8bd2fe287360f5bd~mv2.png/v1/fill/w_800,h_500,al_c,q_90/32554b_e66f3ec880b7431d8bd2fe287360f5bd~mv2.png"
+                  src="/images/craft_rolled_rosettes_4k.png"
                   alt="Ajrakh Block Print Kutch"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

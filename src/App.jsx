@@ -94,7 +94,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fbfbfa] font-sans selection:bg-black selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#FAF8F5] font-sans selection:bg-[#8B1E2D] selection:text-white">
       {/* Top Ticker */}
       <AnnouncementBar />
 

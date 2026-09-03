@@ -12,9 +12,11 @@ const MensCollectionPage = () => {
 
   const subcategories = [
     'All',
-    "Men's Apparel",
     'Tanchoi Brocades',
     'Chikankari Silk',
+    'Raw Silk',
+    'Linen & Hakoba',
+    'Poly Satin',
     'Ajrakh & Ikat',
     'Gift Sets',
   ];
@@ -24,23 +26,24 @@ const MensCollectionPage = () => {
       (p) =>
         p.department === 'men' ||
         p.collection === 'Maharaje' ||
-        p.collection === 'Raje' ||
-        p.category === "Men's Apparel" ||
-        p.category === 'Maharaje' ||
-        p.category === 'Raje' ||
-        p.category === 'Tanchoi' ||
-        p.category === 'Gift Sets'
+        p.collection === 'Raje'
     );
 
     if (activeSubcategory !== 'All') {
       if (activeSubcategory === 'Tanchoi Brocades') {
-        list = list.filter((p) => p.craft?.toLowerCase().includes('tanchoi') || p.title.toLowerCase().includes('tanchoi'));
+        list = list.filter((p) => p.craft?.toLowerCase().includes('tanchoi') || p.category === 'Tanchui Silk');
       } else if (activeSubcategory === 'Chikankari Silk') {
-        list = list.filter((p) => p.craft?.toLowerCase().includes('chikankari') || p.title.toLowerCase().includes('chikankari'));
+        list = list.filter((p) => p.craft?.toLowerCase().includes('chikan') || p.category.includes('Chikankari'));
+      } else if (activeSubcategory === 'Raw Silk') {
+        list = list.filter((p) => p.craft?.toLowerCase().includes('raw silk') || p.category === 'Raw Silk');
+      } else if (activeSubcategory === 'Linen & Hakoba') {
+        list = list.filter((p) => p.category === 'Linen' || p.category === 'Hakoba');
+      } else if (activeSubcategory === 'Poly Satin') {
+        list = list.filter((p) => p.category === 'Poly Satin');
       } else if (activeSubcategory === 'Ajrakh & Ikat') {
-        list = list.filter((p) => p.craft?.toLowerCase().includes('ajrakh') || p.craft?.toLowerCase().includes('ikat'));
-      } else {
-        list = list.filter((p) => p.category === activeSubcategory);
+        list = list.filter((p) => p.craft?.toLowerCase().includes('ajrakh') || p.craft?.toLowerCase().includes('ikat') || p.category.includes('Ajrakh') || p.category.includes('Ikkat'));
+      } else if (activeSubcategory === 'Gift Sets') {
+        list = list.filter((p) => p.department === 'gifting' || p.id.includes('box') || p.id.includes('chest') || p.id.includes('suite') || p.id.includes('pack'));
       }
     }
 

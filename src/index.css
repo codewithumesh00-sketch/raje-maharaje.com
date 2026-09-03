@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --homepage-color-text: #0E0E0E;
-  --homepage-color-muted: #909090;
-  --homepage-color-heading: #22242A;
-  --homepage-color-bg: #F1F1F0;
-  --homepage-color-cta-bg: #1C1B1B;
+  --homepage-color-text: #1A1817;
+  --homepage-color-muted: #7E746F;
+  --homepage-color-heading: #241A16;
+  --homepage-color-bg: #FAF8F5;
+  --homepage-color-cta-bg: #8B1E2D;
   --homepage-color-cta-text: #FFFFFF;
-  --homepage-color-cta-border: #1C1B1B;
+  --homepage-color-cta-border: #8B1E2D;
   --homepage-type-title-size: 28px;
   --homepage-type-title-line: 36px;
   --homepage-type-body-size: 14px;
@@ -39,10 +39,10 @@
   }
   
   body {
-    background-color: #FFFFFF;
-    color: #0E0E0E;
+    background-color: #FAF8F5;
+    color: #1A1817;
     overflow-x: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   /* Minimal Clean Scrollbars */
@@ -148,4 +148,38 @@
 .animate-float-subtle {
   animation: float-subtle 4s ease-in-out infinite;
 }
+
+/* --- Royal Moodboard & Bar Palladio Utilities --- */
+.checker-palladio {
+  background-image: repeating-linear-gradient(45deg, #DE6B48 25%, transparent 25%, transparent 75%, #DE6B48 75%, #DE6B48), 
+                    repeating-linear-gradient(45deg, #DE6B48 25%, #FAF8F5 25%, #FAF8F5 75%, #DE6B48 75%, #DE6B48);
+  background-position: 0 0, 8px 8px;
+  background-size: 16px 16px;
+}
+
+.checker-palladio-crimson {
+  background-image: repeating-linear-gradient(45deg, #9E1B32 25%, transparent 25%, transparent 75%, #9E1B32 75%, #9E1B32), 
+                    repeating-linear-gradient(45deg, #9E1B32 25%, #FFFDF9 25%, #FFFDF9 75%, #9E1B32 75%, #9E1B32);
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
+}
+
+.jharokha-arch {
+  border-radius: 180px 180px 12px 12px;
+}
+
+.jharokha-top {
+  border-radius: 120px 120px 0 0;
+}
+
+.text-royal-gold {
+  background: linear-gradient(135deg, #D4AF37 0%, #C99E54 50%, #9B7830 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.frayed-swatch {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
 

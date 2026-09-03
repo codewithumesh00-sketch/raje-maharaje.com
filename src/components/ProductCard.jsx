@@ -48,10 +48,10 @@ const ProductCard = ({ product, index = 0 }) => {
       onClick={() => navigateToProduct(product.id)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group cursor-pointer flex flex-col select-none bg-white transition-all duration-300"
+      className="group cursor-pointer flex flex-col select-none bg-[#FFFDF9] rounded-xl border border-[#E8E1D3]/90 hover:border-[#C99E54] transition-all duration-300 overflow-hidden hover:shadow-lg"
     >
-      {/* 4:5 Portrait Image Container (Nicobar AspectRatio) */}
-      <div className="relative aspect-[4/5] w-full bg-[#f4f3ef] overflow-hidden">
+      {/* 4:5 Portrait Image Container */}
+      <div className="relative aspect-[4/5] w-full bg-[#F6F2EA] overflow-hidden">
         {/* Primary Image */}
         <img
           src={product.image}
@@ -149,25 +149,25 @@ const ProductCard = ({ product, index = 0 }) => {
         </div>
       </div>
 
-      {/* Product Details (Below Image - Nicobar Layout) */}
-      <div className="pt-3 pb-2 flex flex-col space-y-1">
+      {/* Product Details (Below Image) */}
+      <div className="p-3.5 flex flex-col space-y-1">
         {/* Product Title */}
-        <h3 className="text-[13px] sm:text-[14px] font-sans font-normal text-neutral-900 tracking-tight line-clamp-1 hover:text-[#9c783e] transition-colors">
+        <h3 className="text-[13px] sm:text-[14px] font-serif font-medium text-[#241A16] tracking-wide line-clamp-1 group-hover:text-[#8B1E2D] transition-colors">
           {product.title}
         </h3>
 
         {/* Fabric & Origin Subtitle */}
-        <p className="text-[11px] sm:text-[12px] font-sans text-neutral-500 font-light line-clamp-1">
+        <p className="text-[11px] sm:text-[12px] font-sans text-[#7E746F] font-light line-clamp-1">
           {product.fabric || product.craft || 'Pure Mulberry Silk'}
         </p>
 
         {/* Price Row */}
         <div className="flex items-baseline space-x-2 pt-0.5">
-          <span className="text-[13px] sm:text-[14px] font-sans font-medium text-neutral-900 tracking-tight">
+          <span className="text-[13px] sm:text-[14px] font-mono font-semibold text-[#241A16] tracking-tight">
             {formatPrice(product.priceINR)}
           </span>
           {product.originalPriceINR && product.originalPriceINR > product.priceINR && (
-            <span className="text-[11px] font-sans text-neutral-400 line-through">
+            <span className="text-[11px] font-mono text-[#7E746F] line-through">
               {formatPrice(product.originalPriceINR)}
             </span>
           )}

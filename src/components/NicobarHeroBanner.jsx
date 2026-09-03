@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useShop } from '../context/ShopContext';
 
 const NicobarHeroBanner = ({
@@ -13,13 +13,36 @@ const NicobarHeroBanner = ({
   aspectRatioDesktop = '2.1',
   aspectRatioMobile = '0.75',
   minFullViewport = false,
-  videoObjectPosition = 'center top',
+  videoObjectPosition = 'center center',
   videoClassName = '',
 }) => {
   const { navigateTo } = useShop();
   const videoRef = useRef(null);
 
-  // Guarantee seamless video autoplay on iOS Safari / Mobile Chrome
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mql = window.matchMedia('(max-width: 767px)');
+    const onChange = (e) => setIsMobile(e.matches);
+    if (mql.addEventListener) {
+      mql.addEventListener('change', onChange);
+      return () => mql.removeEventListener('change', onChange);
+    } else if (mql.addListener) {
+      mql.addListener(onChange);
+      return () => mql.removeListener(onChange);
+    }
+  }, []);
+
+  const activeVideo = isMobile && mobileVideo ? mobileVideo : video;
+  const activePoster = isMobile && (mobileImage || image) ? (mobileImage || image) : image;
+
+  // Guarantee seamless video autoplay on iOS Safari / Mobile Chrome / Desktop
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.defaultMuted = true;
@@ -31,23 +54,25 @@ const NicobarHeroBanner = ({
         });
       }
     }
-  }, [video, mobileVideo]);
+  }, [activeVideo]);
 
   return (
     <section className="relative w-full overflow-hidden select-none bg-black">
       <div
         className={`relative w-full overflow-hidden ${
           minFullViewport
-            ? 'h-[calc(100vh-106px)] h-[calc(100dvh-106px)] min-h-[520px] md:min-h-[620px]'
-            : 'h-[72vh] min-h-[480px] sm:min-h-[540px] md:h-auto md:aspect-[2.1/1] md:min-h-0'
+            ? 'h-[calc(100svh-88px)] min-h-[540px] max-h-[960px] md:h-[calc(100vh-106px)] md:max-h-none'
+            : 'h-[500px] sm:h-[560px] md:h-auto md:aspect-[2.1/1] md:min-h-0'
         }`}
       >
         {/* Media (Video or Picture) absolutely positioned to cover full container with no black letterboxing */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
-          {video ? (
+          {activeVideo ? (
             <video
+              key={`${id}-${activeVideo}`}
               ref={videoRef}
-              poster={image}
+              src={activeVideo}
+              poster={activePoster}
               autoPlay
               loop
               muted
@@ -59,10 +84,7 @@ const NicobarHeroBanner = ({
                 filter: 'brightness(0.92)',
               }}
             >
-              {mobileVideo && (
-                <source media="(max-width: 767px)" src={mobileVideo} type="video/mp4" />
-              )}
-              <source src={video} type="video/mp4" />
+              <source src={activeVideo} type="video/mp4" />
             </video>
           ) : (
             <picture className="w-full h-full block">

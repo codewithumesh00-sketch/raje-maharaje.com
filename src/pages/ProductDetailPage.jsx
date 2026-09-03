@@ -30,9 +30,14 @@ const ProductDetailPage = () => {
 
   const product = products.find((p) => p.id === selectedProductId) || products[0];
 
+  const availableSizes = product.sizes || [product.dimensions || 'Standard (33x33 cm)'];
+  const productColors = product.colors && product.colors.length > 0
+    ? product.colors
+    : [{ name: 'Royal Palette', hex: '#0F52BA' }];
+
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState('Midnight Navy');
-  const [selectedSize, setSelectedSize] = useState('L');
+  const [selectedColor, setSelectedColor] = useState(productColors[0].name);
+  const [selectedSize, setSelectedSize] = useState(availableSizes[0]);
   const [monogram, setMonogram] = useState('');
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [openAccordion, setOpenAccordion] = useState('craft');
@@ -43,6 +48,9 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSelectedColor(product.colors && product.colors.length > 0 ? product.colors[0].name : 'Royal Palette');
+    setSelectedSize(product.sizes && product.sizes.length > 0 ? product.sizes[0] : (product.dimensions || 'Standard (33x33 cm)'));
+    setActiveImageIndex(0);
     
     const handleScroll = () => {
       if (window.scrollY > 450) {
@@ -64,15 +72,6 @@ const ProductDetailPage = () => {
     '/images/craft_fan_squares_4k.png',
     '/images/hero_model_slot_2.png'
   ];
-
-  const colors = [
-    { name: 'Midnight Navy', bg: 'bg-[#0B1726]' },
-    { name: 'Imperial Crimson', bg: 'bg-[#8B0000]' },
-    { name: 'Ivory Mulberry', bg: 'bg-[#FDFBF7] border border-neutral-300' },
-    { name: 'Royal Emerald', bg: 'bg-[#0F3E2E]' }
-  ];
-
-  const sizes = ['S', 'M', 'L', 'XL', '2XL'];
 
   const handleAddToCart = () => {
     addToCart(product, quantity, monogram ? monogram.toUpperCase() : null, personalGiftNote);
@@ -198,11 +197,11 @@ const ProductDetailPage = () => {
           {/* Product Purchasing & Details (5 cols) */}
           <div className="lg:col-span-5 space-y-5">
             <div>
-              <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-neutral-400 font-sans block mb-1">
+              <span className="text-[10px] uppercase font-bold tracking-[0.22em] text-[#d4af37] font-sans block mb-1">
                 {product.craft} • {product.origin}
               </span>
 
-              <h1 className="font-sans text-2xl sm:text-4xl font-extrabold uppercase text-neutral-900 tracking-tight leading-tight">
+              <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.14em] font-light text-neutral-900 leading-snug">
                 {product.title}
               </h1>
 
@@ -219,7 +218,7 @@ const ProductDetailPage = () => {
               </div>
 
               <p className="text-xs text-neutral-500 font-sans mt-1">
-                <span className="underline cursor-pointer">Shipping</span> calculated at checkout.
+                Complimentary royal packaging. <span className="underline cursor-pointer">Shipping</span> calculated at checkout.
               </p>
             </div>
 
@@ -232,19 +231,20 @@ const ProductDetailPage = () => {
 
             {/* Color Swatches */}
             <div className="space-y-1.5 pt-1">
-              <span className="text-xs font-sans font-semibold text-neutral-900">
-                Color: <span className="font-normal text-neutral-600">{selectedColor}</span>
+              <span className="text-xs font-sans font-medium text-neutral-900">
+                Craft / Color: <span className="font-normal text-neutral-600">{selectedColor}</span>
               </span>
               <div className="flex items-center space-x-3">
-                {colors.map((c) => {
+                {productColors.map((c) => {
                   const isSelected = selectedColor === c.name;
                   return (
                     <button
                       key={c.name}
                       onClick={() => setSelectedColor(c.name)}
-                      className={`w-7 h-7 rounded-full ${c.bg} transition-all relative flex items-center justify-center ${
-                        isSelected ? 'ring-2 ring-neutral-900 ring-offset-2' : 'opacity-85 hover:opacity-100'
+                      className={`w-7 h-7 rounded-full transition-all relative flex items-center justify-center border border-neutral-300 ${
+                        isSelected ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110' : 'opacity-85 hover:opacity-100'
                       }`}
+                      style={{ backgroundColor: c.hex || '#0B1726' }}
                       title={c.name}
                     />
                   );
@@ -254,20 +254,20 @@ const ProductDetailPage = () => {
 
             {/* Size Selector */}
             <div className="space-y-1.5 pt-1">
-              <span className="text-xs font-sans font-semibold text-neutral-900">
-                Size: <span className="font-normal text-neutral-600">{selectedSize}</span>
+              <span className="text-xs font-sans font-medium text-neutral-900">
+                Dimension: <span className="font-normal text-neutral-600">{selectedSize}</span>
               </span>
-              <div className="flex items-center space-x-2">
-                {sizes.map((s) => {
+              <div className="flex flex-wrap items-center gap-2">
+                {availableSizes.map((s) => {
                   const isSelected = selectedSize === s;
                   return (
                     <button
                       key={s}
                       onClick={() => setSelectedSize(s)}
-                      className={`min-w-[44px] h-10 px-3 flex items-center justify-center text-xs font-sans font-bold border transition-colors ${
+                      className={`h-9 px-3.5 flex items-center justify-center text-xs font-sans font-medium uppercase tracking-wider border transition-colors ${
                         isSelected
                           ? 'bg-black text-white border-black'
-                          : 'bg-white text-neutral-800 border-neutral-300 hover:border-neutral-500'
+                          : 'bg-white text-neutral-800 border-neutral-300 hover:border-black'
                       }`}
                     >
                       {s}
@@ -320,12 +320,12 @@ const ProductDetailPage = () => {
                 </div>
               </div>
 
-              {/* Add to cart (Dark) & Buy it now (Cyan Blue) */}
+              {/* Add to bag & Buy it now */}
               <div className="space-y-2.5 pt-2">
                 <button
                   onClick={handleAddToCart}
-                  className={`w-full py-3.5 bg-[#252525] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center space-x-2 ${
-                    justAdded ? 'bg-emerald-700' : ''
+                  className={`w-full py-4 bg-[#1a1a1a] hover:bg-black text-white font-sans font-medium text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center space-x-2 shadow-xs ${
+                    justAdded ? 'bg-emerald-800' : ''
                   }`}
                 >
                   {justAdded ? (
@@ -334,16 +334,16 @@ const ProductDetailPage = () => {
                       <span>Added to Royal Bag</span>
                     </>
                   ) : (
-                    <span>Add to cart</span>
+                    <span>Add to Bag</span>
                   )}
                 </button>
 
-                {/* Vibrant Cyan Blue Buy It Now Button */}
+                {/* Luxury Royal Gold Buy It Now Button */}
                 <button
                   onClick={handleBuyItNow}
-                  className="w-full py-3.5 bg-[#0084B4] hover:bg-[#00739c] text-white font-sans font-bold text-xs uppercase tracking-wider transition-all shadow-md"
+                  className="w-full py-4 bg-[#d4af37] hover:bg-[#c5a059] text-black font-sans font-semibold text-xs uppercase tracking-[0.2em] transition-all shadow-sm"
                 >
-                  Buy it now
+                  Buy It Now &bull; Express Checkout
                 </button>
               </div>
             </div>
@@ -393,8 +393,8 @@ const ProductDetailPage = () => {
         {/* Related Items Section */}
         {relatedProducts.length > 0 && (
           <div className="mt-16 pt-12 border-t border-neutral-200">
-            <h3 className="font-sans text-2xl font-extrabold text-neutral-900 uppercase tracking-tight mb-6">
-              Trending // Related Creations
+            <h3 className="font-serif text-2xl uppercase tracking-[0.16em] font-light text-neutral-900 mb-6">
+              More Handcrafted Creations
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {relatedProducts.map((p, idx) => (
@@ -419,10 +419,10 @@ const ProductDetailPage = () => {
               className="w-10 h-10 object-cover rounded-sm border border-neutral-200"
             />
             <div className="truncate">
-              <h4 className="font-sans font-bold text-xs sm:text-sm text-neutral-900 truncate">
+              <h4 className="font-serif font-medium text-xs sm:text-sm text-neutral-900 truncate">
                 {product.title}
               </h4>
-              <span className="font-sans font-bold text-xs text-neutral-700">
+              <span className="font-sans font-medium text-xs text-neutral-700">
                 {formatPrice(product.priceINR)}
               </span>
             </div>
@@ -431,8 +431,8 @@ const ProductDetailPage = () => {
           <div className="flex items-center space-x-2 flex-shrink-0">
             <button
               onClick={handleAddToCart}
-              className={`px-4 sm:px-6 py-2.5 bg-[#252525] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
-                justAdded ? 'bg-emerald-700' : ''
+              className={`px-4 sm:px-6 py-2.5 bg-[#1a1a1a] hover:bg-black text-white font-sans font-medium text-xs uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
+                justAdded ? 'bg-emerald-800' : ''
               }`}
             >
               {justAdded ? (
@@ -441,15 +441,15 @@ const ProductDetailPage = () => {
                   <span className="hidden sm:inline">Added</span>
                 </>
               ) : (
-                <span>Add to cart</span>
+                <span>Add to Bag</span>
               )}
             </button>
 
             <button
               onClick={handleBuyItNow}
-              className="px-4 sm:px-6 py-2.5 bg-[#0084B4] hover:bg-[#00739c] text-white font-sans font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
+              className="px-4 sm:px-6 py-2.5 bg-[#d4af37] hover:bg-[#c5a059] text-black font-sans font-semibold text-xs uppercase tracking-wider transition-all shadow-sm"
             >
-              Buy it now
+              Buy It Now
             </button>
           </div>
         </div>

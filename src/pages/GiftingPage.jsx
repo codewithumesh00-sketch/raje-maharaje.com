@@ -9,7 +9,14 @@ const GiftingPage = () => {
   const { navigateTo } = useShop();
 
   const giftProducts = products.filter(
-    (p) => p.category === 'Gift Sets' || p.department === 'gifting' || p.badge?.toLowerCase().includes('set')
+    (p) =>
+      p.department === 'gifting' ||
+      p.category === 'Gift Sets' ||
+      p.id.includes('box') ||
+      p.id.includes('chest') ||
+      p.id.includes('suite') ||
+      p.id.includes('pack') ||
+      p.badge?.toLowerCase().includes('set')
   );
 
   return (

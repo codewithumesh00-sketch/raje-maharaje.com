@@ -1,5 +1,7 @@
 import React from 'react';
 import NicobarHeroBanner from '../components/NicobarHeroBanner';
+import PalaceMoodboardShowcase from '../components/PalaceMoodboardShowcase';
+import ArtisanalFabricSwatchBar from '../components/ArtisanalFabricSwatchBar';
 import NicobarGiftingWorld from '../components/NicobarGiftingWorld';
 import NicobarFeaturedProducts from '../components/NicobarFeaturedProducts';
 import NicobarImageWithText from '../components/NicobarImageWithText';
@@ -9,12 +11,14 @@ import NicobarTestimonials from '../components/NicobarTestimonials';
 
 const HomePage = () => {
   return (
-    <div className="w-full bg-white space-y-0 selection:bg-black selection:text-white">
+    <div className="w-full bg-[#FAF8F5] space-y-0 selection:bg-[#8B1E2D] selection:text-white">
       {/* 1. Hero Banner 1: THE SEASON OF GOLD (Full viewport video) */}
       <NicobarHeroBanner
         id="hero_banner_1"
-        video="https://res.cloudinary.com/douc8uat5/video/upload/v1788437555/Video_Project_9_tgxfo3.mp4"
-        image="/images/hero_season_of_gold_video_poster.jpg"
+        video="/videos/hero_runway_enhanced_1080p.mp4"
+        mobileVideo="/videos/hero_runway_mobile_portrait.mp4"
+        image="/images/hero_runway_poster_desktop.jpg"
+        mobileImage="/images/hero_runway_poster_mobile.jpg"
         title="THE SEASON OF GOLD"
         subtitle="20% off limited edition Wedding Season pocket squares & master Banarasi weaves"
         ctas={[
@@ -25,10 +29,13 @@ const HomePage = () => {
         aspectRatioDesktop="2.1"
       />
 
-      {/* 2. Featured Products Carousel: NEW THIS SEASON (Provides immediate visual relief & shopping) */}
+      {/* 2. Brand New Moodboard Pillar: The Dandy & The Sovereign (Jaipur Palace / Bar Palladio Aesthetic) */}
+      <PalaceMoodboardShowcase />
+
+      {/* 3. Featured Products Carousel: NEW THIS SEASON */}
       <NicobarFeaturedProducts />
 
-      {/* 3. Hero Banner 2: READY FOR EVERY INVITE (Bottom-anchored text with tall portrait mobile height) */}
+      {/* 4. Hero Banner 2: READY FOR EVERY INVITE */}
       <NicobarHeroBanner
         id="hero_banner_2"
         image="/images/nicobar_hero_ready_for_invite_4k.jpg"
@@ -40,6 +47,9 @@ const HomePage = () => {
         ]}
         aspectRatioDesktop="2.1"
       />
+
+      {/* 5. Brand New Moodboard Pillar: Interactive Artisanal Fabric Swatches */}
+      <ArtisanalFabricSwatchBar />
 
       {/* 4. Curated Category Dual Grid: WELCOME TO OUR GIFTING WORLD */}
       <NicobarGiftingWorld />
@@ -63,15 +73,16 @@ const HomePage = () => {
       {/* 7. Hero Banner 4: GIFTS WRITTEN IN THE STARS */}
       <NicobarHeroBanner
         id="hero_banner_4"
-        video="/videos/generate_with_vedio_by_wearing.mp4"
-        image="/images/nicobar_hero_gifts_stars_4k.jpg"
+        video="/videos/generate_with_vedio_by_wearing_clean.mp4"
+        mobileVideo="/videos/wearing_groom_mobile_portrait.mp4"
+        image="/images/hero_wearing_poster_desktop.jpg"
+        mobileImage="/images/hero_wearing_poster_mobile.jpg"
         title="GIFTS WRITTEN IN THE STARS"
         subtitle="Signature pink & blue RAJE boxes to grand MAHARAJE caskets sealed with molten wax"
         ctas={[
           { label: 'SHOP GIFTING', target: 'gifting' },
         ]}
         aspectRatioDesktop="2.1"
-        videoClassName="scale-[1.23] origin-center"
       />
 
       {/* 8. Community Showcase: WE MAKE QUITE A TEAM */}

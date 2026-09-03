@@ -51,14 +51,14 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-200/80 transition-all duration-300 shadow-xs select-none">
+      <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md text-neutral-900 border-b border-[#E8E1D3] transition-all duration-300 shadow-xs select-none">
         <div className="max-w-[1366px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-18">
             {/* Left: Hamburger & Brand Identity */}
             <div className="flex items-center space-x-4 sm:space-x-6">
               <button
                 onClick={() => setMenuDrawerOpen(true)}
-                className="p-1 -ml-1 text-neutral-900 hover:text-black focus:outline-none transition-colors group flex items-center space-x-2"
+                className="p-1 -ml-1 text-neutral-900 hover:text-[#8B1E2D] focus:outline-none transition-colors group flex items-center space-x-2"
                 aria-label="Open Navigation Menu"
               >
                 <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 group-hover:scale-105 transition-transform" />
@@ -72,7 +72,7 @@ const Header = () => {
               </button>
             </div>
 
-            {/* Center: Desktop Navigation Links (Exact 100% Nicobar Navbar) */}
+            {/* Center: Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center space-x-8">
               {navLinks.map((item) => {
                 const isActive = currentPage === item.page;
@@ -82,10 +82,10 @@ const Header = () => {
                     onClick={() => navigateTo(item.page)}
                     className={`text-xs uppercase tracking-[0.2em] font-medium transition-all py-1 border-b-2 ${
                       item.isSale
-                        ? 'text-red-700 border-transparent hover:border-red-700 font-semibold'
+                        ? 'text-[#C02633] border-transparent hover:border-[#C02633] font-semibold'
                         : isActive
-                        ? 'text-black border-black font-semibold'
-                        : 'text-neutral-700 border-transparent hover:text-black hover:border-neutral-400'
+                        ? 'text-[#8B1E2D] border-[#8B1E2D] font-semibold'
+                        : 'text-neutral-700 border-transparent hover:text-[#8B1E2D] hover:border-[#C99E54]'
                     }`}
                   >
                     {item.label}

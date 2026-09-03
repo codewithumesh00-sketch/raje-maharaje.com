@@ -15,30 +15,33 @@ const NicobarFooter = () => {
   };
 
   return (
-    <footer className="w-full bg-[#fbfbfa] text-neutral-900 border-t border-neutral-200/80 text-xs font-sans select-none">
-      {/* 1. Newsletter: "Get on the list" (Exact Nicobar style) */}
-      <div className="border-b border-neutral-200/80 py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+    <footer className="w-full bg-[#F5EFE6] text-[#241A16] border-t border-[#E8E1D3] text-xs font-sans select-none">
+      {/* 1. Newsletter: "Get on the list" */}
+      <div className="border-b border-[#E8E1D3] py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-xl mx-auto text-center space-y-3">
-          <h3 className="text-xl sm:text-2xl font-serif uppercase tracking-[0.16em] font-medium text-[#22242A]">
+          <span className="text-[10px] uppercase tracking-[0.24em] font-semibold text-[#DE6B48]">
+            Royal Atelier Gazette
+          </span>
+          <h3 className="text-xl sm:text-2xl font-serif uppercase tracking-[0.16em] font-medium text-[#241A16]">
             GET ON THE LIST
           </h3>
-          <p className="text-xs sm:text-sm font-sans tracking-wide text-neutral-500 font-light">
+          <p className="text-xs sm:text-sm font-sans tracking-wide text-[#7E746F] font-light">
             Be the first to hear about new craft editions, limited weaves, and seasonal gifting previews.
           </p>
 
-          <form onSubmit={handleSubscribe} className="pt-2 max-w-md mx-auto flex items-center border-b border-neutral-800 pb-1">
+          <form onSubmit={handleSubscribe} className="pt-2 max-w-md mx-auto flex items-center border-b border-[#8B1E2D] pb-1">
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address..."
-              className="flex-1 bg-transparent py-2 text-xs sm:text-sm font-sans placeholder-neutral-400 text-neutral-900 focus:outline-none"
+              className="flex-1 bg-transparent py-2 text-xs sm:text-sm font-sans placeholder-[#A89F98] text-[#241A16] focus:outline-none"
             />
             <button
               type="submit"
               aria-label="Submit"
-              className="p-2 text-neutral-900 hover:text-neutral-600 transition-colors"
+              className="p-2 text-[#8B1E2D] hover:text-[#DE6B48] transition-colors"
             >
               <ArrowRight className="w-4 h-4" />
             </button>

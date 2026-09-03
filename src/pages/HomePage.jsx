@@ -63,6 +63,7 @@ const HomePage = () => {
       {/* 7. Hero Banner 4: GIFTS WRITTEN IN THE STARS */}
       <NicobarHeroBanner
         id="hero_banner_4"
+        video="/videos/generate_with_vedio_by_wearing.mp4"
         image="/images/nicobar_hero_gifts_stars_4k.jpg"
         title="GIFTS WRITTEN IN THE STARS"
         subtitle="Signature pink & blue RAJE boxes to grand MAHARAJE caskets sealed with molten wax"
@@ -84,7 +85,7 @@ const HomePage = () => {
       {/* 11. Hero Banner 5: GET IN TOUCH */}
       <NicobarHeroBanner
         id="hero_banner_touch"
-        image="/images/rajemaharaje_hero_gentleman_4k.jpg"
+        image="/images/rajemaharaje_hero_gentleman_bespoke_4k.jpg"
         title="GET IN TOUCH"
         subtitle="Bespoke wedding favors, groomsmen suites & corporate collaborations"
         ctas={[

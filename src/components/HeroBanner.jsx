@@ -8,7 +8,7 @@ const HeroBanner = () => {
   const slides = [
     {
       id: 0,
-      image: '/images/rajemaharaje_hero_gentleman_4k.jpg',
+      image: '/images/rajemaharaje_hero_gentleman_bespoke_4k.jpg',
       title: 'A POCKET SQUARE DOESN’T MAKE THE MAN — IT REVEALS THE GENTLEMAN',
       subtitle: 'Minimal, Stunning & Trend-setting Global Fashion for the Modern Man',
       primaryBtn: 'SHOP NOW',

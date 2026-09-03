@@ -7,7 +7,7 @@ const NicobarCommunityCta = () => {
   const looks = [
     {
       id: 1,
-      image: '/images/rajemaharaje_hero_gentleman_4k.jpg',
+      image: '/images/rajemaharaje_hero_gentleman_bespoke_4k.jpg',
       caption: 'Tanchoi Banarasi in Midnight Black Bandhgala',
       author: '@vikram_sartorial',
     },

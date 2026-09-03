@@ -1,6 +1,13 @@
 import React from 'react';
 
-const BrandLogo = ({ className = "h-9 sm:h-10", showText = true, textClassName = "" }) => {
+const BrandLogo = ({
+  className = "h-9 sm:h-10",
+  showText = true,
+  textClassName = "",
+  theme = "dark"
+}) => {
+  const isLight = theme === "light" || theme === "white" || theme === "inverted";
+
   return (
     <div className="flex items-center space-x-2.5 select-none whitespace-nowrap group flex-shrink-0">
       {/* Official Crown Emblem Image from rajemaharaje */}
@@ -12,10 +19,20 @@ const BrandLogo = ({ className = "h-9 sm:h-10", showText = true, textClassName =
 
       {showText && (
         <div className="flex flex-col justify-center leading-tight text-left flex-shrink-0">
-          <span className={`font-serif text-sm sm:text-base font-semibold tracking-[0.18em] uppercase text-neutral-900 group-hover:text-neutral-600 transition-colors whitespace-nowrap ${textClassName}`}>
+          <span
+            className={`font-serif text-sm sm:text-base font-semibold tracking-[0.18em] uppercase transition-colors whitespace-nowrap ${
+              isLight
+                ? 'text-white group-hover:text-[#d4af37]'
+                : 'text-neutral-900 group-hover:text-neutral-600'
+            } ${textClassName}`}
+          >
             RAJE &bull; MAHARAJE
           </span>
-          <span className="text-[8px] sm:text-[9px] font-sans uppercase tracking-[0.26em] text-neutral-400 font-medium whitespace-nowrap">
+          <span
+            className={`text-[8px] sm:text-[9px] font-sans uppercase tracking-[0.26em] font-medium whitespace-nowrap ${
+              isLight ? 'text-neutral-300' : 'text-neutral-400'
+            }`}
+          >
             STUDIO SANKARA
           </span>
         </div>

@@ -20,20 +20,15 @@ const NicobarHeroBanner = ({
       <div
         className={`relative w-full block ${
           minFullViewport
-            ? 'min-h-[calc(100vh-110px)]'
+            ? 'h-screen min-h-[640px] md:min-h-[720px]'
             : 'min-h-[520px] sm:min-h-[560px] md:min-h-0'
         }`}
-        style={{
-          aspectRatio: minFullViewport
-            ? undefined
-            : undefined, // Controlled via responsive tailwind classes below
-        }}
       >
         {/* Media (Video or Picture) with responsive mobile portrait height */}
         <div
           className={`w-full h-full ${
             minFullViewport
-              ? 'min-h-[calc(100vh-110px)] h-full'
+              ? 'h-screen min-h-[640px] md:min-h-[720px]'
               : 'min-h-[520px] sm:min-h-[560px] md:min-h-0 md:aspect-[2.1/1]'
           }`}
         >
@@ -46,8 +41,9 @@ const NicobarHeroBanner = ({
               muted
               playsInline
               preload="auto"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover"
               style={{
+                objectPosition: 'center top',
                 filter: 'brightness(0.92)',
               }}
             />

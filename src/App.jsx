@@ -101,8 +101,8 @@ function App() {
       {/* Global Sticky Navigation */}
       <Header />
 
-      {/* Main Content Area */}
-      <main className="flex-1">
+      {/* Main Content Area (On home, pulled under transparent Header) */}
+      <main className={`flex-1 ${currentPage === 'home' ? '-mt-16 sm:-mt-18 relative z-10' : ''}`}>
         <Suspense fallback={<PageLoadingSkeleton />}>
           {renderPage()}
         </Suspense>

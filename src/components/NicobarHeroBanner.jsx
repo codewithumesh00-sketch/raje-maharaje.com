@@ -20,7 +20,7 @@ const NicobarHeroBanner = ({
       <div
         className={`relative w-full block ${
           minFullViewport
-            ? 'h-screen min-h-[640px] md:min-h-[720px]'
+            ? 'min-h-[calc(100vh-106px)]'
             : 'min-h-[520px] sm:min-h-[560px] md:min-h-0'
         }`}
       >
@@ -28,7 +28,7 @@ const NicobarHeroBanner = ({
         <div
           className={`w-full h-full ${
             minFullViewport
-              ? 'h-screen min-h-[640px] md:min-h-[720px]'
+              ? 'min-h-[calc(100vh-106px)] h-full'
               : 'min-h-[520px] sm:min-h-[560px] md:min-h-0 md:aspect-[2.1/1]'
           }`}
         >

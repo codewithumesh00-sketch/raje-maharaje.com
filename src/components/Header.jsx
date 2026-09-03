@@ -27,20 +27,6 @@ const Header = () => {
 
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     if (menuDrawerOpen) {
@@ -52,9 +38,6 @@ const Header = () => {
       document.body.style.overflow = 'unset';
     };
   }, [menuDrawerOpen]);
-
-  // When on homepage at the top, navbar is transparent over the hero video
-  const isTransparent = currentPage === 'home' && !isScrolled;
 
   // Exact Nicobar primary desktop navigation links (Menswear & Gifting Atelier)
   const navLinks = [
@@ -68,37 +51,24 @@ const Header = () => {
 
   return (
     <>
-      <header
-        className={`sticky top-0 z-40 transition-all duration-300 select-none ${
-          isTransparent
-            ? 'bg-gradient-to-b from-black/85 via-black/40 to-transparent text-white border-b border-white/10'
-            : 'bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-200/80 shadow-xs'
-        }`}
-      >
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-200/80 transition-all duration-300 shadow-xs select-none">
         <div className="max-w-[1366px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-18">
             {/* Left: Hamburger & Brand Identity */}
             <div className="flex items-center space-x-4 sm:space-x-6">
               <button
                 onClick={() => setMenuDrawerOpen(true)}
-                className={`p-1 -ml-1 focus:outline-none transition-colors group flex items-center space-x-2 ${
-                  isTransparent
-                    ? 'text-white hover:text-[#d4af37]'
-                    : 'text-neutral-900 hover:text-black'
-                }`}
+                className="p-1 -ml-1 text-neutral-900 hover:text-black focus:outline-none transition-colors group flex items-center space-x-2"
                 aria-label="Open Navigation Menu"
               >
-                <Menu className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-105 transition-transform" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 group-hover:scale-105 transition-transform" />
               </button>
 
               <button
                 onClick={() => navigateTo('home')}
                 className="group text-left focus:outline-none flex items-center"
               >
-                <BrandLogo
-                  className="h-8 sm:h-9 md:h-10"
-                  theme={isTransparent ? 'light' : 'dark'}
-                />
+                <BrandLogo className="h-8 sm:h-9 md:h-10" theme="dark" />
               </button>
             </div>
 
@@ -111,13 +81,7 @@ const Header = () => {
                     key={item.label}
                     onClick={() => navigateTo(item.page)}
                     className={`text-xs uppercase tracking-[0.2em] font-medium transition-all py-1 border-b-2 ${
-                      isTransparent
-                        ? item.isSale
-                          ? 'text-red-400 border-transparent hover:border-red-400 font-semibold'
-                          : isActive
-                          ? 'text-white border-white font-semibold'
-                          : 'text-white/90 border-transparent hover:text-white hover:border-white/60'
-                        : item.isSale
+                      item.isSale
                         ? 'text-red-700 border-transparent hover:border-red-700 font-semibold'
                         : isActive
                         ? 'text-black border-black font-semibold'
@@ -136,15 +100,11 @@ const Header = () => {
               <div className="relative hidden md:block">
                 <button
                   onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
-                  className={`flex items-center space-x-1.5 text-xs font-sans py-1 px-2.5 border transition-colors ${
-                    isTransparent
-                      ? 'text-white border-white/40 hover:border-white bg-black/20 backdrop-blur-xs'
-                      : 'text-neutral-700 hover:text-black border-neutral-200 hover:border-neutral-400'
-                  }`}
+                  className="flex items-center space-x-1.5 text-xs font-sans text-neutral-700 hover:text-black py-1 px-2 border border-neutral-200 hover:border-neutral-400 transition-colors"
                 >
                   <span className="text-sm">🇮🇳</span>
                   <span className="uppercase tracking-wider font-medium text-[11px]">India</span>
-                  <ChevronDown className={`w-3 h-3 ${isTransparent ? 'text-white/70' : 'text-neutral-400'}`} />
+                  <ChevronDown className="w-3 h-3 text-neutral-400" />
                 </button>
 
                 {currencyDropdownOpen && (
@@ -174,9 +134,7 @@ const Header = () => {
               {/* Search */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className={`p-1.5 transition-colors ${
-                  isTransparent ? 'text-white hover:text-[#d4af37]' : 'text-neutral-700 hover:text-black'
-                }`}
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors"
                 aria-label="Search"
               >
                 <Search className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -185,9 +143,7 @@ const Header = () => {
               {/* Account */}
               <button
                 onClick={() => navigateTo('contact')}
-                className={`p-1.5 transition-colors hidden sm:block ${
-                  isTransparent ? 'text-white hover:text-[#d4af37]' : 'text-neutral-700 hover:text-black'
-                }`}
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors hidden sm:block"
                 aria-label="Account / Concierge"
               >
                 <User className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -196,16 +152,12 @@ const Header = () => {
               {/* Wishlist */}
               <button
                 onClick={() => setIsWishlistOpen(true)}
-                className={`p-1.5 transition-colors relative ${
-                  isTransparent ? 'text-white hover:text-[#d4af37]' : 'text-neutral-700 hover:text-black'
-                }`}
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors relative"
                 aria-label="Wishlist"
               >
                 <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
                 {wishlist.length > 0 && (
-                  <span className={`absolute -top-1 -right-1 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center ${
-                    isTransparent ? 'bg-[#c5a059] text-black' : 'bg-black text-white'
-                  }`}>
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-black text-white text-[9px] font-bold flex items-center justify-center">
                     {wishlist.length}
                   </span>
                 )}
@@ -214,16 +166,12 @@ const Header = () => {
               {/* Cart */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className={`p-1.5 transition-colors relative ${
-                  isTransparent ? 'text-white hover:text-[#d4af37]' : 'text-neutral-700 hover:text-black'
-                }`}
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors relative"
                 aria-label="Shopping Bag"
               >
                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
                 {cartItemCount > 0 && (
-                  <span className={`absolute -top-1 -right-1 w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center ${
-                    isTransparent ? 'bg-[#c5a059] text-black' : 'bg-black text-white'
-                  }`}>
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-black text-white text-[9px] font-bold flex items-center justify-center">
                     {cartItemCount}
                   </span>
                 )}

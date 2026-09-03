@@ -7,9 +7,11 @@ const NicobarHeroBanner = ({
   video,
   mobileVideo,
   mobileImage,
+  tag,
   title,
   subtitle,
   ctas = [],
+  ctaStyle = 'underline', // 'underline' | 'pill' | 'solid'
   aspectRatioDesktop = '2.1',
   aspectRatioMobile = '0.75',
   minFullViewport = false,
@@ -112,33 +114,48 @@ const NicobarHeroBanner = ({
         <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
 
         {/* Bottom Anchored Content - Never covers subject's faces */}
-        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end items-center text-center px-4 sm:px-8 md:px-12 pb-8 sm:pb-10 md:pb-14 pointer-events-none">
+        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end items-center text-center px-4 sm:px-8 md:px-12 pb-8 sm:pb-12 md:pb-16 pointer-events-none">
+          {tag && (
+            <span className="inline-block text-[10px] sm:text-xs font-sans uppercase tracking-[0.3em] font-semibold text-[#FFDF78] mb-2 drop-shadow">
+              {tag}
+            </span>
+          )}
+
           {title && (
             <h2
-              className="text-white uppercase font-serif tracking-[0.15em] sm:tracking-[0.18em] font-light text-xl sm:text-2xl md:text-3xl lg:text-4xl max-w-3xl drop-shadow-md mb-2 leading-snug"
-              style={{ textShadow: '0 2px 16px rgba(0,0,0,0.7)' }}
+              className="text-white uppercase font-serif tracking-[0.16em] sm:tracking-[0.2em] font-light text-2xl sm:text-3xl md:text-4xl lg:text-5xl max-w-4xl drop-shadow-md mb-2.5 leading-snug"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
             >
               {title}
             </h2>
           )}
 
           {subtitle && (
-            <p className="text-neutral-200/90 text-[11px] sm:text-xs md:text-sm font-sans tracking-wider max-w-lg mb-3.5 font-light drop-shadow leading-relaxed">
+            <p className="text-neutral-200/90 text-[11px] sm:text-xs md:text-sm font-sans tracking-wider max-w-lg mb-4 font-light drop-shadow leading-relaxed">
               {subtitle}
             </p>
           )}
 
           {ctas && ctas.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2 pt-1 pointer-events-auto">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-3 pt-1 pointer-events-auto">
               {ctas.map((cta, idx) => (
                 <React.Fragment key={idx}>
-                  <button
-                    onClick={() => navigateTo(cta.target)}
-                    className="text-white hover:text-[#d4af37] text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.2em] font-medium underline underline-offset-4 decoration-white/80 hover:decoration-[#d4af37] transition-all px-1 py-1"
-                  >
-                    {cta.label}
-                  </button>
-                  {idx < ctas.length - 1 && (
+                  {ctaStyle === 'solid' ? (
+                    <button
+                      onClick={() => navigateTo(cta.target)}
+                      className="bg-white text-neutral-950 hover:bg-[#FAF8F5] hover:text-[#8B1E2D] text-[11px] sm:text-xs uppercase tracking-[0.22em] font-medium px-6 py-2.5 rounded-xs shadow-lg transition-all duration-300"
+                    >
+                      {cta.label}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => navigateTo(cta.target)}
+                      className="text-white hover:text-[#FFDF78] text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-medium underline underline-offset-8 decoration-white/70 hover:decoration-[#FFDF78] transition-all px-2 py-1 drop-shadow"
+                    >
+                      {cta.label}
+                    </button>
+                  )}
+                  {ctaStyle !== 'solid' && idx < ctas.length - 1 && (
                     <span className="text-white/40 text-xs select-none">|</span>
                   )}
                 </React.Fragment>

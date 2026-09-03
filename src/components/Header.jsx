@@ -49,14 +49,14 @@ const Header = () => {
     };
   }, [menuDrawerOpen]);
 
-  // Exact Nicobar primary desktop navigation links (Menswear & Gifting Atelier)
+  // Exact Nicobar primary desktop navigation links (Home, Women, Men, Living, Gifting, Stories)
   const navLinks = [
+    { label: 'HOME', page: 'home' },
+    { label: 'WOMEN', page: 'women' },
     { label: 'MEN', page: 'men' },
     { label: 'LIVING', page: 'living' },
     { label: 'GIFTING', page: 'gifting' },
     { label: 'STORIES', page: 'about' },
-    { label: 'COMMUNITY', page: 'contact' },
-    { label: 'SALE', page: 'shop', isSale: true },
   ];
 
   return (
@@ -235,11 +235,13 @@ const Header = () => {
 
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {[
+                { label: 'HOME', page: 'home' },
+                { label: 'WOMEN', page: 'women' },
                 { label: 'MEN', page: 'men' },
                 { label: 'LIVING', page: 'living' },
                 { label: 'GIFTING', page: 'gifting' },
-                { label: 'RAJE COLLECTION', page: 'raje' },
-                { label: 'MAHARAJE COLLECTION', page: 'maharaje' },
+                { label: 'RAJE (₹500 - ₹700)', page: 'raje' },
+                { label: 'MAHARAJE (₹2,625 - ₹3,675)', page: 'maharaje' },
                 { label: 'ALL PRODUCTS', page: 'shop' },
                 { label: 'STORIES (ABOUT US)', page: 'about' },
                 { label: 'CONTACT US', page: 'contact' },

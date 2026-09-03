@@ -20,6 +20,7 @@ const FAQPage = lazy(() => import('./pages/FAQPage'));
 const StorePolicyPage = lazy(() => import('./pages/StorePolicyPage'));
 const ShippingReturnsPage = lazy(() => import('./pages/ShippingReturnsPage'));
 const MensCollectionPage = lazy(() => import('./pages/MensCollectionPage'));
+const WomensCollectionPage = lazy(() => import('./pages/WomensCollectionPage'));
 const GiftingPage = lazy(() => import('./pages/GiftingPage'));
 const LivingPage = lazy(() => import('./pages/LivingPage'));
 const CategoriesPage = lazy(() => import('./pages/CategoriesPage'));
@@ -63,6 +64,7 @@ function App() {
         return <ShippingReturnsPage />;
       case 'women':
       case 'collections-women':
+        return <WomensCollectionPage />;
       case 'men':
       case 'collections-men':
         return <MensCollectionPage />;

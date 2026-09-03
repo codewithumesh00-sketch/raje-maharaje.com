@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
 import BrandLogo from './BrandLogo';
-import { ArrowRight } from 'lucide-react';
+import { RotateCcw, Truck, Globe, Banknote, MessageCircle, ArrowRight, Radio } from 'lucide-react';
 
 const NicobarFooter = () => {
   const { navigateTo, showToast } = useShop();
@@ -10,158 +10,257 @@ const NicobarFooter = () => {
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (!email) return;
-    showToast('Thank you for joining the Raje Maharaje list.', '✨');
+    showToast('Welcome to the list. Use code NICOFIRST / RAJEFIRST for 10% off your first order.', '✨');
     setEmail('');
   };
 
   return (
-    <footer className="w-full bg-[#F5EFE6] text-[#241A16] border-t border-[#E8E1D3] text-xs font-sans select-none">
-      {/* 1. Newsletter: "Get on the list" */}
-      <div className="border-b border-[#E8E1D3] py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+    <footer className="w-full bg-[#FAF8F5] text-[#241A16] border-t border-[#E8E1D3] text-xs font-sans select-none relative">
+      {/* 1. Newsletter Box (Get on the list) */}
+      <div className="border-b border-[#E8E1D3] py-14 sm:py-18 px-4 sm:px-6 lg:px-8 bg-[#F4EFE6]">
         <div className="max-w-xl mx-auto text-center space-y-3">
-          <span className="text-[10px] uppercase tracking-[0.24em] font-semibold text-[#DE6B48]">
-            Royal Atelier Gazette
-          </span>
-          <h3 className="text-xl sm:text-2xl font-serif uppercase tracking-[0.16em] font-medium text-[#241A16]">
+          <h3 className="text-2xl sm:text-3xl font-serif uppercase tracking-[0.16em] font-medium text-[#241A16]">
             GET ON THE LIST
           </h3>
-          <p className="text-xs sm:text-sm font-sans tracking-wide text-[#7E746F] font-light">
-            Be the first to hear about new craft editions, limited weaves, and seasonal gifting previews.
+          <p className="text-xs sm:text-sm font-sans tracking-wide text-[#7E746F] font-light max-w-lg mx-auto">
+            Perks include 10% off your first online order. Be the first to know about new collections, store launches, sales, and much more!
           </p>
 
-          <form onSubmit={handleSubscribe} className="pt-2 max-w-md mx-auto flex items-center border-b border-[#8B1E2D] pb-1">
+          <form onSubmit={handleSubscribe} className="pt-3 max-w-md mx-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address..."
-              className="flex-1 bg-transparent py-2 text-xs sm:text-sm font-sans placeholder-[#A89F98] text-[#241A16] focus:outline-none"
+              placeholder="Enter your email address here"
+              className="flex-1 bg-white border border-[#E8E1D3] px-4 py-3 text-xs sm:text-sm font-sans placeholder-[#A89F98] text-[#241A16] focus:outline-none focus:border-[#241A16] rounded-xs"
             />
             <button
               type="submit"
-              aria-label="Submit"
-              className="p-2 text-[#8B1E2D] hover:text-[#DE6B48] transition-colors"
+              className="bg-[#241A16] hover:bg-[#8B1E2D] text-white text-xs uppercase tracking-[0.2em] font-medium px-6 py-3 rounded-xs shadow-sm transition-all"
             >
-              <ArrowRight className="w-4 h-4" />
+              SIGN ME UP
             </button>
           </form>
         </div>
       </div>
 
-      {/* 2. Main Footer Links Columns */}
-      <div className="max-w-[1366px] mx-auto py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Brand Intro */}
-          <div className="col-span-2 space-y-4">
-            <button onClick={() => navigateTo('home')} className="text-left focus:outline-none">
-              <BrandLogo className="h-9 sm:h-10" />
-            </button>
-            <p className="text-xs font-sans text-neutral-500 font-light leading-relaxed max-w-sm">
-              Luxury gifts for the modern man &mdash; Raje Maharaje creates handcrafted accessories that celebrate Indian crafts, colors, and contemporary style.
+      {/* 2. Brand Guarantee Strip: "We're only a mindful brand if we have..." */}
+      <div className="border-b border-[#E8E1D3] py-10 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]">
+        <div className="max-w-[1366px] mx-auto">
+          <p className="text-center text-[11px] uppercase tracking-[0.22em] font-medium text-[#7E746F] mb-8">
+            We're only a mindful brand if we have
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 text-center sm:text-left">
+            {/* Feature 1 */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3.5">
+              <div className="w-10 h-10 rounded-full bg-[#F4EFE6] flex items-center justify-center text-[#8B1E2D] flex-shrink-0">
+                <RotateCcw className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-serif uppercase tracking-[0.14em] font-semibold text-[#241A16]">
+                  Easy returns
+                </h4>
+                <p className="text-[11px] text-[#7E746F] font-light mt-0.5">
+                  Return within 15 days of order delivery. See T&amp;Cs
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3.5">
+              <div className="w-10 h-10 rounded-full bg-[#F4EFE6] flex items-center justify-center text-[#8B1E2D] flex-shrink-0">
+                <Truck className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-serif uppercase tracking-[0.14em] font-semibold text-[#241A16]">
+                  Free shipping
+                </h4>
+                <p className="text-[11px] text-[#7E746F] font-light mt-0.5">
+                  Free shipping on orders above ₹1,000
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3.5">
+              <div className="w-10 h-10 rounded-full bg-[#F4EFE6] flex items-center justify-center text-[#8B1E2D] flex-shrink-0">
+                <Globe className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-serif uppercase tracking-[0.14em] font-semibold text-[#241A16]">
+                  We ship worldwide
+                </h4>
+                <p className="text-[11px] text-[#7E746F] font-light mt-0.5">
+                  Express international delivery to 190+ countries
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3.5">
+              <div className="w-10 h-10 rounded-full bg-[#F4EFE6] flex items-center justify-center text-[#8B1E2D] flex-shrink-0">
+                <Banknote className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-serif uppercase tracking-[0.14em] font-semibold text-[#241A16]">
+                  Cash on delivery
+                </h4>
+                <p className="text-[11px] text-[#7E746F] font-light mt-0.5">
+                  COD available across all Indian serviceable pin codes
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Main Footer Links Columns (Screenshot 12 exact 4 columns) */}
+      <div className="max-w-[1366px] mx-auto py-14 sm:py-18 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+          {/* Column 1: Store Near You */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-serif uppercase tracking-[0.18em] font-semibold text-[#241A16]">
+              FIND A STORE NEAR YOU
+            </h4>
+            <p className="text-xs text-[#7E746F] font-light leading-relaxed">
+              Step into our experiential stores in Delhi, Mumbai, Bangalore, Jaipur &amp; Gurgaon atelier.
             </p>
-            <div className="text-[11px] text-neutral-400 font-light space-y-1">
-              <p>Studio Sankara, Hermitage Apartments, Sector 28 Gurgaon 122002</p>
-              <p>Email: raje.maharaje.official@gmail.com &bull; Tel: +91 9910807795</p>
+            <button
+              onClick={() => navigateTo('contact')}
+              className="inline-block text-xs uppercase tracking-[0.18em] font-semibold text-[#8B1E2D] hover:underline underline-offset-4"
+            >
+              LOCATE ATELIER &rarr;
+            </button>
+            <div className="pt-2">
+              <BrandLogo className="h-8 opacity-90" theme="dark" />
             </div>
           </div>
 
-          {/* Shop Column */}
+          {/* Column 2: About Us */}
           <div className="space-y-3">
-            <h4 className="text-xs font-sans uppercase tracking-[0.16em] font-semibold text-neutral-900">
-              SHOP
+            <h4 className="text-xs font-serif uppercase tracking-[0.18em] font-semibold text-[#241A16]">
+              ABOUT US
             </h4>
-            <ul className="space-y-2 text-xs text-neutral-500 font-light">
+            <ul className="space-y-2.5 text-xs text-[#7E746F] font-light">
               <li>
-                <button onClick={() => navigateTo('men')} className="hover:text-black transition-colors">
-                  Men's Atelier
+                <button onClick={() => navigateTo('about')} className="hover:text-[#241A16] transition-colors">
+                  Our story
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('living')} className="hover:text-black transition-colors">
-                  Living
+                <button onClick={() => navigateTo('about')} className="hover:text-[#241A16] transition-colors">
+                  In the press
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('gifting')} className="hover:text-black transition-colors">
-                  Gifting
+                <button onClick={() => navigateTo('corporate')} className="hover:text-[#241A16] transition-colors">
+                  Work with us &bull; Collaborations
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('shop')} className="hover:text-black transition-colors">
-                  All Products
+                <button onClick={() => navigateTo('contact')} className="hover:text-[#241A16] transition-colors">
+                  Contact us
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* About Column */}
+          {/* Column 3: Quick Links */}
           <div className="space-y-3">
-            <h4 className="text-xs font-sans uppercase tracking-[0.16em] font-semibold text-neutral-900">
-              ABOUT
+            <h4 className="text-xs font-serif uppercase tracking-[0.18em] font-semibold text-[#241A16]">
+              QUICK LINKS
             </h4>
-            <ul className="space-y-2 text-xs text-neutral-500 font-light">
+            <ul className="space-y-2.5 text-xs text-[#7E746F] font-light">
               <li>
-                <button onClick={() => navigateTo('about')} className="hover:text-black transition-colors">
-                  About Us
+                <button onClick={() => navigateTo('contact')} className="hover:text-[#241A16] transition-colors">
+                  Track your order
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('raje')} className="hover:text-black transition-colors">
-                  RAJE Line
+                <button onClick={() => navigateTo('shipping-returns')} className="hover:text-[#241A16] transition-colors">
+                  Initiate a return
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('maharaje')} className="hover:text-black transition-colors">
-                  MAHARAJE Line
+                <button onClick={() => navigateTo('shipping-returns')} className="hover:text-[#241A16] transition-colors">
+                  Shipping &amp; returns
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('corporate')} className="hover:text-black transition-colors">
-                  Wedding &amp; Corporate
+                <button onClick={() => navigateTo('faq')} className="hover:text-[#241A16] transition-colors">
+                  FAQs
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigateTo('store-policy')} className="hover:text-[#241A16] transition-colors">
+                  Terms &amp; Conditions
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigateTo('store-policy')} className="hover:text-[#241A16] transition-colors">
+                  Privacy policy
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Help Column */}
+          {/* Column 4: Nicobar Radio & Customer Care */}
           <div className="space-y-3">
-            <h4 className="text-xs font-sans uppercase tracking-[0.16em] font-semibold text-neutral-900">
-              HELP
-            </h4>
-            <ul className="space-y-2 text-xs text-neutral-500 font-light">
-              <li>
-                <button onClick={() => navigateTo('faq')} className="hover:text-black transition-colors">
-                  FAQ
-                </button>
-              </li>
-              <li>
-                <button onClick={() => navigateTo('contact')} className="hover:text-black transition-colors">
-                  Contact Us
-                </button>
-              </li>
-              <li>
-                <button onClick={() => navigateTo('store-policy')} className="hover:text-black transition-colors">
-                  Store Policy
-                </button>
-              </li>
-              <li>
-                <button onClick={() => navigateTo('shipping-returns')} className="hover:text-black transition-colors">
-                  Shipping &amp; Returns
-                </button>
-              </li>
-            </ul>
+            <div className="flex items-center space-x-2 text-xs font-serif uppercase tracking-[0.18em] font-semibold text-[#241A16]">
+              <Radio className="w-4 h-4 text-[#8B1E2D]" />
+              <span>NICORADIO / ROYAL SANKARA</span>
+            </div>
+            <p className="text-[11px] text-[#7E746F] font-light">
+              A specially curated musical stream for mindful living.
+            </p>
+
+            <div className="pt-2 border-t border-[#E8E1D3] space-y-1.5 text-xs text-[#7E746F]">
+              <p>
+                <a href="mailto:care@nicobar.com" className="hover:text-[#241A16] transition-colors">
+                  care@nicobar.com
+                </a>
+              </p>
+              <p>
+                <a href="mailto:corporate@nicobar.com" className="hover:text-[#241A16] transition-colors">
+                  corporate@nicobar.com
+                </a>
+              </p>
+              <p>
+                <a href="mailto:pr@nicobar.com" className="hover:text-[#241A16] transition-colors">
+                  pr@nicobar.com
+                </a>
+              </p>
+              <p className="text-[#241A16] font-medium pt-1">
+                +91 8588000150
+              </p>
+              <p className="text-[10px] text-[#A89F98]">
+                Mon-Sat 9:30 AM TO 5:30 PM (IST)
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar with Credits & Copyright */}
-        <div className="border-t border-neutral-200 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-400 font-light">
+        {/* Bottom Strip: Copyright & Direct Chat Trigger */}
+        <div className="border-t border-[#E8E1D3] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#7E746F]">
           <p>
-            &copy; 2025 Raje Maharaje &bull; Studio Sankara. All rights reserved.
+            Nicobar Design Pvt. Ltd. &amp; Raje Maharaje Luxury. All Rights Reserved &copy; 2026
           </p>
-          <p>
-            Developed by <a href="https://www.thedailysocial.in/" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-700 underline">The Daily Social</a>
-          </p>
+
+          <div className="flex items-center space-x-6">
+            <span>India &bull; Global</span>
+            <button
+              onClick={() => {
+                const win = window.open('https://wa.me/919910807795', '_blank');
+                if (win) win.focus();
+              }}
+              className="inline-flex items-center space-x-1.5 bg-[#241A16] text-white px-3.5 py-1.5 rounded-full hover:bg-[#8B1E2D] transition-colors shadow-xs"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span className="text-[10px] font-medium uppercase tracking-wider">CHAT</span>
+            </button>
+          </div>
         </div>
       </div>
     </footer>

@@ -6,11 +6,11 @@ const AnnouncementBar = () => {
   const { currentCurrency, setCurrentCurrency } = useShop();
 
   const tickerItems = [
-    "ROYAL ATELIER DISPATCH • JAIPUR • AWADH • VARANASI",
-    "20% OFF Limited Edition Royal Wedding Season Weaves",
-    "Complimentary Heritage Keepsake Chest on Orders Above ₹3,000",
-    "Handcrafted in India • Pure Tanchoi Silk, Awadhi Chikankari & Zari",
-    "Bespoke Groomsmen Monogramming & Custom Wax-Sealed Boxes",
+    "THE GIFTING CONCIERGE: GIFTS DELIVERED IN 4 HOURS",
+    "NEW IN: NICOSERA - FIRST EVENING EDIT",
+    "20% OFF LIMITED EDITION WEDDING SEASON WEAVES",
+    "EXPRESS DELIVERY NOW AVAILABLE IN DELHI, MUMBAI & BANGALORE",
+    "HANDCRAFTED IN INDIA • AWADHI CHIKANKARI, BANARASI TANCHOI & RAW SILK",
   ];
 
   return (

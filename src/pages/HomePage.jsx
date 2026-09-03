@@ -10,9 +10,10 @@ import NicobarTestimonials from '../components/NicobarTestimonials';
 const HomePage = () => {
   return (
     <div className="w-full bg-white space-y-0 selection:bg-black selection:text-white">
-      {/* 1. Nicobar Hero Banner 1: THE SEASON OF GOLD (Full viewport height) */}
+      {/* 1. Nicobar Hero Banner 1: THE SEASON OF GOLD (Full viewport video) */}
       <NicobarHeroBanner
         id="hero_banner_1"
+        video="https://res.cloudinary.com/douc8uat5/video/upload/v1788437555/Video_Project_9_tgxfo3.mp4"
         image="/images/nicobar_hero_season_of_gold_4k.jpg"
         title="THE SEASON OF GOLD"
         subtitle="20% off limited edition Wedding Season pocket squares & master Banarasi weaves"

@@ -4,6 +4,7 @@ import { useShop } from '../context/ShopContext';
 const NicobarHeroBanner = ({
   id,
   image,
+  video,
   mobileImage,
   title,
   subtitle,
@@ -23,20 +24,37 @@ const NicobarHeroBanner = ({
           aspectRatio: aspectRatioDesktop ? `${aspectRatioDesktop}` : '2.1',
         }}
       >
-        <picture className="w-full h-full block">
-          {mobileImage && (
-            <source media="(max-width: 767px)" srcSet={mobileImage} />
-          )}
-          <img
-            src={image}
-            alt={title}
+        {video ? (
+          <video
+            src={video}
+            poster={image}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
             className="w-full h-full object-cover object-center"
             style={{
               minHeight: minFullViewport ? 'calc(100vh - 110px)' : undefined,
-              filter: 'brightness(0.94)',
+              filter: 'brightness(0.92)',
             }}
           />
-        </picture>
+        ) : (
+          <picture className="w-full h-full block">
+            {mobileImage && (
+              <source media="(max-width: 767px)" srcSet={mobileImage} />
+            )}
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover object-center"
+              style={{
+                minHeight: minFullViewport ? 'calc(100vh - 110px)' : undefined,
+                filter: 'brightness(0.94)',
+              }}
+            />
+          </picture>
+        )}
 
         {/* Subtle Bottom Vignette */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />

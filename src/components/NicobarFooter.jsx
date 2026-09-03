@@ -128,7 +128,7 @@ const NicobarFooter = () => {
               Step into our experiential stores in Delhi, Mumbai, Bangalore, Jaipur &amp; Gurgaon atelier.
             </p>
             <button
-              onClick={() => navigateTo('contact')}
+              onClick={() => navigateTo('stores')}
               className="inline-block text-xs uppercase tracking-[0.18em] font-semibold text-[#8B1E2D] hover:underline underline-offset-4"
             >
               LOCATE ATELIER &rarr;
@@ -150,7 +150,7 @@ const NicobarFooter = () => {
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('about')} className="hover:text-[#241A16] transition-colors">
+                <button onClick={() => navigateTo('press')} className="hover:text-[#241A16] transition-colors">
                   In the press
                 </button>
               </li>

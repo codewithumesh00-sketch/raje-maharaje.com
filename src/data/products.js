@@ -1,4 +1,6 @@
-export const products = [
+import nicobarCatalog from './nicobar_catalog.json';
+
+const baseProducts = [
   // 1. Tanchoi Brocades (Maharaje)
   {
     id: "tanchoi-brocade-pocket-square-blue",
@@ -988,4 +990,34 @@ export const products = [
   }
 ];
 
+const formattedNicobarProducts = (nicobarCatalog || []).map((p) => ({
+  id: p.id,
+  slug: p.handle || p.id,
+  title: p.title,
+  priceINR: p.priceINR,
+  originalPriceINR: p.originalPriceINR || Math.round(p.priceINR * 1.2),
+  image: p.image,
+  secondaryImage: p.hoverImage || p.image,
+  gallery: p.gallery && p.gallery.length > 0 ? p.gallery : [p.image],
+  category: p.product_type || (p.department === 'women' ? 'Womenswear' : p.department === 'men' ? 'Menswear' : p.department === 'living' ? 'House & Home' : 'Gifting'),
+  collection: p.department === 'women' ? 'Nicosera' : 'Nicobar Core',
+  department: p.department,
+  craft: 'Mindful Indian Design & Natural Fibres',
+  origin: 'New Delhi & Goa Design Studio',
+  fabric: 'Pure Cotton, Silk, Bamboo & Stoneware',
+  dimensions: 'Standard Contemporary Fit',
+  edge: 'Tailored Finish',
+  badge: p.priceINR > 6000 ? 'Bestseller' : 'New Arrival',
+  sizes: p.department === 'living' ? ['Standard'] : ['XS', 'S', 'M', 'L', 'XL'],
+  colors: [{ name: 'Natural Sand', hex: '#FAF8F5' }],
+  rating: 4.9,
+  reviewsCount: Math.floor(Math.random() * 30) + 12,
+  inStock: p.inStock ?? true,
+  isBestSeller: p.priceINR > 6000,
+  description: p.description || p.title,
+  stylingNotes: 'Designed for effortless tropical living, travel, and festive evenings.',
+  packaging: 'Signature Nicobar mindful box with organic cotton tote.'
+}));
+
+export const products = [...formattedNicobarProducts, ...baseProducts];
 export default products;

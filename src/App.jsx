@@ -28,6 +28,8 @@ const ShopPage = lazy(() => import('./pages/ShopPage'));
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const BoxBuilderPage = lazy(() => import('./pages/BoxBuilderPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const PressPage = lazy(() => import('./pages/PressPage'));
+const StoresPage = lazy(() => import('./pages/StoresPage'));
 const CorporateWeddingPage = lazy(() => import('./pages/CorporateWeddingPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
@@ -84,6 +86,12 @@ function App() {
         return <BoxBuilderPage />;
       case 'about':
         return <AboutPage />;
+      case 'press':
+      case 'in-the-press':
+        return <PressPage />;
+      case 'stores':
+      case 'store-locator':
+        return <StoresPage />;
       case 'corporate':
         return <CorporateWeddingPage />;
       case 'contact':

@@ -12,20 +12,32 @@ const FAQPage = () => {
       a: 'The RAJE collection represents everyday modern sartorial elegance, crafted in breathable natural Linen, versatile Poly-Satin, and embroidered Hakoba cutwork, arriving in our chic signature pink and blue sliding boxes. The MAHARAJE collection is our master-artisan line featuring 400-year Banarasi Tanchoi brocades with metallic zari, Awadhi Chikankari hand-embroidery on pure Tussar silk, Bhagalpur Raw Silk, and Ajrakh block prints, housed in our small keepsake boxes and grand presentation caskets sealed with molten wax.'
     },
     {
+      q: 'How fast is express delivery?',
+      a: 'We offer express 4-hour delivery on select apparel, dining, and gifting edits across Delhi NCR, Mumbai, and Bangalore. Standard domestic deliveries arrive within 2 to 4 business days.'
+    },
+    {
+      q: 'What is the return and exchange policy?',
+      a: 'We have a hassle-free 15-day return and exchange policy from the date of order delivery. Products must be unused, unwashed, with original tags and packaging intact. You can initiate a return directly from our Shipping & Returns page.'
+    },
+    {
+      q: 'Do you offer international worldwide shipping?',
+      a: 'Yes, we ship worldwide to over 190 countries via DHL and FedEx International Express. Delivery timelines range between 4 to 7 business days depending on destination customs clearance.'
+    },
+    {
+      q: 'Is Cash on Delivery (COD) available?',
+      a: 'Yes, Cash on Delivery is available across all serviceable Indian pin codes for orders up to ₹15,000.'
+    },
+    {
       q: 'Can I customize pocket squares and boxes for weddings and corporate gifts?',
-      a: 'Yes, absolutely! We specialize in bespoke wedding favors, groomsmen suites, and corporate client gifting. You can customize the pocket square fabrics, colors, box packaging, and include personalized calligraphy notes or wax-sealed monogram seals. Connect with us on WhatsApp (+91 9910807795) or via our Contact Us page.'
+      a: 'Yes, absolutely! We specialize in bespoke wedding favors, groomsmen suites, and corporate client gifting. You can customize fabrics, colors, box packaging, and include personalized calligraphy notes or wax-sealed monogram seals. Connect with our Gifting Concierge via WhatsApp (+91 9910807795) or our Concierge page.'
     },
     {
-      q: 'How should I care for my handcrafted silk and linen pocket squares?',
-      a: 'For Tanchoi Brocades, Chikankari on Tussar, and Raw Silk creations, dry clean only to preserve the hand-embroidery, natural slubs, and delicate zari work. For pure Linen and Poly-Satin pocket squares, gentle hand wash in cold water or mild steam iron on the reverse side is recommended.'
+      q: 'How should I care for handcrafted silks and linen apparel?',
+      a: 'For Tanchoi Brocades, Chikankari silks, and Bemberg evening wear, dry clean only to preserve delicate zari and embroidery. Pure cottons and linens can be gently hand-washed in cold water and ironed inside out.'
     },
     {
-      q: 'What are the dimensions of Raje Maharaje pocket squares?',
-      a: 'Our standard pocket squares measure 33 cm x 33 cm (13 x 13 inches) or 32 cm x 32 cm for linen, offering generous fabric for diverse folds—including the classic Presidential fold, the Crown fold, the Puff, and the Winged fold.'
-    },
-    {
-      q: 'Where is Raje Maharaje located?',
-      a: 'Raje Maharaje is born from Studio Sankara, located at Hermitage Apartments, Sector 28, Gurgaon 122002, Haryana, India. We ship pan-India with complimentary express delivery on orders above ₹5,000.'
+      q: 'Where are your experiential stores located?',
+      a: 'Our flagship boutiques and scent sanctuaries are located in Delhi (Khan Market, Meherchand, Ambience Mall), Mumbai (Kala Ghoda, Bandra), Bangalore (Indiranagar, Lavelle Road), Chennai, Hyderabad, Goa, and Jaipur.'
     }
   ];
 

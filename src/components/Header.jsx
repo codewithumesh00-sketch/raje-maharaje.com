@@ -57,6 +57,7 @@ const Header = () => {
     { label: 'LIVING', page: 'living' },
     { label: 'GIFTING', page: 'gifting' },
     { label: 'STORIES', page: 'about' },
+    { label: 'STORES', page: 'stores' },
   ];
 
   return (
@@ -240,6 +241,8 @@ const Header = () => {
                 { label: 'MEN', page: 'men' },
                 { label: 'LIVING', page: 'living' },
                 { label: 'GIFTING', page: 'gifting' },
+                { label: 'OUR STORES (LOCATOR)', page: 'stores' },
+                { label: 'IN THE PRESS', page: 'press' },
                 { label: 'RAJE (₹500 - ₹700)', page: 'raje' },
                 { label: 'MAHARAJE (₹2,625 - ₹3,675)', page: 'maharaje' },
                 { label: 'ALL PRODUCTS', page: 'shop' },

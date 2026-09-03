@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
-import { ShoppingCart, Heart, Eye, Check, Sparkles } from 'lucide-react';
+import { Heart, Check, Eye } from 'lucide-react';
 
-const ProductCard = ({ product, customDiscountBadge = null, isSoldOut = false, aspect = 'aspect-[3/4]', index = 0 }) => {
+const ProductCard = ({ product, index = 0 }) => {
   const {
     formatPrice,
     addToCart,
@@ -13,47 +13,24 @@ const ProductCard = ({ product, customDiscountBadge = null, isSoldOut = false, a
   } = useShop();
 
   const [isHovered, setIsHovered] = useState(false);
-  const [justAdded, setJustAdded] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef(null);
+  const [selectedColor, setSelectedColor] = useState(product.colors ? product.colors[0]?.name : null);
+  const [addedSize, setAddedSize] = useState(null);
 
   const isFavorite = isInWishlist(product.id);
+  const secondaryImg = product.secondaryImage || null;
 
-  // Fast Intersection Observer for Gravity Staggered Entrance
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.05, rootMargin: '40px' }
-    );
+  // Available sizes (defaults to Free Size or XS-XL if apparel)
+  const availableSizes = product.sizes || (product.category === 'Kurtas & Tunics' || product.department === 'men'
+    ? ['XS', 'S', 'M', 'L', 'XL']
+    : ['Free Size']);
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Discount percentage calculation
-  const calculatedDiscount = product.originalPriceINR && product.originalPriceINR > product.priceINR
-    ? Math.round(((product.originalPriceINR - product.priceINR) / product.originalPriceINR) * 100)
-    : null;
-
-  const displayBadge = customDiscountBadge || (isSoldOut || !product.inStock ? 'Sold out' : calculatedDiscount ? `${calculatedDiscount}% OFF` : product.badge);
-
-  const secondaryImg = product.secondaryImage || (product.images && product.images[1]) || null;
-
-  const handleQuickAdd = (e) => {
+  // Handle Quick Size Add to Bag
+  const handleSizeSelect = (e, size) => {
     e.stopPropagation();
-    if (!product.inStock && !isSoldOut) return;
-    addToCart(product, 1);
-    setJustAdded(true);
-    setTimeout(() => setJustAdded(false), 1800);
+    if (!product.inStock) return;
+    addToCart({ ...product, selectedSize: size, selectedColor }, 1);
+    setAddedSize(size);
+    setTimeout(() => setAddedSize(null), 1800);
   };
 
   const handleWishlist = (e) => {
@@ -68,150 +45,155 @@ const ProductCard = ({ product, customDiscountBadge = null, isSoldOut = false, a
 
   return (
     <div
-      ref={cardRef}
       onClick={() => navigateToProduct(product.id)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{
-        transitionDelay: `${Math.min((index % 8) * 40, 280)}ms`
-      }}
-      className={`group relative select-none cursor-pointer flex flex-col justify-between overflow-hidden bg-neutral-900 shadow-sm gpu-accelerate transition-all duration-500 ease-gravity transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      } hover:-translate-y-1.5 hover:shadow-2xl`}
+      className="group cursor-pointer flex flex-col select-none bg-white transition-all duration-300"
     >
-      {/* Media & Card Container */}
-      <div className={`relative ${aspect} w-full bg-neutral-950 overflow-hidden`}>
-        {/* Fast Shimmer Skeleton Placeholder while loading */}
-        {!imageLoaded && (
-          <div className="absolute inset-0 skeleton-loading z-0" />
-        )}
-
-        {/* Primary Product Image */}
+      {/* 4:5 Portrait Image Container (Nicobar AspectRatio) */}
+      <div className="relative aspect-[4/5] w-full bg-[#f4f3ef] overflow-hidden">
+        {/* Primary Image */}
         <img
           src={product.image}
           alt={product.title}
           loading="lazy"
-          decoding="async"
-          onLoad={() => setImageLoaded(true)}
-          className={`w-full h-full object-cover transition-all duration-700 ease-gravity ${
+          className={`w-full h-full object-cover object-center transition-all duration-700 ease-out ${
             isHovered && secondaryImg ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
-          } ${isHovered && !secondaryImg ? 'scale-106' : ''}`}
+          }`}
           onError={(e) => {
-            e.target.src = '/images/craft_fan_squares_4k.png';
+            e.target.src = '/images/garden_muse_scarf_fuchsia.jpg';
           }}
         />
 
-        {/* Gravity Secondary Image Rollover Crossfade */}
+        {/* Secondary Hover Image Rollover */}
         {secondaryImg && (
           <img
             src={secondaryImg}
-            alt={`${product.title} Alternate View`}
+            alt={`${product.title} alternate view`}
             loading="lazy"
-            decoding="async"
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-gravity pointer-events-none ${
-              isHovered ? 'opacity-100 scale-106' : 'opacity-0 scale-100'
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out pointer-events-none ${
+              isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
             }`}
           />
         )}
 
-        {/* Subtle Dark Vignette / Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none opacity-85 group-hover:opacity-95 transition-opacity duration-300" />
-
-        {/* Top-Left Gravity Badge with Shimmer Sheen */}
-        {displayBadge && (
-          <div className="absolute top-3 left-3 z-10 overflow-hidden shadow-md">
-            {displayBadge === 'Sold out' ? (
-              <span className="relative block px-2.5 py-1 text-[10px] sm:text-[11px] font-sans font-medium bg-[#2a2a2a]/95 text-neutral-300 border border-neutral-600/50 backdrop-blur-xs">
-                Sold out
-              </span>
-            ) : (
-              <span className="relative block px-2.5 py-1 text-[10px] sm:text-[11px] font-sans font-bold bg-[#e5e5e5] text-neutral-950 backdrop-blur-xs overflow-hidden">
-                <span className="relative z-10">{displayBadge}</span>
-                <span className="absolute inset-0 animate-badge-shimmer pointer-events-none" />
-              </span>
-            )}
+        {/* Top-Left Badge (Nicobar style: subtle Text--subdued caps) */}
+        {product.badge && (
+          <div className="absolute top-3 left-3 z-10">
+            <span className="inline-block bg-white/95 backdrop-blur-xs text-neutral-800 text-[10px] uppercase tracking-[0.16em] font-medium px-2.5 py-1 shadow-xs border border-neutral-200/40">
+              {product.badge}
+            </span>
           </div>
         )}
 
-        {/* Top-Right Action Buttons: Wishlist & Quick Add */}
-        <div className="absolute top-3 right-3 flex items-center space-x-1.5 z-10">
-          <button
-            onClick={handleWishlist}
-            className={`w-8 h-8 flex items-center justify-center transition-all duration-300 ${
-              isFavorite
-                ? 'bg-white text-rose-600 shadow-md'
-                : 'bg-[#1e1e1e]/80 text-white/90 hover:bg-white hover:text-rose-600 opacity-80 group-hover:opacity-100'
+        {/* Top-Right Wishlist Heart Button */}
+        <button
+          onClick={handleWishlist}
+          aria-label="Wishlist"
+          className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-neutral-800 flex items-center justify-center shadow-xs transition-transform duration-200 hover:scale-110"
+        >
+          <Heart
+            className={`w-4 h-4 transition-colors ${
+              isFavorite ? 'fill-[#c53030] text-[#c53030]' : 'text-neutral-700'
             }`}
-            aria-label="Toggle wishlist"
-            title="Wishlist"
-          >
-            <Heart className={`w-3.5 h-3.5 transition-transform duration-300 ${isFavorite ? 'fill-rose-600 scale-110' : 'group-hover:scale-105'}`} />
-          </button>
+          />
+        </button>
 
-          <button
-            onClick={handleQuickAdd}
-            disabled={!product.inStock || isSoldOut}
-            className={`w-8 h-8 flex items-center justify-center transition-all duration-300 ${
-              justAdded 
-                ? 'bg-emerald-600 text-white scale-110' 
-                : 'bg-[#1e1e1e]/90 hover:bg-black text-white hover:scale-105 active:scale-95'
-            }`}
-            aria-label="Add to cart"
-            title="Quick Add"
-          >
-            {justAdded ? (
-              <Check className="w-4 h-4 animate-bounce" />
-            ) : (
-              <ShoppingCart className="w-3.5 h-3.5" />
-            )}
-          </button>
-        </div>
-
-        {/* Hover Quick View Eye Pill in Center with Spring Physics */}
+        {/* Quick View Button on Center Hover */}
         <div
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 transition-all duration-400 ease-spring ${
-            isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-300 ${
+            isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
           }`}
         >
           <button
             onClick={handleQuickView}
-            className="px-4 py-2 rounded-full bg-white/95 text-black font-sans font-bold text-[11px] uppercase tracking-wider flex items-center space-x-1.5 shadow-2xl hover:bg-white hover:shadow-black/50 transition-all transform hover:scale-105 active:scale-95"
+            className="px-4 py-2 bg-white/95 text-neutral-900 text-[11px] font-sans font-medium uppercase tracking-[0.18em] shadow-lg hover:bg-black hover:text-white transition-colors flex items-center space-x-1.5"
           >
             <Eye className="w-3.5 h-3.5" />
             <span>Quick View</span>
           </button>
         </div>
 
-        {/* Bottom Glassmorphic Frosted Overlay Panel (Exact Gravity Signature Look) */}
-        <div className="absolute inset-x-3 bottom-3 z-10 p-3.5 bg-[#252525]/85 backdrop-blur-md transition-all duration-300 group-hover:bg-[#181818]/95 group-hover:shadow-lg border border-white/5">
-          <div className="space-y-1.5">
-            {/* Product Title */}
-            <h3 className="font-sans font-medium text-xs sm:text-sm text-white line-clamp-1 leading-snug tracking-tight group-hover:text-gold-300 transition-colors">
-              {product.title}
-            </h3>
-
-            {/* Price Row: Rs. 2,999.00  Rs. 3,500.00 */}
-            <div className="flex items-baseline justify-between pt-0.5">
-              <div className="flex items-baseline space-x-2">
-                <span className="font-sans font-bold text-xs sm:text-sm text-white tracking-tight">
-                  {formatPrice(product.priceINR)}
-                </span>
-                {product.originalPriceINR && (
-                  <span className="font-sans text-[11px] sm:text-xs text-neutral-400 line-through">
-                    {formatPrice(product.originalPriceINR)}
-                  </span>
-                )}
-              </div>
-
-              {/* In-Card Mini Craft Tag */}
-              {product.craft && (
-                <span className="text-[9px] uppercase tracking-wider text-neutral-400 truncate max-w-[90px] text-right font-sans">
-                  {product.craft.split(' ')[0]}
-                </span>
-              )}
-            </div>
+        {/* Nicobar Signature: Slide-up Quick Size Selector on Hover */}
+        <div
+          className={`absolute inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur-md p-2.5 border-t border-neutral-200/60 transition-transform duration-300 ease-out ${
+            isHovered ? 'translate-y-0' : 'translate-y-full'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-1.5 px-1">
+            <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-medium">
+              Quick Add Size:
+            </span>
+            {addedSize && (
+              <span className="text-[10px] text-emerald-600 font-semibold flex items-center space-x-1">
+                <Check className="w-3 h-3" />
+                <span>Added {addedSize}</span>
+              </span>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {availableSizes.map((size) => (
+              <button
+                key={size}
+                onClick={(e) => handleSizeSelect(e, size)}
+                className={`flex-1 min-w-[36px] py-1 text-[11px] font-sans font-medium tracking-wider uppercase border transition-all ${
+                  addedSize === size
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-neutral-800 border-neutral-300 hover:border-black hover:bg-neutral-50'
+                }`}
+              >
+                {size}
+              </button>
+            ))}
           </div>
         </div>
+      </div>
+
+      {/* Product Details (Below Image - Nicobar Layout) */}
+      <div className="pt-3 pb-2 flex flex-col space-y-1">
+        {/* Product Title */}
+        <h3 className="text-[13px] sm:text-[14px] font-sans font-normal text-neutral-900 tracking-tight line-clamp-1 hover:text-[#9c783e] transition-colors">
+          {product.title}
+        </h3>
+
+        {/* Fabric & Origin Subtitle */}
+        <p className="text-[11px] sm:text-[12px] font-sans text-neutral-500 font-light line-clamp-1">
+          {product.fabric || product.craft || 'Pure Mulberry Silk'}
+        </p>
+
+        {/* Price Row */}
+        <div className="flex items-baseline space-x-2 pt-0.5">
+          <span className="text-[13px] sm:text-[14px] font-sans font-medium text-neutral-900 tracking-tight">
+            {formatPrice(product.priceINR)}
+          </span>
+          {product.originalPriceINR && product.originalPriceINR > product.priceINR && (
+            <span className="text-[11px] font-sans text-neutral-400 line-through">
+              {formatPrice(product.originalPriceINR)}
+            </span>
+          )}
+        </div>
+
+        {/* Color Swatch Dots */}
+        {product.colors && product.colors.length > 0 && (
+          <div className="flex items-center space-x-1.5 pt-1">
+            {product.colors.map((c) => (
+              <button
+                key={c.name}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedColor(c.name);
+                }}
+                className={`w-3 h-3 rounded-full border transition-all ${
+                  selectedColor === c.name
+                    ? 'ring-1 ring-offset-1 ring-black scale-110'
+                    : 'border-neutral-300 hover:scale-105'
+                }`}
+                style={{ backgroundColor: c.hex }}
+                title={c.name}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

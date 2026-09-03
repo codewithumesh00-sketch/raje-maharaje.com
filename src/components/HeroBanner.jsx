@@ -1,222 +1,197 @@
 import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const HeroBanner = () => {
   const { navigateTo } = useShop();
 
-  // 4 Uniformly Sized 1600x2200 Model Cutouts (Matched Scale & Crisp 4K Rendering)
-  const categories = [
+  const slides = [
     {
       id: 0,
-      name: 'Tanchoi Zari Brocade',
-      tagline: 'Varanasi 400-Year Heritage',
-      price: 'Rs. 3,360.00',
-      title: 'TANCHOI ZARI BROCADES ON PURE BANARASI SILK',
-      description: 'Woven with subtle micro-relief floral motifs and metallic zari threads on pure mulberry silk, delivering an unmatched tactile drape for celebratory occasions.',
-      image: '/images/hero_model_slot_1.png',
-      alt: 'Navy Bandhgala with Gold Tanchoi Brocade Pocket Square',
-      target: 'shop'
+      image: '/images/nicobar_hero_season_of_gold_4k.jpg',
+      title: 'THE SEASON OF GOLD',
+      subtitle: 'Festive silks, heirloom weaves and golden moments handcrafted for royalty',
+      primaryBtn: 'SHOP COLLECTION',
+      secondaryBtn: 'DISCOVER MORE',
+      primaryTarget: 'women',
+      secondaryTarget: 'shop',
+      position: 'center',
+      theme: 'gold',
     },
     {
       id: 1,
-      name: 'Royal Midnight Bandhgala',
-      tagline: 'Regal Heritage Atelier',
-      price: 'Rs. 3,650.00',
-      title: 'LUXURY GIFTING, CRAFTED FOR THE MODERN MAN',
-      description: 'We craft pocket squares, stoles, and neckerchiefs that blend Indian heritage with modern design — for effortless sophistication and unforgettable gifting.',
-      image: '/images/hero_model_slot_2.png',
-      alt: 'Royal Midnight Bandhgala with Gold Pocket Square',
-      target: 'shop'
+      image: '/images/nicobar_hero_dress_for_every_part_4k.jpg',
+      title: 'DRESS FOR EVERY PART YOU PLAY',
+      subtitle: 'Bespoke bandhgalas, pure silk kurtas and tailored royal menswear',
+      primaryBtn: 'SHOP MEN',
+      secondaryBtn: null,
+      primaryTarget: 'men',
+      position: 'bottom-center',
+      theme: 'burgundy',
     },
     {
       id: 2,
-      name: 'Awadhi Chikankari Silk',
-      tagline: 'Hand-Embroidered Finesse',
-      price: 'Rs. 3,675.00',
-      title: 'AWADHI CHIKANKARI ON PURE MULBERRY SILK',
-      description: 'Generational shadow-work and delicate needlecraft handcrafted on lightweight silk — designed for celebratory weddings and distinguished black-tie galas.',
-      image: '/images/hero_model_slot_3.png',
-      alt: 'Awadhi Chikankari Handcrafted Silk Model',
-      target: 'shop'
+      image: '/images/nicobar_hero_gifts_stars_4k.jpg',
+      title: 'GIFTS WRITTEN IN THE STARS',
+      subtitle: 'Handcrafted fine porcelain mugs, celestial tableware and treasured keepsakes',
+      primaryBtn: 'SHOP LIVING',
+      secondaryBtn: 'EXPLORE GIFTING',
+      primaryTarget: 'living',
+      secondaryTarget: 'gifting',
+      position: 'center',
+      theme: 'celestial',
     },
-    {
-      id: 3,
-      name: 'Bespoke Royal Gift Chests',
-      tagline: 'Curated Heirloom Suites',
-      price: 'From Rs. 6,200.00',
-      title: 'UNBOX THE BESPOKE ROYAL PRESENTATION',
-      description: 'Handmade rigid presentation chests finished with molten wax seals, custom monogram cards, and curated 2 to 4 piece artisan pocket square suites.',
-      image: '/images/hero_model_slot_4.png',
-      alt: 'Bespoke Presentation Gift Chest Model',
-      target: 'builder'
-    }
   ];
 
-  const [activeCategory, setActiveCategory] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-switch image every 2.0 seconds (2000ms)
+  // Auto-play slide transitions
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
-      setActiveCategory((prev) => (prev + 1) % categories.length);
-    }, 2000);
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5500);
 
     return () => clearInterval(interval);
-  }, [isPaused, categories.length]);
+  }, [isPaused, slides.length]);
 
-  const current = categories[activeCategory];
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
 
   return (
     <div
-      className="bg-black text-white overflow-hidden relative select-none w-full min-h-[90vh] lg:h-[90vh] flex flex-col justify-between"
+      className="relative w-full overflow-hidden select-none bg-[#0a0d14] text-white"
+      style={{ minHeight: 'calc(100vh - 110px)' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* 
-        GIANT BACKGROUND RUNNING TYPOGRAPHY IN THE MIDDLE
-      */}
-      <div className="absolute top-10 sm:top-14 inset-x-0 z-0 flex flex-col pointer-events-none overflow-hidden select-none">
-        {/* Row 1: Left-to-Right Outlined Giant Text */}
-        <div className="whitespace-nowrap flex animate-marquee-reverse">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span
-              key={i}
-              className="font-sans font-black text-[15vw] sm:text-[13vw] uppercase tracking-tight leading-none mx-6 select-none"
+      {/* Background Slides with Cross-Fade */}
+      {slides.map((slide, index) => {
+        const isActive = index === currentSlide;
+        return (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              isActive ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0'
+            }`}
+          >
+            {/* 4K Image */}
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="w-full h-full object-cover object-center transform scale-100 transition-transform duration-7000 ease-out"
               style={{
-                color: 'transparent',
-                WebkitTextStroke: '2.5px rgba(255, 255, 255, 0.35)',
+                filter: slide.id === 0 ? 'brightness(0.95)' : 'brightness(0.92)',
               }}
-            >
-              LUXURY GIFTING • CRAFTED FOR THE MODERN MAN •
-            </span>
-          ))}
-        </div>
+            />
 
-        {/* Row 2: Left-to-Right Solid Letterforms Offset */}
-        <div className="whitespace-nowrap flex animate-marquee-reverse -mt-4 sm:-mt-8">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span
-              key={i}
-              className="font-sans font-black text-[15vw] sm:text-[13vw] uppercase tracking-tight leading-none mx-6 text-neutral-800/80 select-none"
-            >
-              RAJE MAHARAJE • BESPOKE HEIRLOOM ATELIER •
-            </span>
-          ))}
-        </div>
-      </div>
+            {/* Subtle Gradient Overlays for Luxury Contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/35" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
 
-      {/* MAIN HERO CONTENT CONTAINER (Exact 90vh Layout) */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-6 sm:pb-8 flex-1 flex flex-col justify-between w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 my-auto">
-          {/* Left: Uniformly Sized Larger & Crystal Clear Majestic Model Cutout (6 cols) */}
-          <div className="lg:col-span-6 relative flex items-center justify-center">
-            <div className="relative w-full max-w-lg lg:max-w-xl xl:max-w-2xl h-[520px] sm:h-[600px] lg:h-[680px] xl:h-[740px] flex items-end justify-center">
-              <img
-                key={current.id}
-                src={current.image}
-                alt={current.alt}
-                className="w-full h-full object-contain object-bottom filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.98)] brightness-105 contrast-105 transition-all duration-700 ease-out transform hover:scale-105"
-                style={{ imageRendering: '-webkit-optimize-contrast' }}
-              />
-
-              {/* Floating Minimalist Badge */}
-              <div className="absolute bottom-2 left-2 sm:left-6 flex items-center space-x-2 bg-black/90 backdrop-blur-md border border-neutral-800 px-4 py-2 rounded-full text-xs shadow-2xl">
-                <span className="font-bold text-[10px] sm:text-[11px] uppercase text-white tracking-wider">
-                  {current.name}
-                </span>
-                <span className="text-neutral-500">•</span>
-                <span className="font-mono font-bold text-neutral-200 text-xs">
-                  {current.price}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Clean Editorial Headline & Content (6 cols) */}
-          <div className="lg:col-span-6 space-y-6 lg:pl-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-neutral-900 border border-neutral-700 text-neutral-300 text-[10px] uppercase font-bold tracking-[0.2em]">
-                <Sparkles className="w-3.5 h-3.5 text-white" />
-                <span>{current.tagline}</span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white leading-[1.04]">
-                {current.title}
+            {/* Slide Content Overlay */}
+            <div className="absolute inset-0 flex flex-col justify-end items-center text-center px-4 pb-14 sm:pb-20 z-20 max-w-5xl mx-auto">
+              {/* Luxury Display Headline */}
+              <h1
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif tracking-[0.18em] sm:tracking-[0.22em] uppercase font-light text-white drop-shadow-md mb-3"
+                style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
+              >
+                {slide.title}
               </h1>
 
-              {/* Subtext */}
-              <p className="text-xs sm:text-sm text-neutral-300 font-sans leading-relaxed font-light max-w-xl">
-                {current.description}
-              </p>
-            </div>
+              {/* Subtitle Line */}
+              {slide.subtitle && (
+                <p className="text-xs sm:text-sm md:text-base font-sans tracking-wide text-neutral-200/90 max-w-2xl mb-6 font-light">
+                  {slide.subtitle}
+                </p>
+              )}
 
-            {/* Clean [SHOP NOW] Button */}
-            <div className="pt-2">
-              <button
-                onClick={() => navigateTo(current.target)}
-                className="px-10 py-4 bg-white text-black hover:bg-neutral-200 font-sans font-extrabold text-xs uppercase tracking-[0.2em] rounded-xs transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] inline-flex items-center space-x-2"
-              >
-                <span>Shop Now</span>
-                <ArrowRight className="w-4 h-4 text-black" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* BOTTOM 4-CATEGORY SWITCHER (Clean 90vh Layout & 2s Progress Indicator) */}
-        <div className="pt-4 sm:pt-5 border-t border-neutral-800/80 mt-2 w-full">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-neutral-400 font-sans">
-              Featured 4K Model Lookbook (2s):
-            </span>
-            <span className="text-xs font-mono text-neutral-400">
-              0{activeCategory + 1} / 0{categories.length}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5">
-            {categories.map((cat, idx) => {
-              const isActive = activeCategory === idx;
-              return (
+              {/* Action Buttons (Nicobar Style: Underlined Caps / Framed Links) */}
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-1">
                 <button
-                  key={cat.id}
-                  onClick={() => {
-                    setActiveCategory(idx);
-                  }}
-                  className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all duration-300 flex items-center space-x-3 relative overflow-hidden ${
-                    isActive
-                      ? 'bg-neutral-900 border-white shadow-md ring-1 ring-white'
-                      : 'bg-black/60 border-neutral-800 hover:border-neutral-600 opacity-75 hover:opacity-100'
-                  }`}
+                  onClick={() => navigateTo(slide.primaryTarget)}
+                  className="group relative inline-flex items-center text-xs sm:text-sm uppercase tracking-[0.2em] font-medium text-white hover:text-[#d4af37] transition-all duration-300 py-2 border-b border-white hover:border-[#d4af37]"
                 >
-                  {/* Auto-Play Active Progress Line (2s) */}
-                  {isActive && !isPaused && (
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-white animate-[progress_2s_linear_infinite]"></div>
-                  )}
-
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden bg-neutral-900 border border-neutral-700 flex-shrink-0 flex items-center justify-center p-0.5">
-                    <img src={cat.image} alt={cat.name} className="w-full h-full object-contain" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-sans font-bold text-xs uppercase text-white truncate">
-                      {cat.name}
-                    </div>
-                    <div className="text-[9px] sm:text-[10px] text-neutral-400 font-sans truncate mt-0.5">
-                      {cat.tagline}
-                    </div>
-                    <div className="text-[10px] font-mono text-neutral-300 font-semibold mt-0.5">
-                      {cat.price}
-                    </div>
-                  </div>
+                  <span>{slide.primaryBtn}</span>
                 </button>
-              );
-            })}
+
+                {slide.secondaryBtn && (
+                  <>
+                    <span className="text-neutral-400 font-light text-xs hidden sm:inline">|</span>
+                    <button
+                      onClick={() => navigateTo(slide.secondaryTarget)}
+                      className="group relative inline-flex items-center text-xs sm:text-sm uppercase tracking-[0.2em] font-medium text-white hover:text-[#d4af37] transition-all duration-300 py-2 border-b border-white hover:border-[#d4af37]"
+                    >
+                      <span>{slide.secondaryBtn}</span>
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        );
+      })}
+
+      {/* Slide Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        aria-label="Previous Slide"
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-200"
+      >
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+      </button>
+
+      <button
+        onClick={nextSlide}
+        aria-label="Next Slide"
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-200"
+      >
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+      </button>
+
+      {/* Slide Pagination Dots */}
+      <div className="absolute bottom-4 sm:bottom-6 inset-x-0 z-30 flex justify-center items-center space-x-2.5">
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentSlide(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`transition-all duration-300 rounded-full ${
+              idx === currentSlide
+                ? 'w-8 h-1.5 bg-white'
+                : 'w-2 h-1.5 bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Floating WhatsApp Concierge Button (Matches Nicobar live site) */}
+      <a
+        href="https://wa.me/919650308945?text=Hello%20Raje%20Maharaje%20Concierge%2C%20I%20would%20like%20assistance%20with%20your%20luxury%20collection"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp"
+        className="fixed bottom-6 right-6 z-50 rounded-full bg-[#25D366] hover:bg-[#20ba59] shadow-2xl hover:shadow-[#25D366]/50 flex items-center justify-center text-white transition-all duration-300 hover:scale-105"
+        style={{ width: '56px', height: '56px' }}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="30"
+          height="30"
+          stroke="currentColor"
+          strokeWidth="0"
+          fill="currentColor"
+          className="fill-white"
+        >
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      </a>
     </div>
   );
 };

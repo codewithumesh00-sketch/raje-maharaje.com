@@ -1,11 +1,8 @@
 import React from 'react';
 import HeroBanner from '../components/HeroBanner';
+import GiftingWorldShowcase from '../components/GiftingWorldShowcase';
 import ExploreCategory from '../components/ExploreCategory';
-import ExploreCollection from '../components/ExploreCollection';
-import GravityCategoriesShowcase from '../components/GravityCategoriesShowcase';
 import TrendingNow from '../components/TrendingNow';
-import FeaturedProductQuickBuy from '../components/FeaturedProductQuickBuy';
-import RoyalAtelierVideoSection from '../components/RoyalAtelierVideoSection';
 import DualSpotlight from '../components/DualSpotlight';
 import UnboxExperience from '../components/UnboxExperience';
 import BespokeBoxBuilder from '../components/BespokeBoxBuilder';
@@ -15,44 +12,35 @@ import ReviewsSection from '../components/ReviewsSection';
 
 const HomePage = () => {
   return (
-    <div className="space-y-0 selection:bg-black selection:text-white">
-      {/* 1. Hero Lookbook Showcase with 4K Cutout Switcher */}
+    <div className="space-y-0 selection:bg-black selection:text-white bg-white">
+      {/* 1. Hero Carousel (The Season of Gold, Dress For Every Part, Gifts Written in Stars) */}
       <HeroBanner />
 
-      {/* 2. EXPLORE // CATEGORY (Shopify Gravity Preset Reference Image 1) */}
+      {/* 2. Welcome to Our Gifting World (Dual Editorial Showcase Cards - Screenshot 5) */}
+      <GiftingWorldShowcase />
+
+      {/* 3. Explore Repertoire (Nicobar Circular/Oval Category Bubbles) */}
       <ExploreCategory />
 
-      {/* 3. EXPLORE // COLLECTION (Shopify Gravity Preset Reference Image 2) */}
-      <ExploreCollection />
-
-      {/* 4. Dark Staggered Categories Showcase (Shopify Gravity Preset Reference Image 3) */}
-      <GravityCategoriesShowcase />
-
-      {/* 5. TRENDING // NOW Glassmorphic Products Grid (Shopify Gravity Preset Reference Image 4) */}
+      {/* 4. Trending Now / Curated Luxury New Arrivals */}
       <TrendingNow />
 
-      {/* 6. FEATURED // SIGNATURE PRODUCT QUICK BUY (Shopify Gravity Preset Reference Image 5) */}
-      <FeaturedProductQuickBuy />
-
-      {/* 7. Cinema // Royal Atelier Video Craftsmanship & Runway */}
-      <RoyalAtelierVideoSection />
-
-      {/* 8. Dual Spotlight: The Raje Line vs The Maharaje Line */}
+      {/* 5. Dual Spotlight: The Raje Line vs The Maharaje Line */}
       <DualSpotlight />
 
-      {/* 9. Unboxing Experience & Rigid Presentation Chest Preview */}
+      {/* 6. Unboxing Experience & Rigid Presentation Chest Preview */}
       <UnboxExperience />
 
-      {/* 10. Interactive Bespoke Box Builder */}
+      {/* 7. Interactive Bespoke Box Builder */}
       <BespokeBoxBuilder />
 
-      {/* 11. Pan-India Craft Heritage & Artisan Guilds */}
+      {/* 8. Pan-India Craft Heritage & Generational Lineage */}
       <CraftHeritageGrid />
 
-      {/* 12. Sartorial Pocket Square Folding Guide */}
+      {/* 9. Pocket Square Folding Guide */}
       <PocketSquareGuide />
 
-      {/* 13. Customer Reviews & Atelier Ratings */}
+      {/* 10. Customer Reviews & Atelier Ratings */}
       <ReviewsSection />
     </div>
   );

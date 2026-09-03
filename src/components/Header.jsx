@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
-import { RMLogo } from './CrownLogo';
 import {
   Search,
-  ShoppingCart,
+  ShoppingBag,
   Heart,
   X,
   ChevronDown,
   ChevronUp,
   User,
-  Instagram,
-  Facebook,
-  MessageCircle,
-  Youtube,
-  Twitter,
-  Sparkles,
-  Layers
+  Menu,
+  Globe,
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
 
 const Header = () => {
@@ -33,6 +29,7 @@ const Header = () => {
 
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
+  const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
   // Prevent background scrolling when menu drawer is open
   useEffect(() => {
@@ -50,356 +47,310 @@ const Header = () => {
     setOpenSubmenu(openSubmenu === menuId ? null : menuId);
   };
 
-  const menuItems = [
+  const navLinks = [
+    { label: 'HOME', page: 'home' },
+    { label: 'WOMEN', page: 'women' },
+    { label: 'MEN', page: 'men' },
+    { label: 'GIFTING', page: 'gifting' },
+    { label: 'LIVING', page: 'living' },
+    { label: 'COLLECTIONS', page: 'shop' },
+  ];
+
+  const drawerSections = [
     {
-      id: 'categories',
-      title: 'CATEGORIES & CRAFTS',
-      isAccordion: true,
-      badge: 'Signature',
+      id: 'women',
+      title: 'WOMEN',
+      page: 'women',
       sublinks: [
-        { label: 'Explore All Categories', page: 'categories' },
-        { label: 'Tanchoi Zari Brocades', page: 'categories' },
-        { label: 'Awadhi Chikankari Silk', page: 'categories' },
-        { label: 'Ajrakh & Ikat Weaves', page: 'categories' },
-        { label: 'The Raje Line (Daily Chic)', page: 'categories' },
-        { label: 'The Maharaje Line (Regal Heirlooms)', page: 'categories' },
-        { label: 'Bespoke Gift Chests', page: 'categories' },
-        { label: 'Stoles & Neckerchiefs', page: 'categories' },
+        { label: "Women's New Arrivals", page: 'women' },
+        { label: 'Mulberry Silk Scarves', page: 'women' },
+        { label: 'Chanderi Kurtas & Tunics', page: 'women' },
+        { label: 'Awadhi Shadow Chikankari', page: 'women' },
+        { label: 'Banarasi Zari Stoles', page: 'women' },
       ]
     },
     {
-      id: 'collection',
-      title: 'THE COLLECTION',
-      isAccordion: true,
+      id: 'men',
+      title: 'MEN',
+      page: 'men',
       sublinks: [
-        { label: 'All Treasures', page: 'shop' },
-        { label: 'Best Sellers', page: 'shop' },
-        { label: 'Tanchoi Zari Brocades', page: 'shop' },
-        { label: 'Chikankari Hand-Embroidery', page: 'shop' },
-        { label: 'Ajrakh & Ikat Weaves', page: 'shop' },
-        { label: 'Raw Silks & Stoles', page: 'shop' },
-        { label: 'Grand Gift Sets', page: 'shop' },
+        { label: "Men's Royal Atelier", page: 'men' },
+        { label: 'Tailored Bandhgalas & Kurtas', page: 'men' },
+        { label: 'Tanchoi Brocade Pocket Squares', page: 'men' },
+        { label: 'Awadhi Chikankari Pocket Squares', page: 'men' },
+        { label: 'Ajrakh & Ikat Weaves', page: 'men' },
       ]
     },
     {
-      id: 'raje',
-      title: 'THE RAJE LINE',
-      isAccordion: true,
+      id: 'gifting',
+      title: 'GIFTING WORLD',
+      page: 'gifting',
       sublinks: [
-        { label: 'Chic Daily Pocket Squares', page: 'shop' },
-        { label: 'Silk Neckerchiefs', page: 'shop' },
-        { label: 'Vibrant Slide Boxes', page: 'shop' },
-        { label: 'Explore Full Raje Atelier', page: 'categories' },
+        { label: 'Best of Raje Gifts', page: 'gifting' },
+        { label: 'Corporate & Wedding Heirlooms', page: 'corporate' },
+        { label: 'Bespoke Box Builder', page: 'builder' },
+        { label: 'Monogrammed Keepsake Chests', page: 'gifting' },
       ]
     },
     {
-      id: 'maharaje',
-      title: 'THE MAHARAJE LINE',
-      isAccordion: true,
+      id: 'living',
+      title: 'LIVING & TABLEWARE',
+      page: 'living',
       sublinks: [
-        { label: 'Ceremonial Brocades with Zari', page: 'shop' },
-        { label: 'Awadhi Chikankari Silk', page: 'shop' },
-        { label: 'Grand Presentation Chests', page: 'builder' },
-        { label: 'Explore Full Maharaje Atelier', page: 'categories' },
-      ]
-    },
-    {
-      id: 'builder',
-      title: 'BESPOKE BOX BUILDER',
-      isAccordion: false,
-      isHighlight: true,
-      page: 'builder',
-    },
-    {
-      id: 'weddings',
-      title: 'WEDDINGS & CORPORATE',
-      isAccordion: true,
-      sublinks: [
-        { label: 'Groomsmen Bespoke Suites', page: 'corporate' },
-        { label: 'Destination Wedding Favours', page: 'corporate' },
-        { label: 'Corporate Dignitary Gifting', page: 'corporate' },
-        { label: 'Request Swatch Presentation', page: 'corporate' },
+        { label: 'Gifts Written in the Stars', page: 'living' },
+        { label: 'Celestial Porcelain Mugs', page: 'living' },
+        { label: 'Artisanal Brassware & Linen', page: 'living' },
       ]
     },
     {
       id: 'about',
-      title: 'ABOUT & OUR CRAFT',
-      isAccordion: true,
+      title: 'ABOUT & CRAFT ATELIER',
+      page: 'about',
       sublinks: [
-        { label: 'Our Story (Prita Dheer)', page: 'about' },
-        { label: 'Studio Sankara Mission', page: 'about' },
-        { label: 'Pan-India Artisan Clusters', page: 'about' },
+        { label: 'Our Heritage & Philosophy', page: 'about' },
+        { label: 'Master Weavers of Varanasi & Awadh', page: 'about' },
         { label: 'Pocket Square Folding Guide', page: 'home' },
+        { label: 'Contact & Concierge', page: 'contact' },
       ]
-    },
-    {
-      id: 'contact',
-      title: 'CONTACT & CONCIERGE',
-      isAccordion: false,
-      page: 'contact',
     }
   ];
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-black text-white border-b border-neutral-800 transition-colors shadow-md">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-200/70 transition-all duration-300 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-18">
-            <div className="flex items-center space-x-4">
+            {/* Left: Hamburger & Brand Identity */}
+            <div className="flex items-center space-x-4 sm:space-x-6">
               <button
                 onClick={() => setMenuDrawerOpen(true)}
-                className="p-1.5 -ml-1.5 text-white hover:text-neutral-300 focus:outline-none transition-colors group flex items-center space-x-2.5"
+                className="p-1 -ml-1 text-neutral-900 hover:text-black focus:outline-none transition-colors group flex items-center space-x-2"
                 aria-label="Open Navigation Menu"
               >
-                {/* 3-bar Hamburger matching reference image */}
-                <div className="w-6 flex flex-col space-y-1.5">
-                  <span className="w-6 h-0.5 bg-white rounded-full transition-transform group-hover:w-5"></span>
-                  <span className="w-6 h-0.5 bg-white rounded-full"></span>
-                  <span className="w-4 h-0.5 bg-white rounded-full transition-all group-hover:w-6"></span>
-                </div>
-                <span className="hidden md:inline-block text-[11px] font-bold uppercase tracking-widest text-neutral-300 font-sans">
-                  Menu
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 group-hover:scale-105 transition-transform" />
+              </button>
+
+              {/* Nicobar-Style Logo Text: R A J E   M A H A R A J E */}
+              <button
+                onClick={() => navigateTo('home')}
+                className="group text-left focus:outline-none flex items-center space-x-2"
+              >
+                <span className="font-serif text-base sm:text-lg md:text-xl font-medium tracking-[0.24em] sm:tracking-[0.28em] uppercase text-neutral-900 hover:text-[#9c783e] transition-colors">
+                  R A J E &bull; M A H A R A J E
                 </span>
               </button>
             </div>
 
-            {/* Center: Brand Logo with Crown Emblem & R&M (Matches Reference) */}
-            <div
-              onClick={() => navigateTo('home')}
-              className="cursor-pointer transform hover:scale-105 transition-transform flex items-center justify-center"
-            >
-              <RMLogo />
-            </div>
+            {/* Center: Desktop Navigation Links (Exact Nicobar Header) */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {navLinks.map((item) => {
+                const isActive = currentPage === item.page;
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => navigateTo(item.page)}
+                    className={`text-xs uppercase tracking-[0.2em] font-medium transition-all py-1 border-b-2 ${
+                      isActive
+                        ? 'text-black border-black font-semibold'
+                        : 'text-neutral-600 border-transparent hover:text-black hover:border-neutral-400'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </nav>
 
-            {/* Right: Search + Wishlist + Cart (Matches Reference) */}
+            {/* Right: Country, Search, Account, Wishlist, Cart */}
             <div className="flex items-center space-x-3 sm:space-x-5">
+              {/* Country Selector (India / Global) */}
+              <div className="relative hidden md:block">
+                <button
+                  onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                  className="flex items-center space-x-1.5 text-xs font-sans text-neutral-700 hover:text-black py-1 px-2 border border-neutral-200 hover:border-neutral-400 transition-colors"
+                >
+                  <span className="text-sm">🇮🇳</span>
+                  <span className="uppercase tracking-wider font-medium text-[11px]">India</span>
+                  <ChevronDown className="w-3 h-3 text-neutral-400" />
+                </button>
+
+                {currencyDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-36 bg-white border border-neutral-200 shadow-xl py-1 z-50 animate-fade-in">
+                    <button
+                      onClick={() => {
+                        setCurrentCurrency('INR');
+                        setCurrencyDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-1.5 text-xs font-sans hover:bg-neutral-50 flex items-center justify-between"
+                    >
+                      <span>🇮🇳 India (INR)</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setCurrentCurrency('USD');
+                        setCurrencyDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-1.5 text-xs font-sans hover:bg-neutral-50 flex items-center justify-between"
+                    >
+                      <span>🌍 Global (USD)</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {/* Search Icon */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 text-white hover:text-neutral-300 transition-colors"
-                aria-label="Search Collection"
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors"
+                aria-label="Search"
               >
-                <Search className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[1.75]" />
+                <Search className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              {/* Wishlist Heart Icon */}
+              {/* Account / User Icon */}
+              <button
+                onClick={() => navigateTo('contact')}
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors hidden sm:block"
+                aria-label="Account / Concierge"
+              >
+                <User className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+
+              {/* Wishlist Heart with Badge */}
               <button
                 onClick={() => setIsWishlistOpen(true)}
-                className="p-2 text-white hover:text-neutral-300 transition-colors relative hidden sm:block"
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors relative"
                 aria-label="Wishlist"
               >
-                <Heart className="w-5 h-5 stroke-[1.75]" />
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
                 {wishlist.length > 0 && (
-                  <span className="absolute top-1 right-1 bg-white text-black font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-mono">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-black text-white text-[9px] font-bold flex items-center justify-center">
                     {wishlist.length}
                   </span>
                 )}
               </button>
 
-              {/* Shopping Cart Icon with Circular Badge Counter */}
+              {/* Shopping Bag with Counter Badge */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="p-2 text-white hover:text-neutral-300 transition-colors relative flex items-center"
-                aria-label="Shopping Cart"
+                className="p-1.5 text-neutral-700 hover:text-black transition-colors relative"
+                aria-label="Shopping Bag"
               >
-                <ShoppingCart className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[1.75]" />
-                <span className="absolute -top-0.5 -right-0.5 bg-white text-black font-extrabold text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-mono shadow-xs">
-                  {cartItemCount}
-                </span>
+                <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-black text-white text-[9px] font-bold flex items-center justify-center">
+                    {cartItemCount}
+                  </span>
+                )}
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Clean Full-Height Slide-out Menu Drawer with Highest Z-Index (z-[100]) */}
+      {/* Slide-out Navigation Drawer (Matches Nicobar Sidebar Menu) */}
       {menuDrawerOpen && (
-        <div className="fixed inset-0 z-[100] overflow-hidden">
-          {/* Dark Backdrop */}
+        <div className="fixed inset-0 z-50 flex">
+          {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-xs transition-opacity duration-300"
             onClick={() => setMenuDrawerOpen(false)}
-          ></div>
+            className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
+          />
 
-          {/* White Drawer Container */}
-          <div className="fixed inset-y-0 left-0 max-w-sm sm:max-w-md w-full bg-white text-black shadow-2xl z-[101] flex flex-col justify-between overflow-y-auto animate-in slide-in-from-left duration-300">
-            <div>
-              {/* Drawer Top Header */}
-              <div className="flex items-center justify-between pt-7 pb-5 px-6 sm:px-8 border-b border-neutral-200 bg-white sticky top-0 z-10">
-                <div className="flex items-center space-x-2">
-                  <h2 className="font-sans text-2xl font-extrabold tracking-tight text-neutral-900 leading-none">
-                    Menu
-                  </h2>
-                </div>
-                <button
-                  onClick={() => setMenuDrawerOpen(false)}
-                  className="p-1 rounded-full text-neutral-500 hover:text-black transition-colors"
-                  aria-label="Close Menu"
-                >
-                  <div className="w-8 h-8 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center transition-colors">
-                    <X className="w-4 h-4 text-black" />
-                  </div>
-                </button>
-              </div>
+          {/* Drawer Content */}
+          <div className="relative w-full max-w-md bg-[#FAF9F5] h-full shadow-2xl flex flex-col z-10 animate-slide-right">
+            {/* Drawer Top Header */}
+            <div className="p-6 border-b border-neutral-200/70 flex items-center justify-between bg-white">
+              <span className="font-serif text-sm uppercase tracking-[0.24em] font-medium text-neutral-900">
+                R A J E &bull; M A H A R A J E
+              </span>
+              <button
+                onClick={() => setMenuDrawerOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-neutral-600 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-              {/* Drawer Navigation List */}
-              <div className="px-6 sm:px-8 py-4 space-y-1">
-                {menuItems.map((item) => (
-                  <div key={item.id} className="border-b border-neutral-100 pb-1">
-                    {item.isAccordion ? (
-                      <div>
-                        <button
-                          onClick={() => toggleSubmenu(item.id)}
-                          className="w-full py-3.5 flex items-center justify-between text-left font-sans font-extrabold text-sm uppercase tracking-wider text-neutral-900 hover:text-neutral-600 transition-colors"
-                        >
-                          <div className="flex items-center space-x-2">
-                            <span>{item.title}</span>
-                            {item.badge && (
-                              <span className="px-2 py-0.5 bg-black text-white text-[9px] font-mono rounded-full uppercase">
-                                {item.badge}
-                              </span>
-                            )}
-                          </div>
-                          {openSubmenu === item.id ? (
-                            <ChevronUp className="w-4 h-4 text-neutral-500" />
-                          ) : (
-                            <ChevronDown className="w-4 h-4 text-neutral-500" />
-                          )}
-                        </button>
-
-                        {/* Expandable Sublinks */}
-                        {openSubmenu === item.id && (
-                          <div className="pb-3 pl-3 space-y-2.5">
-                            {item.sublinks.map((sub, sIdx) => (
-                              <button
-                                key={sIdx}
-                                onClick={() => {
-                                  navigateTo(sub.page);
-                                  setMenuDrawerOpen(false);
-                                }}
-                                className="block w-full text-left text-xs font-medium text-neutral-600 hover:text-black transition-colors py-1"
-                              >
-                                {sub.label}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
+            {/* Navigation Links Accordion */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {drawerSections.map((sec) => (
+                <div key={sec.id} className="border-b border-neutral-200/60 pb-3">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={() => {
+                        navigateTo(sec.page);
+                        setMenuDrawerOpen(false);
+                      }}
+                      className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] transition-colors text-left"
+                    >
+                      {sec.title}
+                    </button>
+                    {sec.sublinks && (
                       <button
-                        onClick={() => {
-                          navigateTo(item.page);
-                          setMenuDrawerOpen(false);
-                        }}
-                        className={`w-full py-3.5 flex items-center justify-between text-left font-sans font-extrabold text-sm uppercase tracking-wider transition-colors ${
-                          item.isHighlight
-                            ? 'text-black flex items-center justify-between font-black'
-                            : 'text-neutral-900 hover:text-neutral-600'
-                        }`}
+                        onClick={() => toggleSubmenu(sec.id)}
+                        className="p-1 text-neutral-400 hover:text-black"
                       >
-                        <span>{item.title}</span>
-                        {item.isHighlight && (
-                          <span className="px-2 py-0.5 text-[9px] bg-black text-white rounded-full font-mono uppercase tracking-wider">
-                            Custom Suite
-                          </span>
+                        {openSubmenu === sec.id ? (
+                          <ChevronUp className="w-4 h-4" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4" />
                         )}
                       </button>
                     )}
                   </div>
-                ))}
+
+                  {/* Sublinks Dropdown */}
+                  {sec.sublinks && openSubmenu === sec.id && (
+                    <div className="mt-3 pl-3 space-y-2.5 border-l-2 border-neutral-300">
+                      {sec.sublinks.map((sub, sIdx) => (
+                        <button
+                          key={sIdx}
+                          onClick={() => {
+                            navigateTo(sub.page);
+                            setMenuDrawerOpen(false);
+                          }}
+                          className="block text-xs font-sans tracking-wide text-neutral-600 hover:text-black font-light transition-colors text-left"
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Direct Quick Nav */}
+              <div className="pt-4 space-y-3">
+                <button
+                  onClick={() => {
+                    navigateTo('builder');
+                    setMenuDrawerOpen(false);
+                  }}
+                  className="w-full py-3 bg-neutral-900 text-white text-xs uppercase tracking-[0.2em] font-medium hover:bg-black transition-colors flex items-center justify-center space-x-2"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+                  <span>Bespoke Box Builder</span>
+                </button>
               </div>
             </div>
 
-            {/* Drawer Bottom Section: Account + Currency + Social Icons */}
-            <div className="p-6 sm:p-8 border-t border-neutral-200 bg-neutral-50 space-y-4">
-              {/* Currency selector inside drawer */}
-              <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-                  Select Currency:
-                </span>
-                <select
-                  value={currentCurrency}
-                  onChange={(e) => setCurrentCurrency(e.target.value)}
-                  className="bg-white text-black border border-neutral-300 rounded-lg px-2.5 py-1 text-xs font-mono font-bold focus:outline-none focus:border-black cursor-pointer"
+            {/* Drawer Footer */}
+            <div className="p-6 border-t border-neutral-200/70 bg-white space-y-3 text-xs text-neutral-500 font-light">
+              <div className="flex items-center justify-between">
+                <span>Currency: {currentCurrency}</span>
+                <a
+                  href="https://wa.me/919650308945?text=Hello%20Raje%20Maharaje%20Concierge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-700 font-medium hover:underline"
                 >
-                  <option value="INR">INR (₹)</option>
-                  <option value="USD">USD ($)</option>
-                  <option value="EUR">EUR (€)</option>
-                  <option value="GBP">GBP (£)</option>
-                  <option value="AED">AED (AED)</option>
-                </select>
+                  WhatsApp Concierge
+                </a>
               </div>
-
-              {/* Account Link */}
-              <button
-                onClick={() => {
-                  navigateTo('contact');
-                  setMenuDrawerOpen(false);
-                }}
-                className="flex items-center space-x-2.5 text-xs font-bold uppercase tracking-wider text-neutral-900 hover:text-neutral-600 transition-colors"
-              >
-                <User className="w-4 h-4 text-neutral-700" />
-                <span>Patron Account / Bespoke Concierge</span>
-              </button>
-
-              {/* "Get In Touch:" and Social Icons */}
-              <div className="space-y-2 pt-2 border-t border-neutral-200">
-                <span className="text-[11px] font-sans font-bold text-neutral-700 block">
-                  Get In Touch:
-                </span>
-                <div className="flex items-center space-x-4 text-neutral-800">
-                  <a
-                    href="https://wa.me/919910807795"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-black transition-colors p-1"
-                    title="WhatsApp"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-black transition-colors p-1"
-                    title="Instagram"
-                  >
-                    <Instagram className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-black transition-colors p-1"
-                    title="Facebook"
-                  >
-                    <Facebook className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="https://youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-black transition-colors p-1"
-                    title="YouTube"
-                  >
-                    <Youtube className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-black transition-colors p-1"
-                    title="X"
-                  >
-                    <Twitter className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Studio Address */}
-              <div className="text-[10px] text-neutral-500 font-sans">
-                Studio Sankara • Hermitage Apartments, Sector 28, Gurgaon 122002
-              </div>
+              <p className="text-[11px] text-neutral-400">
+                &copy; {new Date().getFullYear()} Raje Maharaje Luxury. All rights reserved.
+              </p>
             </div>
           </div>
         </div>

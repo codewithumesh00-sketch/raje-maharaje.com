@@ -190,6 +190,22 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
+
+  // Check URL on load for direct collection routes
+  useEffect(() => {
+    const path = window.location.pathname.toLowerCase();
+    const hash = window.location.hash.toLowerCase();
+    if (path.includes('new-arrivals-womens') || path.includes('women') || hash.includes('women')) {
+      setCurrentPage('women');
+    } else if (path.includes('men') || hash.includes('men')) {
+      setCurrentPage('men');
+    } else if (path.includes('gifting') || hash.includes('gifting')) {
+      setCurrentPage('gifting');
+    } else if (path.includes('living') || hash.includes('living')) {
+      setCurrentPage('living');
+    }
+  }, []);
+
   const navigateToProduct = (productId) => {
     setSelectedProductId(productId);
     setCurrentPage('product-detail');
@@ -198,6 +214,21 @@ export const ShopProvider = ({ children }) => {
 
   const navigateTo = (pageName) => {
     setCurrentPage(pageName);
+    try {
+      if (pageName === 'women') {
+        window.history.pushState({}, '', '/collections/new-arrivals-womens');
+      } else if (pageName === 'men') {
+        window.history.pushState({}, '', '/collections/men');
+      } else if (pageName === 'gifting') {
+        window.history.pushState({}, '', '/collections/gifting');
+      } else if (pageName === 'living') {
+        window.history.pushState({}, '', '/collections/living');
+      } else if (pageName === 'home') {
+        window.history.pushState({}, '', '/');
+      }
+    } catch {
+      // Ignore if pushState fails in some sandboxed iframes
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

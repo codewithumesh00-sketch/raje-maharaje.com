@@ -14,7 +14,7 @@ const HomePage = () => {
       <NicobarHeroBanner
         id="hero_banner_1"
         video="https://res.cloudinary.com/douc8uat5/video/upload/v1788437555/Video_Project_9_tgxfo3.mp4"
-        image="/images/nicobar_hero_season_of_gold_4k.jpg"
+        image="/images/hero_season_of_gold_video_poster.jpg"
         title="THE SEASON OF GOLD"
         subtitle="20% off limited edition Wedding Season pocket squares & master Banarasi weaves"
         ctas={[
@@ -71,6 +71,7 @@ const HomePage = () => {
           { label: 'SHOP GIFTING', target: 'gifting' },
         ]}
         aspectRatioDesktop="2.1"
+        videoClassName="scale-[1.23] origin-center"
       />
 
       {/* 8. Community Showcase: WE MAKE QUITE A TEAM */}

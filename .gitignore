@@ -8,5 +8,10 @@ dist-ssr
 Thumbs.db
 scripts/*.jpg
 scripts/thumbs/
+*.backup
 *.backup.*
+mobile_preview.png
+public/videos/frame*.jpg
+public/videos/test_*
+public/videos/sample_*
 

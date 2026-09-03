@@ -64,9 +64,10 @@ function App() {
         return <ShippingReturnsPage />;
       case 'women':
       case 'collections-women':
-        return <WomensCollectionPage />;
       case 'men':
       case 'collections-men':
+      case 'pocket-squares':
+      case 'stoles':
         return <MensCollectionPage />;
       case 'gifting':
       case 'collections-gifting':

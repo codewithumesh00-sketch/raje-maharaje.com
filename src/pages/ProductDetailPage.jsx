@@ -31,8 +31,8 @@ const ProductDetailPage = () => {
   const product = products.find((p) => p.id === selectedProductId) || products[0];
 
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState('Midnight Navy');
-  const [selectedSize, setSelectedSize] = useState('L');
+  const [selectedColor, setSelectedColor] = useState(product.colors?.[0]?.name || 'Standard');
+  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || product.dimensions || 'Standard (33x33 cm)');
   const [monogram, setMonogram] = useState('');
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [openAccordion, setOpenAccordion] = useState('craft');
@@ -60,19 +60,12 @@ const ProductDetailPage = () => {
 
   const images = [
     product.image,
-    product.secondaryImage || product.image,
-    '/images/craft_fan_squares_4k.png',
-    '/images/hero_model_slot_2.png'
-  ];
+    product.secondaryImage && product.secondaryImage !== product.image ? product.secondaryImage : null,
+    product.collection === 'Raje' ? '/images/rajemaharaje_card_raje_4k.jpg' : '/images/rajemaharaje_card_maharaje_4k.jpg'
+  ].filter(Boolean);
 
-  const colors = [
-    { name: 'Midnight Navy', bg: 'bg-[#0B1726]' },
-    { name: 'Imperial Crimson', bg: 'bg-[#8B0000]' },
-    { name: 'Ivory Mulberry', bg: 'bg-[#FDFBF7] border border-neutral-300' },
-    { name: 'Royal Emerald', bg: 'bg-[#0F3E2E]' }
-  ];
-
-  const sizes = ['S', 'M', 'L', 'XL', '2XL'];
+  const colors = product.colors || [{ name: 'Craft Palette', hex: '#0F52BA' }];
+  const sizes = product.sizes || [product.dimensions || 'Standard (33x33 cm)'];
 
   const handleAddToCart = () => {
     addToCart(product, quantity, monogram ? monogram.toUpperCase() : null, personalGiftNote);
@@ -242,8 +235,9 @@ const ProductDetailPage = () => {
                     <button
                       key={c.name}
                       onClick={() => setSelectedColor(c.name)}
-                      className={`w-7 h-7 rounded-full ${c.bg} transition-all relative flex items-center justify-center ${
-                        isSelected ? 'ring-2 ring-neutral-900 ring-offset-2' : 'opacity-85 hover:opacity-100'
+                      style={{ backgroundColor: c.hex || '#0F52BA' }}
+                      className={`w-7 h-7 rounded-full border border-neutral-200 transition-all relative flex items-center justify-center ${
+                        isSelected ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110' : 'opacity-85 hover:opacity-100'
                       }`}
                       title={c.name}
                     />

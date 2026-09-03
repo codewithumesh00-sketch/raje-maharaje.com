@@ -12,35 +12,39 @@ const MensCollectionPage = () => {
 
   const subcategories = [
     'All',
-    "Men's Apparel",
-    'Tanchoi Brocades',
-    'Chikankari Silk',
-    'Ajrakh & Ikat',
-    'Gift Sets',
+    'Tanchoi Brocade (₹3,360)',
+    'Chikankari Silk (₹3,675)',
+    'Raw Silk (₹2,625)',
+    'Pure Linen (₹600)',
+    'Poly Satin (₹500)',
+    'Hakoba Eyelet (₹700)',
+    'Ajrakh & Ikkat',
+    'Stoles & Neckerchiefs',
+    'Gift Boxes'
   ];
 
   const filteredProducts = useMemo(() => {
-    let list = products.filter(
-      (p) =>
-        p.department === 'men' ||
-        p.collection === 'Maharaje' ||
-        p.collection === 'Raje' ||
-        p.category === "Men's Apparel" ||
-        p.category === 'Maharaje' ||
-        p.category === 'Raje' ||
-        p.category === 'Tanchoi' ||
-        p.category === 'Gift Sets'
-    );
+    let list = [...products];
 
     if (activeSubcategory !== 'All') {
-      if (activeSubcategory === 'Tanchoi Brocades') {
-        list = list.filter((p) => p.craft?.toLowerCase().includes('tanchoi') || p.title.toLowerCase().includes('tanchoi'));
-      } else if (activeSubcategory === 'Chikankari Silk') {
-        list = list.filter((p) => p.craft?.toLowerCase().includes('chikankari') || p.title.toLowerCase().includes('chikankari'));
-      } else if (activeSubcategory === 'Ajrakh & Ikat') {
-        list = list.filter((p) => p.craft?.toLowerCase().includes('ajrakh') || p.craft?.toLowerCase().includes('ikat'));
-      } else {
-        list = list.filter((p) => p.category === activeSubcategory);
+      if (activeSubcategory === 'Tanchoi Brocade (₹3,360)') {
+        list = list.filter((p) => p.category === 'Tanchui Silk' || p.craft?.toLowerCase().includes('tanchoi'));
+      } else if (activeSubcategory === 'Chikankari Silk (₹3,675)') {
+        list = list.filter((p) => p.category?.toLowerCase().includes('chikankari') || p.craft?.toLowerCase().includes('chikankari'));
+      } else if (activeSubcategory === 'Raw Silk (₹2,625)') {
+        list = list.filter((p) => p.category === 'Raw Silk' || p.craft?.toLowerCase().includes('raw silk'));
+      } else if (activeSubcategory === 'Pure Linen (₹600)') {
+        list = list.filter((p) => p.category === 'Linen');
+      } else if (activeSubcategory === 'Poly Satin (₹500)') {
+        list = list.filter((p) => p.category === 'Poly Satin');
+      } else if (activeSubcategory === 'Hakoba Eyelet (₹700)') {
+        list = list.filter((p) => p.category === 'Hakoba');
+      } else if (activeSubcategory === 'Ajrakh & Ikkat') {
+        list = list.filter((p) => p.craft?.toLowerCase().includes('ajrakh') || p.craft?.toLowerCase().includes('ikat') || p.category?.toLowerCase().includes('ikkat'));
+      } else if (activeSubcategory === 'Stoles & Neckerchiefs') {
+        list = list.filter((p) => p.category === 'Stoles & Neckerchiefs');
+      } else if (activeSubcategory === 'Gift Boxes') {
+        list = list.filter((p) => p.category?.toLowerCase().includes('gift') || p.category?.toLowerCase().includes('raje pocket square') || p.category?.toLowerCase().includes('maharaje pocket square'));
       }
     }
 

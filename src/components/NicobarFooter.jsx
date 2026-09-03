@@ -66,32 +66,37 @@ const NicobarFooter = () => {
           {/* Shop Column */}
           <div className="space-y-3">
             <h4 className="text-xs font-sans uppercase tracking-[0.16em] font-semibold text-neutral-900">
-              SHOP
+              MENSWEAR SHOP
             </h4>
             <ul className="space-y-2 text-xs text-neutral-500 font-light">
               <li>
-                <button onClick={() => navigateTo('women')} className="hover:text-black transition-colors">
-                  Women
+                <button onClick={() => navigateTo('men')} className="hover:text-black transition-colors">
+                  Pocket Squares
                 </button>
               </li>
               <li>
                 <button onClick={() => navigateTo('men')} className="hover:text-black transition-colors">
-                  Men
+                  Stoles & Neckerchiefs
                 </button>
               </li>
               <li>
-                <button onClick={() => navigateTo('living')} className="hover:text-black transition-colors">
-                  Living
+                <button onClick={() => navigateTo('raje')} className="hover:text-black transition-colors">
+                  Raje Line (₹500 — ₹700)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigateTo('maharaje')} className="hover:text-black transition-colors">
+                  Maharaje Line (₹2.6K — ₹3.6K)
                 </button>
               </li>
               <li>
                 <button onClick={() => navigateTo('gifting')} className="hover:text-black transition-colors">
-                  Gifting
+                  Gifting & Wedding Favors
                 </button>
               </li>
               <li>
                 <button onClick={() => navigateTo('shop')} className="hover:text-black transition-colors">
-                  All Products
+                  All Men's Accessories
                 </button>
               </li>
             </ul>

@@ -10,8 +10,8 @@ const NicobarImageWithText = () => {
         {/* Editorial Image */}
         <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-200 shadow-sm">
           <img
-            src="/images/rajemaharaje_hero_craft_4k.jpg"
-            alt="Handcrafted Essentials"
+            src="/images/artisan_embroidery_craft_4k.jpg"
+            alt="Handcrafted Artisan Embroidery at Studio Sankara"
             className="w-full h-full object-cover object-center"
           />
         </div>

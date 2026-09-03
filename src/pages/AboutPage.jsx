@@ -38,9 +38,9 @@ const AboutPage = () => {
           <div className="lg:col-span-5">
             <div className="relative aspect-[3/4] bg-neutral-100 border border-neutral-200 shadow-sm overflow-hidden">
               <img
-                src="/images/rajemaharaje_hero_craft_4k.jpg"
-                alt="Artisan Craftsmanship at Studio Sankara"
-                className="w-full h-full object-cover"
+                src="/images/prita_dheer_owner_4k.png"
+                alt="Prita Dheer - Founder of Studio Sankara & Raje Maharaje"
+                className="w-full h-full object-cover object-top"
               />
             </div>
           </div>

@@ -10,7 +10,7 @@ import NicobarTestimonials from '../components/NicobarTestimonials';
 const HomePage = () => {
   return (
     <div className="w-full bg-white space-y-0 selection:bg-black selection:text-white">
-      {/* 1. Nicobar Hero Banner 1: THE SEASON OF GOLD (Full viewport video) */}
+      {/* 1. Hero Banner 1: THE SEASON OF GOLD (Full viewport video) */}
       <NicobarHeroBanner
         id="hero_banner_1"
         video="https://res.cloudinary.com/douc8uat5/video/upload/v1788437555/Video_Project_9_tgxfo3.mp4"
@@ -25,20 +25,26 @@ const HomePage = () => {
         aspectRatioDesktop="2.1"
       />
 
-      {/* 2. Nicobar Hero Banner 2: READY FOR EVERY INVITE */}
+      {/* 2. Featured Products Carousel: NEW THIS SEASON (Provides immediate visual relief & shopping) */}
+      <NicobarFeaturedProducts />
+
+      {/* 3. Hero Banner 2: READY FOR EVERY INVITE (Bottom-anchored text with tall portrait mobile height) */}
       <NicobarHeroBanner
         id="hero_banner_2"
         image="/images/nicobar_hero_ready_for_invite_4k.jpg"
         title="READY FOR EVERY INVITE"
-        subtitle="Effortless elegance in breathable Linen, versatile Poly Satin and Awadhi needlework"
+        subtitle="Breathable Linen, versatile Poly-Satin, and Awadhi needlework"
         ctas={[
-          { label: 'SHOP RAJE', target: 'raje' },
-          { label: 'SHOP MAHARAJE', target: 'maharaje' },
+          { label: 'SHOP RAJE (₹500-₹700)', target: 'raje' },
+          { label: 'SHOP MAHARAJE (₹2,625-₹3,675)', target: 'maharaje' },
         ]}
         aspectRatioDesktop="2.1"
       />
 
-      {/* 3. Nicobar Hero Banner 3: DRESS FOR EVERY PART YOU PLAY */}
+      {/* 4. Curated Category Dual Grid: WELCOME TO OUR GIFTING WORLD */}
+      <NicobarGiftingWorld />
+
+      {/* 5. Hero Banner 3: DRESS FOR EVERY PART YOU PLAY */}
       <NicobarHeroBanner
         id="hero_banner_3"
         image="/images/nicobar_hero_dress_for_every_part_4k.jpg"
@@ -51,25 +57,31 @@ const HomePage = () => {
         aspectRatioDesktop="2.1"
       />
 
-      {/* 4. Nicobar Hero Banner 4: GIFTS WRITTEN IN THE STARS */}
+      {/* 6. Split Editorial: ESSENTIALS FOR EVERY SEASON */}
+      <NicobarImageWithText />
+
+      {/* 7. Hero Banner 4: GIFTS WRITTEN IN THE STARS */}
       <NicobarHeroBanner
         id="hero_banner_4"
         image="/images/nicobar_hero_gifts_stars_4k.jpg"
         title="GIFTS WRITTEN IN THE STARS"
-        subtitle="From chic pink & blue RAJE boxes to grand MAHARAJE presentation caskets sealed with molten wax"
+        subtitle="Signature pink & blue RAJE boxes to grand MAHARAJE caskets sealed with molten wax"
         ctas={[
           { label: 'SHOP GIFTING', target: 'gifting' },
         ]}
         aspectRatioDesktop="2.1"
       />
 
-      {/* 5. Nicobar Category 2: WELCOME TO OUR GIFTING WORLD */}
-      <NicobarGiftingWorld />
+      {/* 8. Community Showcase: WE MAKE QUITE A TEAM */}
+      <NicobarCommunityCta />
 
-      {/* 6. Nicobar Featured Products Carousel: NEW THIS SEASON */}
-      <NicobarFeaturedProducts />
+      {/* 9. Store Section: WALK IN AND WANDER A LITTLE */}
+      <NicobarStoreCta />
 
-      {/* 7. Nicobar Hero Banner 5: GET IN TOUCH */}
+      {/* 10. Minimalist Testimonials Slider */}
+      <NicobarTestimonials />
+
+      {/* 11. Hero Banner 5: GET IN TOUCH */}
       <NicobarHeroBanner
         id="hero_banner_touch"
         image="/images/rajemaharaje_hero_gentleman_4k.jpg"
@@ -80,18 +92,6 @@ const HomePage = () => {
         ]}
         aspectRatioDesktop="2.1"
       />
-
-      {/* 8. Nicobar Split Section: ESSENTIALS FOR EVERY SEASON */}
-      <NicobarImageWithText />
-
-      {/* 9. Nicobar Community Showcase: WE MAKE QUITE A TEAM */}
-      <NicobarCommunityCta />
-
-      {/* 10. Nicobar Store Section: WALK IN AND WANDER A LITTLE */}
-      <NicobarStoreCta />
-
-      {/* 11. Nicobar Testimonials: Minimalist Quote Slider */}
-      <NicobarTestimonials />
     </div>
   );
 };

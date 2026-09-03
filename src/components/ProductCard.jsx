@@ -19,8 +19,10 @@ const ProductCard = ({ product, index = 0 }) => {
   const isFavorite = isInWishlist(product.id);
   const secondaryImg = product.secondaryImage || null;
 
-  // Available sizes for men's accessories and pocket squares
-  const availableSizes = product.sizes || [product.dimensions || 'Standard (33x33 cm)'];
+  // Available sizes (defaults to Free Size or XS-XL if apparel)
+  const availableSizes = product.sizes || (product.category === 'Kurtas & Tunics' || product.department === 'men'
+    ? ['XS', 'S', 'M', 'L', 'XL']
+    : ['Free Size']);
 
   // Handle Quick Size Add to Bag
   const handleSizeSelect = (e, size) => {

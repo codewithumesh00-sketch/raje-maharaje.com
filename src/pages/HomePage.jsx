@@ -24,15 +24,15 @@ const HomePage = () => {
         aspectRatioDesktop="2.1"
       />
 
-      {/* 2. Nicobar Hero Banner 2: READY FOR EVERY CELEBRATION */}
+      {/* 2. Nicobar Hero Banner 2: READY FOR EVERY INVITE */}
       <NicobarHeroBanner
         id="hero_banner_2"
-        image="/images/craft_fan_squares_4k.png"
-        title="READY FOR EVERY CELEBRATION"
-        subtitle="Effortless elegance in breathable Linen (₹600), versatile Poly Satin (₹500) and master Awadhi Chikankari (₹3,675)"
+        image="/images/nicobar_hero_ready_for_invite_4k.jpg"
+        title="READY FOR EVERY INVITE"
+        subtitle="Effortless elegance in breathable Linen, versatile Poly Satin and Awadhi needlework"
         ctas={[
-          { label: 'SHOP RAJE (₹500-₹700)', target: 'raje' },
-          { label: 'SHOP MAHARAJE (₹2,625-₹3,675)', target: 'maharaje' },
+          { label: 'SHOP RAJE', target: 'raje' },
+          { label: 'SHOP MAHARAJE', target: 'maharaje' },
         ]}
         aspectRatioDesktop="2.1"
       />

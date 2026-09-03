@@ -3,44 +3,40 @@ import HeroBanner from '../components/HeroBanner';
 import GiftingWorldShowcase from '../components/GiftingWorldShowcase';
 import ExploreCategory from '../components/ExploreCategory';
 import TrendingNow from '../components/TrendingNow';
-import DualSpotlight from '../components/DualSpotlight';
 import UnboxExperience from '../components/UnboxExperience';
-import BespokeBoxBuilder from '../components/BespokeBoxBuilder';
 import CraftHeritageGrid from '../components/CraftHeritageGrid';
+import BespokeBoxBuilder from '../components/BespokeBoxBuilder';
 import PocketSquareGuide from '../components/PocketSquareGuide';
 import ReviewsSection from '../components/ReviewsSection';
 
 const HomePage = () => {
   return (
     <div className="space-y-0 selection:bg-black selection:text-white bg-white">
-      {/* 1. Hero Carousel (The Season of Gold, Dress For Every Part, Gifts Written in Stars) */}
+      {/* 1. Hero Carousel with Authentic 4K rajemaharaje.com Visuals & Slogans */}
       <HeroBanner />
 
-      {/* 2. Welcome to Our Gifting World (Dual Editorial Showcase Cards - Screenshot 5) */}
+      {/* 2. Two Signature Collections (RAJE vs MAHARAJE) */}
       <GiftingWorldShowcase />
 
-      {/* 3. Explore Repertoire (Nicobar Circular/Oval Category Bubbles) */}
+      {/* 3. Shop by Craft & Category (All 13 Categories from rajemaharaje.com) */}
       <ExploreCategory />
 
-      {/* 4. Trending Now / Curated Luxury New Arrivals */}
+      {/* 4. Best Sellers (Tanchoi, Chikankari on Tussar, Poly Satin, Linen, Hakoba, Raw Silk) */}
       <TrendingNow />
 
-      {/* 5. Dual Spotlight: The Raje Line vs The Maharaje Line */}
-      <DualSpotlight />
-
-      {/* 6. Unboxing Experience & Rigid Presentation Chest Preview */}
+      {/* 5. Unbox the Regal Experience (RAJE Pink & Blue Boxes, MAHARAJE Small & Grand Boxes) */}
       <UnboxExperience />
+
+      {/* 6. Discover Our Craft (The 4 Pillars of Studio Sankara) */}
+      <CraftHeritageGrid />
 
       {/* 7. Interactive Bespoke Box Builder */}
       <BespokeBoxBuilder />
 
-      {/* 8. Pan-India Craft Heritage & Generational Lineage */}
-      <CraftHeritageGrid />
-
-      {/* 9. Pocket Square Folding Guide */}
+      {/* 8. Pocket Square Folding Guide */}
       <PocketSquareGuide />
 
-      {/* 10. Customer Reviews & Atelier Ratings */}
+      {/* 9. Praise from Patrons (Verified Testimonials from rajemaharaje.com) */}
       <ReviewsSection />
     </div>
   );

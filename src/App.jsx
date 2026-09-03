@@ -14,6 +14,11 @@ import BackToTop from './components/BackToTop';
 import HomePage from './pages/HomePage';
 
 // Subpages (Lazy loaded on demand for ultra-fast bundle size)
+const RajePage = lazy(() => import('./pages/RajePage'));
+const MaharajePage = lazy(() => import('./pages/MaharajePage'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
+const StorePolicyPage = lazy(() => import('./pages/StorePolicyPage'));
+const ShippingReturnsPage = lazy(() => import('./pages/ShippingReturnsPage'));
 const WomensCollectionPage = lazy(() => import('./pages/WomensCollectionPage'));
 const MensCollectionPage = lazy(() => import('./pages/MensCollectionPage'));
 const GiftingPage = lazy(() => import('./pages/GiftingPage'));
@@ -47,6 +52,16 @@ function App() {
     switch (currentPage) {
       case 'home':
         return <HomePage />;
+      case 'raje':
+        return <RajePage />;
+      case 'maharaje':
+        return <MaharajePage />;
+      case 'faq':
+        return <FAQPage />;
+      case 'store-policy':
+        return <StorePolicyPage />;
+      case 'shipping-returns':
+        return <ShippingReturnsPage />;
       case 'women':
       case 'collections-women':
         return <WomensCollectionPage />;

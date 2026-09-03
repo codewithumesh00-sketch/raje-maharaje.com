@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
+import categoriesData from '../data/categories';
 import {
   Search,
   ShoppingBag,
@@ -9,8 +10,6 @@ import {
   ChevronUp,
   User,
   Menu,
-  Globe,
-  ArrowRight,
   Sparkles
 } from 'lucide-react';
 
@@ -28,10 +27,10 @@ const Header = () => {
   } = useShop();
 
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState(null);
+  const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+  const [openDrawerAccordion, setOpenDrawerAccordion] = useState('categories');
 
-  // Prevent background scrolling when menu drawer is open
   useEffect(() => {
     if (menuDrawerOpen) {
       document.body.style.overflow = 'hidden';
@@ -43,81 +42,18 @@ const Header = () => {
     };
   }, [menuDrawerOpen]);
 
-  const toggleSubmenu = (menuId) => {
-    setOpenSubmenu(openSubmenu === menuId ? null : menuId);
-  };
-
   const navLinks = [
     { label: 'HOME', page: 'home' },
-    { label: 'WOMEN', page: 'women' },
-    { label: 'MEN', page: 'men' },
-    { label: 'GIFTING', page: 'gifting' },
-    { label: 'LIVING', page: 'living' },
-    { label: 'COLLECTIONS', page: 'shop' },
-  ];
-
-  const drawerSections = [
-    {
-      id: 'women',
-      title: 'WOMEN',
-      page: 'women',
-      sublinks: [
-        { label: "Women's New Arrivals", page: 'women' },
-        { label: 'Mulberry Silk Scarves', page: 'women' },
-        { label: 'Chanderi Kurtas & Tunics', page: 'women' },
-        { label: 'Awadhi Shadow Chikankari', page: 'women' },
-        { label: 'Banarasi Zari Stoles', page: 'women' },
-      ]
-    },
-    {
-      id: 'men',
-      title: 'MEN',
-      page: 'men',
-      sublinks: [
-        { label: "Men's Royal Atelier", page: 'men' },
-        { label: 'Tailored Bandhgalas & Kurtas', page: 'men' },
-        { label: 'Tanchoi Brocade Pocket Squares', page: 'men' },
-        { label: 'Awadhi Chikankari Pocket Squares', page: 'men' },
-        { label: 'Ajrakh & Ikat Weaves', page: 'men' },
-      ]
-    },
-    {
-      id: 'gifting',
-      title: 'GIFTING WORLD',
-      page: 'gifting',
-      sublinks: [
-        { label: 'Best of Raje Gifts', page: 'gifting' },
-        { label: 'Corporate & Wedding Heirlooms', page: 'corporate' },
-        { label: 'Bespoke Box Builder', page: 'builder' },
-        { label: 'Monogrammed Keepsake Chests', page: 'gifting' },
-      ]
-    },
-    {
-      id: 'living',
-      title: 'LIVING & TABLEWARE',
-      page: 'living',
-      sublinks: [
-        { label: 'Gifts Written in the Stars', page: 'living' },
-        { label: 'Celestial Porcelain Mugs', page: 'living' },
-        { label: 'Artisanal Brassware & Linen', page: 'living' },
-      ]
-    },
-    {
-      id: 'about',
-      title: 'ABOUT & CRAFT ATELIER',
-      page: 'about',
-      sublinks: [
-        { label: 'Our Heritage & Philosophy', page: 'about' },
-        { label: 'Master Weavers of Varanasi & Awadh', page: 'about' },
-        { label: 'Pocket Square Folding Guide', page: 'home' },
-        { label: 'Contact & Concierge', page: 'contact' },
-      ]
-    }
+    { label: 'SHOP', page: 'shop', hasDropdown: true },
+    { label: 'RAJE', page: 'raje' },
+    { label: 'MAHARAJE', page: 'maharaje' },
+    { label: 'ABOUT US', page: 'about' },
+    { label: 'CONTACT US', page: 'contact' },
   ];
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-200/70 transition-all duration-300 shadow-xs">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-200/80 transition-all duration-300 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-18">
             {/* Left: Hamburger & Brand Identity */}
@@ -130,7 +66,6 @@ const Header = () => {
                 <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 group-hover:scale-105 transition-transform" />
               </button>
 
-              {/* Nicobar-Style Logo Text: R A J E   M A H A R A J E */}
               <button
                 onClick={() => navigateTo('home')}
                 className="group text-left focus:outline-none flex items-center space-x-2"
@@ -141,10 +76,67 @@ const Header = () => {
               </button>
             </div>
 
-            {/* Center: Desktop Navigation Links (Exact Nicobar Header) */}
+            {/* Center: Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center space-x-8">
               {navLinks.map((item) => {
                 const isActive = currentPage === item.page;
+                if (item.hasDropdown) {
+                  return (
+                    <div
+                      key={item.label}
+                      className="relative group"
+                      onMouseEnter={() => setCategoriesDropdownOpen(true)}
+                      onMouseLeave={() => setCategoriesDropdownOpen(false)}
+                    >
+                      <button
+                        onClick={() => navigateTo('shop')}
+                        className={`text-xs uppercase tracking-[0.2em] font-medium transition-all py-1 flex items-center space-x-1 border-b-2 ${
+                          isActive
+                            ? 'text-black border-black font-semibold'
+                            : 'text-neutral-600 border-transparent hover:text-black hover:border-neutral-400'
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown className="w-3 h-3 text-neutral-400 group-hover:rotate-180 transition-transform duration-200" />
+                      </button>
+
+                      {/* Mega Dropdown with all 13 Categories from rajemaharaje.com */}
+                      {categoriesDropdownOpen && (
+                        <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[480px] z-50 animate-fade-in">
+                          <div className="bg-white border border-neutral-200/90 shadow-2xl p-6 grid grid-cols-2 gap-x-6 gap-y-2.5">
+                            <div className="col-span-2 pb-2 mb-2 border-b border-neutral-100 flex items-center justify-between">
+                              <span className="text-[10px] font-sans uppercase tracking-widest font-semibold text-[#9c783e]">
+                                All Categories
+                              </span>
+                              <button
+                                onClick={() => {
+                                  navigateTo('shop');
+                                  setCategoriesDropdownOpen(false);
+                                }}
+                                className="text-[11px] font-sans text-neutral-500 hover:text-black underline"
+                              >
+                                View All Products
+                              </button>
+                            </div>
+                            {categoriesData.map((cat) => (
+                              <button
+                                key={cat.id}
+                                onClick={() => {
+                                  navigateTo('shop');
+                                  setCategoriesDropdownOpen(false);
+                                }}
+                                className="text-left text-xs font-sans text-neutral-700 hover:text-black hover:translate-x-0.5 transition-all line-clamp-1 py-1"
+                              >
+                                {cat.name}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 return (
                   <button
                     key={item.label}
@@ -161,9 +153,9 @@ const Header = () => {
               })}
             </nav>
 
-            {/* Right: Country, Search, Account, Wishlist, Cart */}
+            {/* Right Utility Suite */}
             <div className="flex items-center space-x-3 sm:space-x-5">
-              {/* Country Selector (India / Global) */}
+              {/* Country Flag */}
               <div className="relative hidden md:block">
                 <button
                   onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
@@ -198,7 +190,7 @@ const Header = () => {
                 )}
               </div>
 
-              {/* Search Icon */}
+              {/* Search */}
               <button
                 onClick={() => setIsSearchOpen(true)}
                 className="p-1.5 text-neutral-700 hover:text-black transition-colors"
@@ -207,7 +199,7 @@ const Header = () => {
                 <Search className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              {/* Account / User Icon */}
+              {/* Account */}
               <button
                 onClick={() => navigateTo('contact')}
                 className="p-1.5 text-neutral-700 hover:text-black transition-colors hidden sm:block"
@@ -216,7 +208,7 @@ const Header = () => {
                 <User className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              {/* Wishlist Heart with Badge */}
+              {/* Wishlist */}
               <button
                 onClick={() => setIsWishlistOpen(true)}
                 className="p-1.5 text-neutral-700 hover:text-black transition-colors relative"
@@ -230,7 +222,7 @@ const Header = () => {
                 )}
               </button>
 
-              {/* Shopping Bag with Counter Badge */}
+              {/* Cart */}
               <button
                 onClick={() => setIsCartOpen(true)}
                 className="p-1.5 text-neutral-700 hover:text-black transition-colors relative"
@@ -248,18 +240,15 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Slide-out Navigation Drawer (Matches Nicobar Sidebar Menu) */}
+      {/* Slide-out Menu Drawer */}
       {menuDrawerOpen && (
         <div className="fixed inset-0 z-50 flex">
-          {/* Backdrop */}
           <div
             onClick={() => setMenuDrawerOpen(false)}
             className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
           />
 
-          {/* Drawer Content */}
           <div className="relative w-full max-w-md bg-[#FAF9F5] h-full shadow-2xl flex flex-col z-10 animate-slide-right">
-            {/* Drawer Top Header */}
             <div className="p-6 border-b border-neutral-200/70 flex items-center justify-between bg-white">
               <span className="font-serif text-sm uppercase tracking-[0.24em] font-medium text-neutral-900">
                 R A J E &bull; M A H A R A J E
@@ -272,56 +261,118 @@ const Header = () => {
               </button>
             </div>
 
-            {/* Navigation Links Accordion */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
-              {drawerSections.map((sec) => (
-                <div key={sec.id} className="border-b border-neutral-200/60 pb-3">
-                  <div className="flex items-center justify-between">
-                    <button
-                      onClick={() => {
-                        navigateTo(sec.page);
-                        setMenuDrawerOpen(false);
-                      }}
-                      className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] transition-colors text-left"
-                    >
-                      {sec.title}
-                    </button>
-                    {sec.sublinks && (
-                      <button
-                        onClick={() => toggleSubmenu(sec.id)}
-                        className="p-1 text-neutral-400 hover:text-black"
-                      >
-                        {openSubmenu === sec.id ? (
-                          <ChevronUp className="w-4 h-4" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4" />
-                        )}
-                      </button>
-                    )}
-                  </div>
+              <div className="border-b border-neutral-200/60 pb-3">
+                <button
+                  onClick={() => {
+                    navigateTo('home');
+                    setMenuDrawerOpen(false);
+                  }}
+                  className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] block w-full text-left"
+                >
+                  HOME
+                </button>
+              </div>
 
-                  {/* Sublinks Dropdown */}
-                  {sec.sublinks && openSubmenu === sec.id && (
-                    <div className="mt-3 pl-3 space-y-2.5 border-l-2 border-neutral-300">
-                      {sec.sublinks.map((sub, sIdx) => (
-                        <button
-                          key={sIdx}
-                          onClick={() => {
-                            navigateTo(sub.page);
-                            setMenuDrawerOpen(false);
-                          }}
-                          className="block text-xs font-sans tracking-wide text-neutral-600 hover:text-black font-light transition-colors text-left"
-                        >
-                          {sub.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
+              {/* Categories Accordion */}
+              <div className="border-b border-neutral-200/60 pb-3">
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => {
+                      navigateTo('shop');
+                      setMenuDrawerOpen(false);
+                    }}
+                    className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] text-left"
+                  >
+                    SHOP (ALL CATEGORIES)
+                  </button>
+                  <button
+                    onClick={() => setOpenDrawerAccordion(openDrawerAccordion === 'categories' ? null : 'categories')}
+                    className="p-1 text-neutral-400 hover:text-black"
+                  >
+                    {openDrawerAccordion === 'categories' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </button>
                 </div>
-              ))}
 
-              {/* Direct Quick Nav */}
-              <div className="pt-4 space-y-3">
+                {openDrawerAccordion === 'categories' && (
+                  <div className="mt-3 pl-3 space-y-2 border-l-2 border-neutral-300 max-h-56 overflow-y-auto">
+                    {categoriesData.map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => {
+                          navigateTo('shop');
+                          setMenuDrawerOpen(false);
+                        }}
+                        className="block text-xs font-sans tracking-wide text-neutral-600 hover:text-black font-light transition-colors text-left"
+                      >
+                        {cat.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="border-b border-neutral-200/60 pb-3">
+                <button
+                  onClick={() => {
+                    navigateTo('raje');
+                    setMenuDrawerOpen(false);
+                  }}
+                  className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] block w-full text-left"
+                >
+                  RAJE COLLECTION
+                </button>
+              </div>
+
+              <div className="border-b border-neutral-200/60 pb-3">
+                <button
+                  onClick={() => {
+                    navigateTo('maharaje');
+                    setMenuDrawerOpen(false);
+                  }}
+                  className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] block w-full text-left"
+                >
+                  MAHARAJE COLLECTION
+                </button>
+              </div>
+
+              <div className="border-b border-neutral-200/60 pb-3">
+                <button
+                  onClick={() => {
+                    navigateTo('corporate');
+                    setMenuDrawerOpen(false);
+                  }}
+                  className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] block w-full text-left"
+                >
+                  WEDDING FAVORS & CORPORATE GIFTS
+                </button>
+              </div>
+
+              <div className="border-b border-neutral-200/60 pb-3">
+                <button
+                  onClick={() => {
+                    navigateTo('about');
+                    setMenuDrawerOpen(false);
+                  }}
+                  className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] block w-full text-left"
+                >
+                  ABOUT US (OUR STORY)
+                </button>
+              </div>
+
+              <div className="border-b border-neutral-200/60 pb-3">
+                <button
+                  onClick={() => {
+                    navigateTo('contact');
+                    setMenuDrawerOpen(false);
+                  }}
+                  className="text-sm font-serif uppercase tracking-[0.18em] font-medium text-neutral-900 hover:text-[#9c783e] block w-full text-left"
+                >
+                  CONTACT US
+                </button>
+              </div>
+
+              <div className="pt-2">
                 <button
                   onClick={() => {
                     navigateTo('builder');
@@ -335,12 +386,12 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Drawer Footer */}
             <div className="p-6 border-t border-neutral-200/70 bg-white space-y-3 text-xs text-neutral-500 font-light">
+              <p className="text-neutral-700 font-medium">Studio Sankara, Sector 28 Gurgaon</p>
               <div className="flex items-center justify-between">
-                <span>Currency: {currentCurrency}</span>
+                <span>Phone: 9910807795</span>
                 <a
-                  href="https://wa.me/919650308945?text=Hello%20Raje%20Maharaje%20Concierge"
+                  href="https://wa.me/919910807795?text=Hello%20Raje%20Maharaje%20Concierge"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-700 font-medium hover:underline"
@@ -349,7 +400,7 @@ const Header = () => {
                 </a>
               </div>
               <p className="text-[11px] text-neutral-400">
-                &copy; {new Date().getFullYear()} Raje Maharaje Luxury. All rights reserved.
+                &copy; 2025 Raje Maharaje. All rights reserved.
               </p>
             </div>
           </div>

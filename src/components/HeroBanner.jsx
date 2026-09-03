@@ -8,51 +8,44 @@ const HeroBanner = () => {
   const slides = [
     {
       id: 0,
-      image: '/images/nicobar_hero_season_of_gold_4k.jpg',
-      title: 'THE SEASON OF GOLD',
-      subtitle: 'Festive silks, heirloom weaves and golden moments handcrafted for royalty',
-      primaryBtn: 'SHOP COLLECTION',
-      secondaryBtn: 'DISCOVER MORE',
-      primaryTarget: 'women',
-      secondaryTarget: 'shop',
-      position: 'center',
-      theme: 'gold',
+      image: '/images/rajemaharaje_hero_gentleman_4k.jpg',
+      title: 'A POCKET SQUARE DOESN’T MAKE THE MAN — IT REVEALS THE GENTLEMAN',
+      subtitle: 'Minimal, Stunning & Trend-setting Global Fashion for the Modern Man',
+      primaryBtn: 'SHOP NOW',
+      secondaryBtn: 'DISCOVER OUR CRAFT',
+      primaryTarget: 'shop',
+      secondaryTarget: 'about',
     },
     {
       id: 1,
-      image: '/images/nicobar_hero_dress_for_every_part_4k.jpg',
-      title: 'DRESS FOR EVERY PART YOU PLAY',
-      subtitle: 'Bespoke bandhgalas, pure silk kurtas and tailored royal menswear',
-      primaryBtn: 'SHOP MEN',
-      secondaryBtn: null,
-      primaryTarget: 'men',
-      position: 'bottom-center',
-      theme: 'burgundy',
+      image: '/images/rajemaharaje_hero_unboxing_4k.jpg',
+      title: 'UNBOX THE REGAL EXPERIENCE',
+      subtitle: 'From chic pink & blue RAJE boxes to grand MAHARAJE presentation caskets sealed with molten wax',
+      primaryBtn: 'SHOP RAJE',
+      secondaryBtn: 'SHOP MAHARAJE',
+      primaryTarget: 'raje',
+      secondaryTarget: 'maharaje',
     },
     {
       id: 2,
-      image: '/images/nicobar_hero_gifts_stars_4k.jpg',
-      title: 'GIFTS WRITTEN IN THE STARS',
-      subtitle: 'Handcrafted fine porcelain mugs, celestial tableware and treasured keepsakes',
-      primaryBtn: 'SHOP LIVING',
-      secondaryBtn: 'EXPLORE GIFTING',
-      primaryTarget: 'living',
-      secondaryTarget: 'gifting',
-      position: 'center',
-      theme: 'celestial',
+      image: '/images/rajemaharaje_hero_craft_4k.jpg',
+      title: 'A CELEBRATION OF INDIAN CRAFTS, CULTURE & THE MODERN MAN',
+      subtitle: 'Awadhi Chikankari on Tussar Silk, Tanchoi Brocades, Raw Silk & Ajrakh weaves proudly made in India',
+      primaryBtn: 'EXPLORE ALL PRODUCTS',
+      secondaryBtn: 'ABOUT US',
+      primaryTarget: 'shop',
+      secondaryTarget: 'about',
     },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-play slide transitions
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5500);
-
+    }, 6000);
     return () => clearInterval(interval);
   }, [isPaused, slides.length]);
 
@@ -66,12 +59,11 @@ const HeroBanner = () => {
 
   return (
     <div
-      className="relative w-full overflow-hidden select-none bg-[#0a0d14] text-white"
+      className="relative w-full overflow-hidden select-none bg-black text-white"
       style={{ minHeight: 'calc(100vh - 110px)' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Slides with Cross-Fade */}
       {slides.map((slide, index) => {
         const isActive = index === currentSlide;
         return (
@@ -81,38 +73,31 @@ const HeroBanner = () => {
               isActive ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0'
             }`}
           >
-            {/* 4K Image */}
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover object-center transform scale-100 transition-transform duration-7000 ease-out"
-              style={{
-                filter: slide.id === 0 ? 'brightness(0.95)' : 'brightness(0.92)',
-              }}
+              className="w-full h-full object-cover object-center"
+              style={{ filter: 'brightness(0.92)' }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/40" />
 
-            {/* Subtle Gradient Overlays for Luxury Contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/35" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
-
-            {/* Slide Content Overlay */}
             <div className="absolute inset-0 flex flex-col justify-end items-center text-center px-4 pb-14 sm:pb-20 z-20 max-w-5xl mx-auto">
-              {/* Luxury Display Headline */}
+              <span className="text-[10px] sm:text-xs font-sans uppercase tracking-[0.28em] font-semibold text-[#d4af37] block mb-3">
+                Wedding Favors &bull; Corporate Gifts
+              </span>
               <h1
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-serif tracking-[0.18em] sm:tracking-[0.22em] uppercase font-light text-white drop-shadow-md mb-3"
-                style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}
+                className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-serif tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-white drop-shadow-md mb-3 max-w-4xl"
+                style={{ textShadow: '0 2px 20px rgba(0,0,0,0.85)' }}
               >
                 {slide.title}
               </h1>
 
-              {/* Subtitle Line */}
               {slide.subtitle && (
-                <p className="text-xs sm:text-sm md:text-base font-sans tracking-wide text-neutral-200/90 max-w-2xl mb-6 font-light">
+                <p className="text-xs sm:text-sm md:text-base font-sans tracking-wide text-neutral-200/95 max-w-2xl mb-6 font-light">
                   {slide.subtitle}
                 </p>
               )}
 
-              {/* Action Buttons (Nicobar Style: Underlined Caps / Framed Links) */}
               <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 pt-1">
                 <button
                   onClick={() => navigateTo(slide.primaryTarget)}
@@ -142,7 +127,7 @@ const HeroBanner = () => {
       <button
         onClick={prevSlide}
         aria-label="Previous Slide"
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-200"
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-200"
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
@@ -150,12 +135,12 @@ const HeroBanner = () => {
       <button
         onClick={nextSlide}
         aria-label="Next Slide"
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-200"
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-200"
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
-      {/* Slide Pagination Dots */}
+      {/* Pagination Dots */}
       <div className="absolute bottom-4 sm:bottom-6 inset-x-0 z-30 flex justify-center items-center space-x-2.5">
         {slides.map((_, idx) => (
           <button
@@ -171,9 +156,9 @@ const HeroBanner = () => {
         ))}
       </div>
 
-      {/* Floating WhatsApp Concierge Button (Matches Nicobar live site) */}
+      {/* WhatsApp Concierge Button linking to official phone from rajemaharaje.com */}
       <a
-        href="https://wa.me/919650308945?text=Hello%20Raje%20Maharaje%20Concierge%2C%20I%20would%20like%20assistance%20with%20your%20luxury%20collection"
+        href="https://wa.me/919910807795?text=Hello%20Raje%20Maharaje%20Concierge%2C%20I%20would%20like%20assistance%20with%20your%20luxury%20collection"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"

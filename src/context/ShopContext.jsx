@@ -195,14 +195,24 @@ export const ShopProvider = ({ children }) => {
   useEffect(() => {
     const path = window.location.pathname.toLowerCase();
     const hash = window.location.hash.toLowerCase();
-    if (path.includes('new-arrivals-womens') || path.includes('women') || hash.includes('women')) {
-      setCurrentPage('women');
-    } else if (path.includes('men') || hash.includes('men')) {
-      setCurrentPage('men');
-    } else if (path.includes('gifting') || hash.includes('gifting')) {
-      setCurrentPage('gifting');
-    } else if (path.includes('living') || hash.includes('living')) {
-      setCurrentPage('living');
+    if (path.includes('raje') && !path.includes('maharaje')) {
+      setCurrentPage('raje');
+    } else if (path.includes('maharaje')) {
+      setCurrentPage('maharaje');
+    } else if (path.includes('about')) {
+      setCurrentPage('about');
+    } else if (path.includes('contact')) {
+      setCurrentPage('contact');
+    } else if (path.includes('shop') || path.includes('category')) {
+      setCurrentPage('shop');
+    } else if (path.includes('faq')) {
+      setCurrentPage('faq');
+    } else if (path.includes('store-policy')) {
+      setCurrentPage('store-policy');
+    } else if (path.includes('shipping')) {
+      setCurrentPage('shipping-returns');
+    } else if (path.includes('builder')) {
+      setCurrentPage('builder');
     }
   }, []);
 
@@ -215,16 +225,26 @@ export const ShopProvider = ({ children }) => {
   const navigateTo = (pageName) => {
     setCurrentPage(pageName);
     try {
-      if (pageName === 'women') {
-        window.history.pushState({}, '', '/collections/new-arrivals-womens');
-      } else if (pageName === 'men') {
-        window.history.pushState({}, '', '/collections/men');
-      } else if (pageName === 'gifting') {
-        window.history.pushState({}, '', '/collections/gifting');
-      } else if (pageName === 'living') {
-        window.history.pushState({}, '', '/collections/living');
-      } else if (pageName === 'home') {
+      if (pageName === 'home') {
         window.history.pushState({}, '', '/');
+      } else if (pageName === 'shop') {
+        window.history.pushState({}, '', '/category/shop');
+      } else if (pageName === 'raje') {
+        window.history.pushState({}, '', '/raje');
+      } else if (pageName === 'maharaje') {
+        window.history.pushState({}, '', '/maharaje');
+      } else if (pageName === 'about') {
+        window.history.pushState({}, '', '/about-us');
+      } else if (pageName === 'contact') {
+        window.history.pushState({}, '', '/contact-us');
+      } else if (pageName === 'faq') {
+        window.history.pushState({}, '', '/faq');
+      } else if (pageName === 'store-policy') {
+        window.history.pushState({}, '', '/store-policy');
+      } else if (pageName === 'shipping-returns') {
+        window.history.pushState({}, '', '/shipping-and-returns');
+      } else if (pageName === 'corporate') {
+        window.history.pushState({}, '', '/corporate-gifting');
       }
     } catch {
       // Ignore if pushState fails in some sandboxed iframes

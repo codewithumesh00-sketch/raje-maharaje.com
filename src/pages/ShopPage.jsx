@@ -1,348 +1,275 @@
 import React, { useState, useMemo } from 'react';
 import { useShop } from '../context/ShopContext';
+import categoriesData from '../data/categories';
 import ProductCard from '../components/ProductCard';
-import { SlidersHorizontal, Grid3X3, LayoutGrid, X, Check, ArrowUpDown, Sparkles } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown, X, Check } from 'lucide-react';
 
 const ShopPage = () => {
-  const { products, formatPrice, navigateTo } = useShop();
+  const { products, navigateTo } = useShop();
 
-  // Filter states
-  const [selectedCollection, setSelectedCollection] = useState('All');
-  const [selectedCraft, setSelectedCraft] = useState('All');
-  const [selectedPriceRange, setSelectedPriceRange] = useState('All');
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const [selectedCollections, setSelectedCollections] = useState([]);
+  const [maxPrice, setMaxPrice] = useState(10500);
   const [sortBy, setSortBy] = useState('featured');
-  const [gridColumns, setGridColumns] = useState(4); // 2, 3, or 4
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
-  // Crafts available
-  const craftOptions = ['All', 'Tanchoi Brocade', 'Chikankari Hand-Embroidery', 'Ajrakh Hand-Block Print', 'Pochampally Ikat Weave', 'Tussar & Raw Silk Weave', 'Bespoke Curated Set'];
-  const collectionOptions = ['All', 'Raje', 'Maharaje', 'Gift Sets'];
-  const priceOptions = [
-    { id: 'All', label: 'All Prices' },
-    { id: 'under-3500', label: 'Under ₹3,500', min: 0, max: 3500 },
-    { id: '3500-5000', label: '₹3,500 – ₹5,000', min: 3500, max: 5000 },
-    { id: 'above-5000', label: 'Above ₹5,000 (Gift Suites)', min: 5000, max: 999999 },
+  const categoryChips = [
+    'All',
+    'Tanchui Silk',
+    'Chikankari embroidery on Tussar Silk',
+    'Raw Silk',
+    'Poly Satin',
+    'Linen',
+    'Hakoba',
+    'Ajrakh block print on Modal Silk',
+    'Ikkat Silk',
+    'Madhubani painting on Tussar silk',
+    'Raje Pocket Square',
+    'Maharaje Pocket Square'
   ];
 
-  // Filtered & Sorted products
   const filteredProducts = useMemo(() => {
-    return products.filter((p) => {
-      // Collection filter
-      if (selectedCollection !== 'All' && p.collection !== selectedCollection && p.category !== selectedCollection) {
-        return false;
-      }
-      // Craft filter
-      if (selectedCraft !== 'All' && !p.craft.toLowerCase().includes(selectedCraft.toLowerCase())) {
-        return false;
-      }
-      // Price range filter
-      if (selectedPriceRange !== 'All') {
-        const option = priceOptions.find((o) => o.id === selectedPriceRange);
-        if (option && (p.priceINR < option.min || p.priceINR > option.max)) {
-          return false;
-        }
-      }
-      return true;
-    }).sort((a, b) => {
-      if (sortBy === 'price-asc') return a.priceINR - b.priceINR;
-      if (sortBy === 'price-desc') return b.priceINR - a.priceINR;
-      if (sortBy === 'rating') return b.rating - a.rating;
-      return 0; // featured default
-    });
-  }, [products, selectedCollection, selectedCraft, selectedPriceRange, sortBy]);
+    let list = [...products];
 
-  const activeFiltersCount = (selectedCollection !== 'All' ? 1 : 0) + (selectedCraft !== 'All' ? 1 : 0) + (selectedPriceRange !== 'All' ? 1 : 0);
+    // Category chip filter
+    if (activeCategory !== 'All') {
+      list = list.filter((p) => p.category === activeCategory || p.craft?.toLowerCase().includes(activeCategory.toLowerCase()));
+    }
+
+    // Collection filter
+    if (selectedCollections.length > 0) {
+      list = list.filter((p) => selectedCollections.includes(p.collection));
+    }
+
+    // Max price
+    list = list.filter((p) => p.priceINR <= maxPrice);
+
+    // Sorting
+    if (sortBy === 'price-low-high') {
+      list.sort((a, b) => a.priceINR - b.priceINR);
+    } else if (sortBy === 'price-high-low') {
+      list.sort((a, b) => b.priceINR - a.priceINR);
+    } else if (sortBy === 'rating') {
+      list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    }
+
+    return list;
+  }, [products, activeCategory, selectedCollections, maxPrice, sortBy]);
 
   const clearAllFilters = () => {
-    setSelectedCollection('All');
-    setSelectedCraft('All');
-    setSelectedPriceRange('All');
+    setActiveCategory('All');
+    setSelectedCollections([]);
+    setMaxPrice(10500);
   };
 
+  const toggleCollection = (col) => {
+    setSelectedCollections((prev) =>
+      prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]
+    );
+  };
+
+  const activeFilterCount =
+    (activeCategory !== 'All' ? 1 : 0) +
+    selectedCollections.length +
+    (maxPrice < 10500 ? 1 : 0);
+
   return (
-    <div className="bg-cream-50 min-h-screen py-10 sm:py-14 text-obsidian-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb & Header */}
-        <div className="mb-8">
-          <div className="flex items-center space-x-2 text-xs font-serif text-obsidian-500 uppercase tracking-widest mb-2">
-            <button onClick={() => navigateTo('home')} className="hover:text-gold-700">Home</button>
-            <span>/</span>
-            <span className="text-gold-800 font-semibold">The Sovereign Atelier</span>
-          </div>
-          <h1 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-obsidian-900 uppercase">
-            The Complete Atelier
+    <div className="min-h-screen bg-white">
+      {/* Top Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+        <nav className="flex items-center space-x-2 text-xs text-neutral-400 font-sans tracking-wide">
+          <button onClick={() => navigateTo('home')} className="hover:text-black transition-colors">
+            Home
+          </button>
+          <span>/</span>
+          <span className="hover:text-black cursor-pointer">Shop</span>
+          <span>/</span>
+          <span className="text-neutral-900 font-medium">All Products</span>
+        </nav>
+      </div>
+
+      {/* Header Banner */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <span className="text-[10px] sm:text-xs font-sans tracking-[0.25em] text-[#9c783e] uppercase font-semibold block mb-2">
+            Wedding Favors &bull; Corporate Gifts
+          </span>
+          <h1 className="text-2xl sm:text-4xl font-serif uppercase tracking-[0.16em] font-light text-neutral-900 mb-2">
+            ALL PRODUCTS
           </h1>
-          <p className="text-sm text-obsidian-600 font-serif mt-2 max-w-2xl">
-            Explore 100% pure silk pocket squares, master brocades, hand-embroidered chikankari, and bespoke presentation chests.
+          <p className="text-xs sm:text-sm font-sans tracking-wide text-neutral-500 font-light">
+            We craft pocket squares, stoles, and neckerchiefs that blend Indian heritage with modern design — for effortless sophistication and unforgettable gifting.
           </p>
         </div>
 
-        {/* Filter & View Control Bar (Shopify Gravity Theme Style) */}
-        <div className="bg-white p-4 rounded-xl border border-cream-300 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-          {/* Left: Filter Toggle & Active Count */}
-          <div className="flex items-center space-x-3 w-full md:w-auto justify-between md:justify-start">
+        {/* Category Scrollable Chips (All 13 from rajemaharaje.com) */}
+        <div className="flex items-center space-x-2 sm:space-x-3 overflow-x-auto pb-4 scrollbar-none border-b border-neutral-100">
+          {categoryChips.map((cat) => (
             <button
-              onClick={() => setIsMobileFilterOpen(true)}
-              className="lg:hidden inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-obsidian-950 text-gold-300 text-xs uppercase tracking-wider font-semibold"
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 sm:px-5 py-2 rounded-full text-xs font-sans tracking-wider uppercase whitespace-nowrap transition-all duration-200 ${
+                activeCategory === cat
+                  ? 'bg-black text-white shadow-xs'
+                  : 'bg-[#f6f5f0] text-neutral-700 hover:bg-neutral-200/80'
+              }`}
             >
-              <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span>Filters ({activeFiltersCount})</span>
+              {cat}
             </button>
+          ))}
+        </div>
+      </div>
 
-            <span className="text-xs font-mono text-obsidian-600">
-              Showing <strong>{filteredProducts.length}</strong> of <strong>{products.length}</strong> creations
+      {/* Sticky Filter Toolbar */}
+      <div className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md border-b border-neutral-200/80 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          <button
+            onClick={() => setFilterDrawerOpen(true)}
+            className="inline-flex items-center space-x-2 text-xs sm:text-sm uppercase tracking-wider font-medium text-neutral-900 hover:text-black py-1 px-3 border border-neutral-300 hover:border-black transition-colors"
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+            <span>Filter</span>
+            {activeFilterCount > 0 && (
+              <span className="w-5 h-5 rounded-full bg-black text-white text-[10px] flex items-center justify-center font-bold">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+
+          <span className="text-xs font-sans text-neutral-500 tracking-wide font-light hidden sm:inline">
+            {filteredProducts.length} Items Found
+          </span>
+
+          <div className="flex items-center space-x-2">
+            <span className="text-xs uppercase tracking-wider text-neutral-400 font-medium hidden md:inline">
+              Sort By:
             </span>
-          </div>
-
-          {/* Right: Sort & Grid Layout */}
-          <div className="flex items-center space-x-4 w-full md:w-auto justify-end">
-            {/* Sort Select */}
-            <div className="flex items-center space-x-2 text-xs font-sans">
-              <span className="text-obsidian-500 hidden sm:inline">Sort:</span>
+            <div className="relative">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-cream-100 border border-cream-300 rounded-lg px-3 py-1.5 text-xs text-obsidian-900 focus:outline-none focus:border-gold-500 font-sans cursor-pointer"
+                className="appearance-none bg-transparent text-xs sm:text-sm uppercase tracking-wider font-medium text-neutral-900 pr-7 pl-2 py-1 border-b border-neutral-300 focus:outline-none cursor-pointer"
               >
-                <option value="featured">Featured / Best Sellers</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="rating">Patron Rating</option>
+                <option value="featured">Featured</option>
+                <option value="price-low-high">Price: Low to High</option>
+                <option value="price-high-low">Price: High to Low</option>
+                <option value="rating">Customer Rating</option>
               </select>
+              <ChevronDown className="w-3.5 h-3.5 text-neutral-500 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
-
-            {/* Grid Column Selector */}
-            <div className="hidden sm:flex items-center space-x-1 border-l border-cream-300 pl-3">
-              <button
-                onClick={() => setGridColumns(3)}
-                className={`p-1.5 rounded transition-colors ${
-                  gridColumns === 3 ? 'bg-obsidian-950 text-gold-400' : 'text-obsidian-400 hover:text-obsidian-800'
-                }`}
-                title="3 Columns"
-              >
-                <LayoutGrid className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setGridColumns(4)}
-                className={`p-1.5 rounded transition-colors ${
-                  gridColumns === 4 ? 'bg-obsidian-950 text-gold-400' : 'text-obsidian-400 hover:text-obsidian-800'
-                }`}
-                title="4 Columns"
-              >
-                <Grid3X3 className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Active Filter Chips */}
-        {activeFiltersCount > 0 && (
-          <div className="flex flex-wrap items-center gap-2 mb-6">
-            <span className="text-xs uppercase font-serif text-gold-800 font-semibold mr-1">
-              Active Filters:
-            </span>
-            {selectedCollection !== 'All' && (
-              <span className="inline-flex items-center space-x-1 px-3 py-1 rounded-full bg-obsidian-950 text-gold-300 text-xs font-mono">
-                <span>Line: {selectedCollection}</span>
-                <X onClick={() => setSelectedCollection('All')} className="w-3 h-3 cursor-pointer hover:text-white" />
-              </span>
-            )}
-            {selectedCraft !== 'All' && (
-              <span className="inline-flex items-center space-x-1 px-3 py-1 rounded-full bg-obsidian-950 text-gold-300 text-xs font-mono">
-                <span>Craft: {selectedCraft}</span>
-                <X onClick={() => setSelectedCraft('All')} className="w-3 h-3 cursor-pointer hover:text-white" />
-              </span>
-            )}
-            {selectedPriceRange !== 'All' && (
-              <span className="inline-flex items-center space-x-1 px-3 py-1 rounded-full bg-obsidian-950 text-gold-300 text-xs font-mono">
-                <span>Price: {priceOptions.find(o => o.id === selectedPriceRange)?.label}</span>
-                <X onClick={() => setSelectedPriceRange('All')} className="w-3 h-3 cursor-pointer hover:text-white" />
-              </span>
-            )}
-            <button
-              onClick={clearAllFilters}
-              className="text-xs text-rose-700 hover:underline font-serif ml-2"
-            >
-              Clear All
-            </button>
-          </div>
-        )}
-
-        {/* Layout: Sidebar + Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Desktop Filter Sidebar (3 cols) */}
-          <div className="hidden lg:block lg:col-span-3 space-y-6 bg-white p-6 rounded-2xl border border-cream-300 shadow-sm sticky top-28">
-            <div className="flex items-center justify-between pb-3 border-b border-cream-200">
-              <h3 className="font-display font-bold text-sm uppercase tracking-wider text-obsidian-950">
-                Refine Collection
-              </h3>
-              {activeFiltersCount > 0 && (
-                <button onClick={clearAllFilters} className="text-xs text-gold-800 hover:underline font-serif">
-                  Reset
-                </button>
-              )}
-            </div>
-
-            {/* Collection Filter */}
-            <div>
-              <h4 className="font-serif font-bold text-xs uppercase tracking-wider text-gold-900 mb-2.5">
-                Atelier Line
-              </h4>
-              <div className="space-y-1.5">
-                {collectionOptions.map((col) => (
-                  <button
-                    key={col}
-                    onClick={() => setSelectedCollection(col)}
-                    className={`w-full flex items-center justify-between text-xs py-1 px-2 rounded transition-colors ${
-                      selectedCollection === col
-                        ? 'bg-obsidian-950 text-gold-300 font-semibold'
-                        : 'text-obsidian-700 hover:bg-cream-100'
-                    }`}
-                  >
-                    <span>{col === 'All' ? 'All Collections' : `${col} Line`}</span>
-                    {selectedCollection === col && <Check className="w-3 h-3 text-gold-400" />}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Craft Filter */}
-            <div className="pt-4 border-t border-cream-200">
-              <h4 className="font-serif font-bold text-xs uppercase tracking-wider text-gold-900 mb-2.5">
-                Indian Heritage Weave
-              </h4>
-              <div className="space-y-1.5">
-                {craftOptions.map((cr) => (
-                  <button
-                    key={cr}
-                    onClick={() => setSelectedCraft(cr)}
-                    className={`w-full flex items-center justify-between text-xs py-1 px-2 rounded transition-colors ${
-                      selectedCraft === cr
-                        ? 'bg-obsidian-950 text-gold-300 font-semibold'
-                        : 'text-obsidian-700 hover:bg-cream-100'
-                    }`}
-                  >
-                    <span className="truncate">{cr}</span>
-                    {selectedCraft === cr && <Check className="w-3 h-3 text-gold-400 flex-shrink-0" />}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Price Filter */}
-            <div className="pt-4 border-t border-cream-200">
-              <h4 className="font-serif font-bold text-xs uppercase tracking-wider text-gold-900 mb-2.5">
-                Price Range
-              </h4>
-              <div className="space-y-1.5">
-                {priceOptions.map((pr) => (
-                  <button
-                    key={pr.id}
-                    onClick={() => setSelectedPriceRange(pr.id)}
-                    className={`w-full flex items-center justify-between text-xs py-1 px-2 rounded transition-colors ${
-                      selectedPriceRange === pr.id
-                        ? 'bg-obsidian-950 text-gold-300 font-semibold'
-                        : 'text-obsidian-700 hover:bg-cream-100'
-                    }`}
-                  >
-                    <span>{pr.label}</span>
-                    {selectedPriceRange === pr.id && <Check className="w-3 h-3 text-gold-400" />}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Product Grid Area (9 cols) */}
-          <div className="lg:col-span-9">
-            {filteredProducts.length === 0 ? (
-              <div className="bg-white p-12 rounded-2xl border border-cream-300 text-center space-y-4">
-                <p className="font-serif text-lg text-obsidian-700">
-                  No creations matched your selected criteria.
-                </p>
-                <button
-                  onClick={clearAllFilters}
-                  className="px-6 py-2.5 rounded-full bg-obsidian-950 text-gold-300 text-xs uppercase tracking-widest font-semibold hover:bg-gold-500 hover:text-obsidian-950"
-                >
-                  Reset All Filters
-                </button>
-              </div>
-            ) : (
-              <div
-                className={`grid gap-6 ${
-                  gridColumns === 3
-                    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-                    : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                }`}
-              >
-                {filteredProducts.map((product, idx) => (
-                  <ProductCard key={product.id} product={product} index={idx} />
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </div>
 
-      {/* Mobile Filters Drawer */}
-      {isMobileFilterOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsMobileFilterOpen(false)}></div>
-          <div className="fixed inset-y-0 left-0 max-w-xs w-full bg-white p-6 shadow-2xl flex flex-col justify-between z-50">
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-cream-300">
-                <h3 className="font-display font-bold text-sm uppercase tracking-wider text-obsidian-950">
-                  Refine Collection
-                </h3>
-                <button onClick={() => setIsMobileFilterOpen(false)} className="p-1 text-obsidian-600">
-                  <X className="w-5 h-5" />
-                </button>
+      {/* Products Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-8 sm:gap-y-12">
+            {filteredProducts.map((p, idx) => (
+              <ProductCard key={p.id} product={p} index={idx} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-[#faf9f5] max-w-md mx-auto p-8 border border-neutral-200">
+            <h3 className="text-base uppercase tracking-widest font-serif text-neutral-800 mb-2">
+              No Items Found
+            </h3>
+            <p className="text-xs text-neutral-500 mb-6 font-light">
+              Try adjusting your filter selection to discover more handcrafted creations.
+            </p>
+            <button
+              onClick={clearAllFilters}
+              className="px-6 py-2.5 bg-black text-white text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors"
+            >
+              Clear All Filters
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Filter Drawer */}
+      {filterDrawerOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <div
+            onClick={() => setFilterDrawerOpen(false)}
+            className="absolute inset-0 bg-black/50 backdrop-blur-xs transition-opacity duration-300"
+          />
+
+          <div className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col z-10 animate-slide-left">
+            <div className="flex items-center justify-between p-6 border-b border-neutral-200">
+              <h3 className="text-sm font-serif uppercase tracking-[0.2em] font-semibold text-neutral-900">
+                Filter Products
+              </h3>
+              <button
+                onClick={() => setFilterDrawerOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-neutral-600 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-6 space-y-8">
+              <div>
+                <h4 className="text-xs uppercase tracking-wider font-semibold text-neutral-900 mb-3">
+                  Collection
+                </h4>
+                <div className="space-y-2">
+                  {['Raje', 'Maharaje'].map((col) => (
+                    <label
+                      key={col}
+                      className="flex items-center space-x-3 text-xs text-neutral-700 cursor-pointer select-none hover:text-black"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedCollections.includes(col)}
+                        onChange={() => toggleCollection(col)}
+                        className="rounded border-neutral-300 text-black focus:ring-black w-4 h-4"
+                      />
+                      <span>{col} Line</span>
+                    </label>
+                  ))}
+                </div>
               </div>
 
-              {/* Collections */}
-              <div className="mt-4 space-y-4 overflow-y-auto max-h-[70vh]">
-                <div>
-                  <h4 className="font-serif font-bold text-xs uppercase text-gold-900 mb-2">Atelier Line</h4>
-                  <div className="space-y-1">
-                    {collectionOptions.map((c) => (
-                      <button
-                        key={c}
-                        onClick={() => setSelectedCollection(c)}
-                        className={`w-full text-left text-xs p-2 rounded ${
-                          selectedCollection === c ? 'bg-obsidian-950 text-gold-300 font-semibold' : 'text-obsidian-700'
-                        }`}
-                      >
-                        {c}
-                      </button>
-                    ))}
-                  </div>
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <h4 className="text-xs uppercase tracking-wider font-semibold text-neutral-900">
+                    Max Price
+                  </h4>
+                  <span className="text-xs font-mono font-medium text-neutral-700">
+                    ₹ {maxPrice.toLocaleString('en-IN')}
+                  </span>
                 </div>
-
-                <div>
-                  <h4 className="font-serif font-bold text-xs uppercase text-gold-900 mb-2">Weave / Craft</h4>
-                  <div className="space-y-1">
-                    {craftOptions.map((cr) => (
-                      <button
-                        key={cr}
-                        onClick={() => setSelectedCraft(cr)}
-                        className={`w-full text-left text-xs p-2 rounded ${
-                          selectedCraft === cr ? 'bg-obsidian-950 text-gold-300 font-semibold' : 'text-obsidian-700'
-                        }`}
-                      >
-                        {cr}
-                      </button>
-                    ))}
-                  </div>
+                <input
+                  type="range"
+                  min="500"
+                  max="10500"
+                  step="250"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-full accent-black cursor-pointer"
+                />
+                <div className="flex justify-between text-[10px] text-neutral-400 font-mono mt-1">
+                  <span>₹ 500 (Poly Satin)</span>
+                  <span>₹ 10,500 (Grand Chest)</span>
                 </div>
               </div>
             </div>
 
-            <button
-              onClick={() => setIsMobileFilterOpen(false)}
-              className="w-full py-3 rounded-full bg-obsidian-950 text-gold-300 font-bold text-xs uppercase tracking-widest"
-            >
-              Apply Filters ({filteredProducts.length} Results)
-            </button>
+            <div className="p-4 sm:p-6 border-t border-neutral-200 flex space-x-3 bg-[#faf9f5]">
+              <button
+                onClick={clearAllFilters}
+                className="flex-1 py-3 text-xs uppercase tracking-widest font-medium text-neutral-700 hover:text-black border border-neutral-300 hover:border-black transition-colors"
+              >
+                Clear All
+              </button>
+              <button
+                onClick={() => setFilterDrawerOpen(false)}
+                className="flex-1 py-3 bg-black text-white text-xs uppercase tracking-widest font-medium hover:bg-neutral-800 transition-colors"
+              >
+                Apply ({filteredProducts.length})
+              </button>
+            </div>
           </div>
         </div>
       )}

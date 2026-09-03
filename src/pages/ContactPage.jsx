@@ -1,263 +1,219 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
-import { Mail, Phone, MapPin, MessageCircle, Clock, ShieldCheck, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, Clock } from 'lucide-react';
 
 const ContactPage = () => {
-  const { showToast } = useShop();
-  const [contactForm, setContactForm] = useState({
-    firstName: '',
-    lastName: '',
+  const { navigateTo } = useShop();
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
     email: '',
     phone: '',
+    interest: 'Wedding Favours & Groomsmen',
     message: ''
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [openFaq, setOpenFaq] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    showToast('Your message has been dispatched to our Gurgaon Atelier.', '💌');
+    setFormSubmitted(true);
   };
 
-  const faqs = [
-    {
-      q: 'How long does custom monogramming embroidery take?',
-      a: 'Custom monogramming is performed by master hand-embroidery artisans in Lucknow and Banaras. It typically takes 2-3 additional business days before dispatch.'
-    },
-    {
-      q: 'Do you provide physical fabric swatches for wedding curation?',
-      a: 'Yes, for wedding and corporate commissions of 15+ pieces, our atelier delivers a physical swatch kit with brocade swatches, ribbon options, and wax seal samples.'
-    },
-    {
-      q: 'What is your shipping and international delivery policy?',
-      a: 'We offer complimentary express delivery across India for orders above ₹5,000. Worldwide international express shipping to the USA, UK, UAE, and Europe is delivered via DHL Express in 4-6 business days.'
-    },
-    {
-      q: 'Can I visit your studio in Gurgaon?',
-      a: 'Private studio appointments at Studio Sankara (Hermitage Apartments, Sector 28, Gurgaon) are welcomed for bespoke consultations. Please contact us in advance to schedule.'
-    }
-  ];
-
   return (
-    <div className="bg-cream-50 text-obsidian-950 min-h-screen py-14">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs uppercase tracking-[0.25em] text-gold-700 font-semibold font-serif">
-            Atelier Concierge
+    <div className="bg-white min-h-screen text-neutral-900">
+      {/* Top Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+        <nav className="flex items-center space-x-2 text-xs text-neutral-400 font-sans tracking-wide">
+          <button onClick={() => navigateTo('home')} className="hover:text-black transition-colors">
+            Home
+          </button>
+          <span>/</span>
+          <span className="text-neutral-900 font-medium">Contact Us</span>
+        </nav>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-[10px] sm:text-xs font-sans tracking-[0.25em] text-[#9c783e] uppercase font-semibold block mb-2">
+            Connect With Studio Sankara
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-bold uppercase tracking-tight text-obsidian-900 mt-2">
-            Connect With The Atelier
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif uppercase tracking-[0.16em] font-light text-neutral-900 mb-4">
+            CONTACT RAJE MAHARAJE
           </h1>
-          <div className="w-16 h-0.5 bg-gold-500 mx-auto mt-4 mb-4"></div>
-          <p className="text-sm sm:text-base text-obsidian-600 font-serif">
-            Our private concierge team is at your disposal for bespoke styling, wedding commissions, and studio appointments.
+          <div className="w-12 h-px bg-[#c5a059] mx-auto mb-4" />
+          <p className="text-xs sm:text-sm font-sans tracking-wide text-neutral-500 font-light">
+            Get in touch with Raje Maharaje for wedding gifting, bulk orders & corporate collaborations. We’re here to assist you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Contact Details (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="bg-obsidian-950 text-cream-100 p-8 rounded-2xl border border-gold-900/50 shadow-xl space-y-6">
-              <div>
-                <h3 className="font-display font-bold text-xl text-gold-200 uppercase">
-                  Studio Sankara Atelier
-                </h3>
-                <p className="text-xs text-cream-300 font-serif mt-1">
-                  Private Menswear & Bespoke Gifting Salon
-                </p>
-              </div>
-
-              <div className="space-y-4 text-xs sm:text-sm text-cream-200 font-sans font-light">
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-cream-100 block font-serif">Studio Address:</strong>
-                    <span>
-                      Studio Sankara<br />
-                      Hermitage Apartments, Sector 28<br />
-                      Gurgaon 122002, Haryana, India
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-gold-400 flex-shrink-0" />
-                  <div>
-                    <strong className="text-cream-100 block font-serif">Direct Email:</strong>
-                    <a href="mailto:raje.maharaje.official@gmail.com" className="text-gold-300 hover:underline">
-                      raje.maharaje.official@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-gold-400 flex-shrink-0" />
-                  <div>
-                    <strong className="text-cream-100 block font-serif">Telephone / Hotline:</strong>
-                    <span>+91 9910807795 / +91 9820427795</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <Clock className="w-5 h-5 text-gold-400 flex-shrink-0" />
-                  <div>
-                    <strong className="text-cream-100 block font-serif">Concierge Hours:</strong>
-                    <span>Monday – Saturday: 10:00 AM – 7:30 PM IST</span>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Atelier Details (Exact from rajemaharaje.com/contact-us) */}
+          <div className="lg:col-span-5 space-y-8 bg-[#FAF9F5] p-8 sm:p-10 border border-neutral-200/70">
+            <div>
+              <h2 className="text-lg font-serif uppercase tracking-wider text-neutral-900 mb-2 font-medium">
+                Atelier Address
+              </h2>
+              <div className="flex items-start space-x-3 text-xs sm:text-sm font-sans text-neutral-600 font-light">
+                <MapPin className="w-5 h-5 text-[#9c783e] shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-medium text-neutral-900">Studio Sankara</p>
+                  <p>Hermitage Apartments, Sector 28</p>
+                  <p>Gurgaon 122002, Haryana, India</p>
                 </div>
               </div>
+            </div>
 
-              {/* Direct WhatsApp CTA */}
-              <div className="pt-4 border-t border-gold-900/50">
+            <div className="border-t border-neutral-200/70 pt-6">
+              <h2 className="text-lg font-serif uppercase tracking-wider text-neutral-900 mb-3 font-medium">
+                Email Inquiries
+              </h2>
+              <div className="flex items-center space-x-3 text-xs sm:text-sm font-sans text-neutral-600 font-light">
+                <Mail className="w-5 h-5 text-[#9c783e] shrink-0" />
                 <a
-                  href="https://wa.me/919910807795?text=Hello%20Raje%20Maharaje%20Concierge,%20I%20have%20an%20inquiry."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3.5 rounded-full bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center space-x-2 transition-all shadow-lg"
+                  href="mailto:raje.maharaje.official@gmail.com"
+                  className="hover:text-black hover:underline"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Chat on WhatsApp Now</span>
+                  raje.maharaje.official@gmail.com
                 </a>
+              </div>
+            </div>
+
+            <div className="border-t border-neutral-200/70 pt-6">
+              <h2 className="text-lg font-serif uppercase tracking-wider text-neutral-900 mb-3 font-medium">
+                Direct Concierge & Orders
+              </h2>
+              <div className="space-y-2 text-xs sm:text-sm font-sans text-neutral-600 font-light">
+                <div className="flex items-center space-x-3">
+                  <Phone className="w-5 h-5 text-[#9c783e] shrink-0" />
+                  <a href="tel:9910807795" className="hover:text-black font-medium">
+                    +91 9910807795
+                  </a>
+                </div>
+                <div className="flex items-center space-x-3 pl-8">
+                  <a href="tel:9820427795" className="hover:text-black font-medium">
+                    +91 9820427795
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-t border-neutral-200/70 pt-6">
+              <div className="flex items-center space-x-3 text-xs text-neutral-500 font-light">
+                <Clock className="w-4 h-4 text-neutral-400" />
+                <span>Monday &ndash; Saturday, 10:00 AM &ndash; 7:00 PM IST</span>
               </div>
             </div>
           </div>
 
-          {/* Contact Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-2xl border border-cream-300 shadow-xl">
-            <h3 className="font-display text-2xl font-bold uppercase text-obsidian-950 mb-2">
-              Send An Atelier Dispatch
-            </h3>
-            <p className="text-xs text-obsidian-500 font-serif mb-6">
-              Complete the form below and an atelier stylist will connect with you promptly.
-            </p>
-
-            {submitted ? (
-              <div className="p-8 text-center bg-emerald-50 rounded-xl border border-emerald-200 space-y-3">
-                <h4 className="font-sans font-bold text-lg text-emerald-950 uppercase">
-                  Message Dispatched to Concierge
-                </h4>
-                <p className="text-xs text-emerald-800 font-sans">
-                  Thank you, <strong>{contactForm.firstName}</strong>. Your message has been received by our Gurgaon Atelier. We will reply to {contactForm.email} shortly.
+          {/* Form */}
+          <div className="lg:col-span-7 bg-white p-8 sm:p-10 border border-neutral-200/70">
+            {formSubmitted ? (
+              <div className="text-center py-12 space-y-4">
+                <CheckCircle className="w-12 h-12 text-emerald-600 mx-auto" />
+                <h3 className="text-xl font-serif uppercase tracking-wider text-neutral-900">
+                  Thank You for Your Inquiry
+                </h3>
+                <p className="text-xs sm:text-sm font-sans text-neutral-600 max-w-md mx-auto font-light">
+                  Your message has been received by Prita Dheer and the Studio Sankara concierge team. We will reach out within 24 business hours.
                 </p>
-                <div className="pt-2 flex justify-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setContactForm({ firstName: '', lastName: '', email: '', phone: '', message: '' });
-                    }}
-                    className="px-5 py-2 rounded-full bg-neutral-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition-colors"
-                  >
-                    Send Another Dispatch
-                  </button>
-                </div>
+                <button
+                  onClick={() => setFormSubmitted(false)}
+                  className="px-6 py-2.5 bg-black text-white text-xs uppercase tracking-widest font-medium"
+                >
+                  Send Another Inquiry
+                </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs uppercase font-serif text-obsidian-700 font-bold mb-1">
-                      First Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={contactForm.firstName}
-                      onChange={(e) => setContactForm({ ...contactForm, firstName: e.target.value })}
-                      className="w-full bg-cream-50 border border-cream-300 rounded-lg px-4 py-2.5 text-xs text-obsidian-900 focus:outline-none focus:border-gold-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase font-serif text-obsidian-700 font-bold mb-1">
-                      Last Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={contactForm.lastName}
-                      onChange={(e) => setContactForm({ ...contactForm, lastName: e.target.value })}
-                      className="w-full bg-cream-50 border border-cream-300 rounded-lg px-4 py-2.5 text-xs text-obsidian-900 focus:outline-none focus:border-gold-500"
-                    />
-                  </div>
-                </div>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <h2 className="text-lg font-serif uppercase tracking-wider text-neutral-900 font-medium mb-4">
+                  Send A Message
+                </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs uppercase font-serif text-obsidian-700 font-bold mb-1">
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-700 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="e.g. Vikramaditya Rathore"
+                      className="w-full px-4 py-2.5 border border-neutral-300 text-xs font-sans focus:outline-none focus:border-black"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-700 mb-2">
                       Email Address *
                     </label>
                     <input
                       type="email"
                       required
-                      value={contactForm.email}
-                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                      className="w-full bg-cream-50 border border-cream-300 rounded-lg px-4 py-2.5 text-xs text-obsidian-900 focus:outline-none focus:border-gold-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase font-serif text-obsidian-700 font-bold mb-1">
-                      Contact Phone
-                    </label>
-                    <input
-                      type="tel"
-                      value={contactForm.phone}
-                      onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                      className="w-full bg-cream-50 border border-cream-300 rounded-lg px-4 py-2.5 text-xs text-obsidian-900 focus:outline-none focus:border-gold-500"
-                      placeholder="+91..."
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="e.g. vikram@domain.com"
+                      className="w-full px-4 py-2.5 border border-neutral-300 text-xs font-sans focus:outline-none focus:border-black"
                     />
                   </div>
                 </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-700 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+91 98765 43210"
+                      className="w-full px-4 py-2.5 border border-neutral-300 text-xs font-sans focus:outline-none focus:border-black"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-700 mb-2">
+                      Nature of Inquiry
+                    </label>
+                    <select
+                      value={formData.interest}
+                      onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+                      className="w-full px-4 py-2.5 border border-neutral-300 text-xs font-sans bg-white focus:outline-none focus:border-black"
+                    >
+                      <option value="Wedding Favours & Groomsmen">Wedding Favours & Groomsmen</option>
+                      <option value="Corporate Dignitary Gifting">Corporate Dignitary Gifting</option>
+                      <option value="Bespoke Box Inquiries">Bespoke Box Inquiries</option>
+                      <option value="General Inquiry">General Inquiry</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-xs uppercase font-serif text-obsidian-700 font-bold mb-1">
-                    Message / Inquiry *
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-700 mb-2">
+                    Message & Event Details
                   </label>
                   <textarea
                     rows={4}
                     required
-                    value={contactForm.message}
-                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                    className="w-full bg-cream-50 border border-cream-300 rounded-lg px-4 py-2.5 text-xs text-obsidian-900 focus:outline-none focus:border-gold-500 font-serif"
-                    placeholder="How may our concierge assist your wardrobe or gifting needs?"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Tell us about your event, quantity required, desired crafts, or timeline..."
+                    className="w-full px-4 py-2.5 border border-neutral-300 text-xs font-sans focus:outline-none focus:border-black resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-full bg-obsidian-950 text-gold-300 font-bold text-xs uppercase tracking-[0.2em] hover:bg-gold-500 hover:text-obsidian-950 transition-all shadow-xl"
+                  className="w-full py-3.5 bg-black text-white text-xs uppercase tracking-[0.2em] font-medium hover:bg-neutral-800 transition-colors flex items-center justify-center space-x-2 shadow-sm"
                 >
-                  Send Inquiry to Atelier
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Send Message to Atelier</span>
                 </button>
               </form>
             )}
-          </div>
-        </div>
-
-        {/* FAQs Section */}
-        <div className="mt-20 max-w-4xl mx-auto">
-          <h3 className="font-display text-2xl font-bold uppercase text-obsidian-950 text-center mb-8">
-            Frequently Asked Questions
-          </h3>
-
-          <div className="space-y-3">
-            {faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white rounded-xl border border-cream-300 overflow-hidden shadow-sm">
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between font-serif font-bold text-sm text-obsidian-900"
-                >
-                  <span>{faq.q}</span>
-                  {openFaq === idx ? <ChevronUp className="w-4 h-4 text-gold-700" /> : <ChevronDown className="w-4 h-4 text-obsidian-400" />}
-                </button>
-                {openFaq === idx && (
-                  <div className="px-5 pb-5 pt-0 text-xs text-obsidian-600 font-sans leading-relaxed border-t border-cream-200">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </div>

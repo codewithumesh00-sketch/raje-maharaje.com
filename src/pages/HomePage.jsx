@@ -15,10 +15,10 @@ const HomePage = () => {
       {/* 1. Hero Banner 1: THE SEASON OF GOLD (Full viewport video) */}
       <NicobarHeroBanner
         id="hero_banner_1"
-        video="/videos/hero_runway_enhanced_1080p.mp4"
-        mobileVideo="/videos/hero_runway_mobile_portrait.mp4"
-        image="/images/hero_runway_poster_desktop.jpg"
-        mobileImage="/images/hero_runway_poster_mobile.jpg"
+        video="/videos/hero_runway_enhanced_1080p.mp4?v=2"
+        mobileVideo="/videos/hero_runway_mobile_portrait.mp4?v=2"
+        image="/images/hero_runway_poster_desktop.jpg?v=2"
+        mobileImage="/images/hero_runway_poster_mobile.jpg?v=2"
         title="THE SEASON OF GOLD"
         subtitle="20% off limited edition Wedding Season pocket squares & master Banarasi weaves"
         ctas={[
@@ -27,6 +27,7 @@ const HomePage = () => {
         ]}
         minFullViewport={true}
         aspectRatioDesktop="2.1"
+        videoObjectPosition="center top"
       />
 
       {/* 2. Brand New Moodboard Pillar: The Dandy & The Sovereign (Jaipur Palace / Bar Palladio Aesthetic) */}
@@ -73,16 +74,17 @@ const HomePage = () => {
       {/* 7. Hero Banner 4: GIFTS WRITTEN IN THE STARS */}
       <NicobarHeroBanner
         id="hero_banner_4"
-        video="/videos/generate_with_vedio_by_wearing_clean.mp4"
-        mobileVideo="/videos/wearing_groom_mobile_portrait.mp4"
-        image="/images/hero_wearing_poster_desktop.jpg"
-        mobileImage="/images/hero_wearing_poster_mobile.jpg"
+        video="/videos/generate_with_vedio_by_wearing_clean.mp4?v=2"
+        mobileVideo="/videos/wearing_groom_mobile_portrait.mp4?v=2"
+        image="/images/hero_wearing_poster_desktop.jpg?v=2"
+        mobileImage="/images/hero_wearing_poster_mobile.jpg?v=2"
         title="GIFTS WRITTEN IN THE STARS"
         subtitle="Signature pink & blue RAJE boxes to grand MAHARAJE caskets sealed with molten wax"
         ctas={[
           { label: 'SHOP GIFTING', target: 'gifting' },
         ]}
         aspectRatioDesktop="2.1"
+        videoObjectPosition="center top"
       />
 
       {/* 8. Community Showcase: WE MAKE QUITE A TEAM */}

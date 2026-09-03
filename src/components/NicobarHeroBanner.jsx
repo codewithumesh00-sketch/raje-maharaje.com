@@ -13,7 +13,7 @@ const NicobarHeroBanner = ({
   aspectRatioDesktop = '2.1',
   aspectRatioMobile = '0.75',
   minFullViewport = false,
-  videoObjectPosition = 'center center',
+  videoObjectPosition = 'center top',
   videoClassName = '',
 }) => {
   const { navigateTo } = useShop();
@@ -95,8 +95,9 @@ const NicobarHeroBanner = ({
                 src={image}
                 alt={title || "Raje Maharaje"}
                 loading="lazy"
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover"
                 style={{
+                  objectPosition: videoObjectPosition,
                   filter: 'brightness(0.93)',
                 }}
               />
@@ -108,7 +109,7 @@ const NicobarHeroBanner = ({
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 via-40% to-transparent pointer-events-none" />
 
         {/* Top Vignette (Subtle) for optimal contrast on bright backgrounds */}
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
 
         {/* Bottom Anchored Content - Never covers subject's faces */}
         <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end items-center text-center px-4 sm:px-8 md:px-12 pb-8 sm:pb-10 md:pb-14 pointer-events-none">

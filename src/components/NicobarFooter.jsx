@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
+import BrandLogo from './BrandLogo';
 import { ArrowRight } from 'lucide-react';
 
 const NicobarFooter = () => {
@@ -50,9 +51,9 @@ const NicobarFooter = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Intro */}
           <div className="col-span-2 space-y-4">
-            <span className="font-serif text-sm sm:text-base font-medium tracking-[0.24em] uppercase text-neutral-900 block">
-              R A J E &bull; M A H A R A J E
-            </span>
+            <button onClick={() => navigateTo('home')} className="text-left focus:outline-none">
+              <BrandLogo className="h-9 sm:h-10" />
+            </button>
             <p className="text-xs font-sans text-neutral-500 font-light leading-relaxed max-w-sm">
               Luxury gifts for the modern man &mdash; Raje Maharaje creates handcrafted accessories that celebrate Indian crafts, colors, and contemporary style.
             </p>

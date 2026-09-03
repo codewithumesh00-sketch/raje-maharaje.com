@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
+import BrandLogo from './BrandLogo';
 import {
   Search,
   ShoppingBag,
@@ -66,11 +67,9 @@ const Header = () => {
 
               <button
                 onClick={() => navigateTo('home')}
-                className="group text-left focus:outline-none flex items-center space-x-2"
+                className="group text-left focus:outline-none flex items-center"
               >
-                <span className="font-serif text-base sm:text-lg md:text-xl font-medium tracking-[0.24em] sm:tracking-[0.28em] uppercase text-neutral-900 hover:text-neutral-600 transition-colors">
-                  R A J E &bull; M A H A R A J E
-                </span>
+                <BrandLogo className="h-8 sm:h-9 md:h-10" />
               </button>
             </div>
 
@@ -192,10 +191,16 @@ const Header = () => {
           />
 
           <div className="relative w-full max-w-md bg-[#FAF9F5] h-full shadow-2xl flex flex-col z-10 animate-slide-right">
-            <div className="p-6 border-b border-neutral-200/70 flex items-center justify-between bg-white">
-              <span className="font-serif text-sm uppercase tracking-[0.24em] font-medium text-neutral-900">
-                R A J E &bull; M A H A R A J E
-              </span>
+            <div className="p-5 border-b border-neutral-200/70 flex items-center justify-between bg-white">
+              <button
+                onClick={() => {
+                  navigateTo('home');
+                  setMenuDrawerOpen(false);
+                }}
+                className="text-left focus:outline-none"
+              >
+                <BrandLogo className="h-8" />
+              </button>
               <button
                 onClick={() => setMenuDrawerOpen(false)}
                 className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 text-neutral-600 transition-colors"

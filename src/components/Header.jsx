@@ -39,9 +39,8 @@ const Header = () => {
     };
   }, [menuDrawerOpen]);
 
-  // Exact Nicobar primary desktop navigation links
+  // Exact Nicobar primary desktop navigation links (Menswear & Gifting Atelier)
   const navLinks = [
-    { label: 'WOMEN', page: 'women' },
     { label: 'MEN', page: 'men' },
     { label: 'LIVING', page: 'living' },
     { label: 'GIFTING', page: 'gifting' },
@@ -211,7 +210,6 @@ const Header = () => {
 
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {[
-                { label: 'WOMEN', page: 'women' },
                 { label: 'MEN', page: 'men' },
                 { label: 'LIVING', page: 'living' },
                 { label: 'GIFTING', page: 'gifting' },

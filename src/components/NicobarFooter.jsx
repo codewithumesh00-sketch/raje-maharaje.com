@@ -70,13 +70,8 @@ const NicobarFooter = () => {
             </h4>
             <ul className="space-y-2 text-xs text-neutral-500 font-light">
               <li>
-                <button onClick={() => navigateTo('women')} className="hover:text-black transition-colors">
-                  Women
-                </button>
-              </li>
-              <li>
                 <button onClick={() => navigateTo('men')} className="hover:text-black transition-colors">
-                  Men
+                  Men's Atelier
                 </button>
               </li>
               <li>

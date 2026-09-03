@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { useShop } from './context/ShopContext';
 import AnnouncementBar from './components/AnnouncementBar';
 import Header from './components/Header';
-import Footer from './components/Footer';
+import NicobarFooter from './components/NicobarFooter';
 import CartDrawer from './components/CartDrawer';
 import WishlistDrawer from './components/WishlistDrawer';
 import SearchModal from './components/SearchModal';
@@ -110,8 +110,8 @@ function App() {
         </Suspense>
       </main>
 
-      {/* Global Footer */}
-      <Footer />
+      {/* Global Footer (Exact 100% Nicobar Footer) */}
+      <NicobarFooter />
 
       {/* Global Floating Back To Top Button */}
       <BackToTop />

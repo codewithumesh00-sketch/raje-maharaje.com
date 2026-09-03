@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --homepage-color-text: #0E0E0E;
+  --homepage-color-muted: #909090;
+  --homepage-color-heading: #22242A;
+  --homepage-color-bg: #F1F1F0;
+  --homepage-color-cta-bg: #1C1B1B;
+  --homepage-color-cta-text: #FFFFFF;
+  --homepage-color-cta-border: #1C1B1B;
+  --homepage-type-title-size: 28px;
+  --homepage-type-title-line: 36px;
+  --homepage-type-body-size: 14px;
+  --homepage-type-body-line: 1.6;
+  --homepage-type-cta-size: 12px;
+  --homepage-type-cta-spacing: .05em;
+  --homepage-space-2xs: 8px;
+  --homepage-space-xs: 12px;
+  --homepage-space-sm: 16px;
+  --homepage-space-md: 24px;
+  --homepage-space-lg: 40px;
+  --homepage-space-xl: 64px;
+  --homepage-space-2xl: 96px;
+  --homepage-radius-sm: 2px;
+  --homepage-container-max: 1366px;
+  --homepage-container-pad: 20px;
+}
+@media(min-width: 768px) {
+  :root {
+    --homepage-type-cta-size: 14px;
+  }
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
@@ -9,8 +40,9 @@
   
   body {
     background-color: #FFFFFF;
-    color: #111111;
+    color: #0E0E0E;
     overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
   /* Minimal Clean Scrollbars */

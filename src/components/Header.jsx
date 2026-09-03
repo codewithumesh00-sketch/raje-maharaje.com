@@ -27,6 +27,16 @@ const Header = () => {
 
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (menuDrawerOpen) {
@@ -51,9 +61,19 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md text-neutral-900 border-b border-[#E8E1D3] transition-all duration-300 shadow-xs select-none">
+      <header
+        className={`sticky top-0 z-40 select-none transition-all duration-300 ease-in-out ${
+          isScrolled
+            ? 'bg-white/40 md:bg-[#FAF8F5]/45 backdrop-blur-md text-neutral-900 border-b border-neutral-200/40 shadow-xs'
+            : 'bg-[#FAF8F5] text-neutral-900 border-b border-[#E8E1D3]'
+        }`}
+      >
         <div className="max-w-[1366px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-18">
+          <div
+            className={`flex items-center justify-between transition-all duration-300 ${
+              isScrolled ? 'h-14 sm:h-16' : 'h-16 sm:h-18'
+            }`}
+          >
             {/* Left: Hamburger & Brand Identity */}
             <div className="flex items-center space-x-4 sm:space-x-6">
               <button
@@ -68,7 +88,12 @@ const Header = () => {
                 onClick={() => navigateTo('home')}
                 className="group text-left focus:outline-none flex items-center"
               >
-                <BrandLogo className="h-8 sm:h-9 md:h-10" theme="dark" />
+                <BrandLogo
+                  className={`transition-all duration-300 ${
+                    isScrolled ? 'h-7 sm:h-8 md:h-9' : 'h-8 sm:h-9 md:h-10'
+                  }`}
+                  theme="dark"
+                />
               </button>
             </div>
 
